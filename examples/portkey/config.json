@@ -1,0 +1,5 @@
+{
+  "provider": "@openai-xxx",
+  "input_guardrails": ["guardrails-id-input"],
+  "output_guardrails": ["guardrails-id-output"]
+}

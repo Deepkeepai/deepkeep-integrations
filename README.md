@@ -1,46 +1,76 @@
-# DeepKeep Kong Guardrail
+# DeepKeep Portkey Partner Guardrail
 
-This repo packages DeepKeep for Kong AI Gateway's `ai-custom-guardrail` plugin.
+This repo contains a Portkey partner-guardrail plugin for DeepKeep.
 
-## Mapping
+## What it does
 
-- `INPUT` -> `POST /api/v3/openai/moderations/pre`
-- `OUTPUT` -> `POST /api/v3/openai/moderations/post`
-- `model` -> DeepKeep firewall id
-- `input` -> prompt text for pre-moderation
-- `output` -> model text for post-moderation
-- `chat` and `title` are optional metadata fields
+- Calls DeepKeep `POST /api/v3/openai/moderations/pre` on `beforeRequestHook`
+- Calls DeepKeep `POST /api/v3/openai/moderations/post` on `afterRequestHook`
+- Blocks on `guardrail_action: block`
+- Redacts or modifies request/response content on `redact` and `modify`
+- Allows and logs `alert`
 
-## DeepKeep actions
+## Repo layout
 
-- `flagged: false` -> allow
-- `guardrail_action: block` -> block
-- `guardrail_action: redact` or `modify` -> mask when `allow_masking: true`
-- `guardrail_action: alert` -> allow and log
+- `plugins/deepkeep/manifest.json`
+- `plugins/deepkeep/main.ts`
+- `plugins/deepkeep/main.test.ts`
+- `plugins/types.ts`
+- `examples/portkey/guardrail-input.json`
+- `examples/portkey/guardrail-output.json`
+- `examples/portkey/config.json`
 
-## Files
+## DeepKeep config
 
-- `examples/deck/deepkeep-ai-guardrails.yaml`
-- `examples/admin-api/input.json`
-- `examples/admin-api/output.json`
-- `examples/kong-docs-submission.md`
+Required credentials:
 
-## Environment variables
+- `apiKey` or `bearerToken`
 
-- `DEEPKEEP_API_BASE`
-- `DEEPKEEP_API_KEY`
-- `DEEPKEEP_INPUT_FIREWALL_ID`
-- `DEEPKEEP_OUTPUT_FIREWALL_ID`
+Required parameters:
 
-Optional:
+- `apiBaseUrl`
 
-- `DEEPKEEP_CHAT_ID`
-- `DEEPKEEP_TITLE`
+Optional parameters:
+
+- `firewallId`
+- `inputFirewallId`
+- `outputFirewallId`
+- `chatId`
+- `title`
+- `timeoutMs`
+- `failOpen`
+
+## Portkey usage
+
+Create separate guardrails for input and output, then attach them to a config:
+
+```json
+{
+  "input_guardrails": ["guardrails-id-input"],
+  "output_guardrails": ["guardrails-id-output"]
+}
+```
+
+## Local checks
+
+```bash
+npm install
+npm test
+npm run typecheck
+```
+
+## Landing path
+
+To get DeepKeep added as a Portkey partner guardrail, the code that usually lands upstream is the plugin package inside Portkey Gateway:
+
+- `plugins/deepkeep/manifest.json`
+- `plugins/deepkeep/main.ts`
+- `plugins/deepkeep/main.test.ts`
+
+That plugin can then be documented under Portkey's guardrail integrations and wired into the guardrail picker.
 
 ## Notes
 
-- The Kong plugin still requires an `AI Proxy` or `AI Proxy Advanced` route/service.
-- The deck example assumes an existing service named `example-ai-service`; replace it with your AI Proxy service or route.
-- `allow_masking: true` is the Kong knob for DeepKeep redaction-style outcomes.
-- If your DeepKeep deployment uses Bearer auth instead of `X-API-Key`, update the header in the examples.
-- If you want a docs PR like Lakera's, the usual package is: plugin page, examples, audit-log notes, and a landing-page update.
+- Portkey passes the last message text to guardrails.
+- For streaming responses, output guardrails are informational only.
+- This implementation is shaped to match Portkey's partner-guardrail plugin contract.
