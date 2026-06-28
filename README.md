@@ -1,47 +1,46 @@
-# DeepKeep LiteLLM Guardrail
+# DeepKeep Kong Guardrail
 
-This repo contains a LiteLLM `CustomGuardrail` adapter for DeepKeep.
+This repo packages DeepKeep for Kong AI Gateway's `ai-custom-guardrail` plugin.
 
-## What it does
+## Mapping
 
-- `pre_call` maps to `POST /api/v3/openai/moderations/pre`
-- `post_call` maps to `POST /api/v3/openai/moderations/post`
+- `INPUT` -> `POST /api/v3/openai/moderations/pre`
+- `OUTPUT` -> `POST /api/v3/openai/moderations/post`
+- `model` -> DeepKeep firewall id
+- `input` -> prompt text for pre-moderation
+- `output` -> model text for post-moderation
+- `chat` and `title` are optional metadata fields
+
+## DeepKeep actions
+
+- `flagged: false` -> allow
+- `guardrail_action: block` -> block
+- `guardrail_action: redact` or `modify` -> mask when `allow_masking: true`
+- `guardrail_action: alert` -> allow and log
 
 ## Files
 
-- `deepkeep_guardrail.py` - the custom guardrail class
-- `config.example.yaml` - LiteLLM config example
+- `examples/deck/deepkeep-ai-guardrails.yaml`
+- `examples/admin-api/input.json`
+- `examples/admin-api/output.json`
+- `examples/kong-docs-submission.md`
 
 ## Environment variables
 
 - `DEEPKEEP_API_BASE`
 - `DEEPKEEP_API_KEY`
-- `DEEPKEEP_FIREWALL_ID`
-- Optional: `DEEPKEEP_BEARER_TOKEN`, `DEEPKEEP_CHAT`, `DEEPKEEP_TITLE`
+- `DEEPKEEP_INPUT_FIREWALL_ID`
+- `DEEPKEEP_OUTPUT_FIREWALL_ID`
 
-## LiteLLM config
+Optional:
 
-```yaml
-guardrails:
-  - guardrail_name: deepkeep-pre
-    litellm_params:
-      guardrail: deepkeep_guardrail.DeepKeepGuardrail
-      mode: pre_call
-      api_base: os.environ/DEEPKEEP_API_BASE
-      api_key: os.environ/DEEPKEEP_API_KEY
-      firewall_id: os.environ/DEEPKEEP_FIREWALL_ID
-
-  - guardrail_name: deepkeep-post
-    litellm_params:
-      guardrail: deepkeep_guardrail.DeepKeepGuardrail
-      mode: post_call
-      api_base: os.environ/DEEPKEEP_API_BASE
-      api_key: os.environ/DEEPKEEP_API_KEY
-      firewall_id: os.environ/DEEPKEEP_FIREWALL_ID
-```
+- `DEEPKEEP_CHAT_ID`
+- `DEEPKEEP_TITLE`
 
 ## Notes
 
-- `pre_call` is the right place to moderate the prompt before the LLM call.
-- `post_call` is the right place to moderate the LLM response.
-- For streaming responses, LiteLLM post-call guardrails are audit-oriented after delivery.
+- The Kong plugin still requires an `AI Proxy` or `AI Proxy Advanced` route/service.
+- The deck example assumes an existing service named `example-ai-service`; replace it with your AI Proxy service or route.
+- `allow_masking: true` is the Kong knob for DeepKeep redaction-style outcomes.
+- If your DeepKeep deployment uses Bearer auth instead of `X-API-Key`, update the header in the examples.
+- If you want a docs PR like Lakera's, the usual package is: plugin page, examples, audit-log notes, and a landing-page update.
