@@ -1,0 +1,9 @@
+# Example shape for configuring agentgateway to call the DeepKeep webhook service.
+# Apply the exact CRD/resource fields for your agentgateway deployment mode.
+promptGuard:
+  request:
+    webhook:
+      url: http://deepkeep-webhook.default.svc.cluster.local:8000
+  response:
+    webhook:
+      url: http://deepkeep-webhook.default.svc.cluster.local:8000
