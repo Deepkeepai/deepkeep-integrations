@@ -1,0 +1,4 @@
+include README.md
+include LICENSE
+include UPSTREAM_SUBMISSION.md
+recursive-include tests *.py
