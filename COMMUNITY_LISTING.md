@@ -60,17 +60,11 @@ Use `MODE=both` and `FAIL_MODE=fail_closed` for strict pre/post moderation.
 
 ## Repository URL
 
-Replace this with the public GitHub repository URL after publishing.
+https://github.com/gilarel/openwebui-deepkeep
 
 ## Raw Function URL
 
-Replace this with the raw GitHub URL for `deepkeep_openwebui_filter.py` after publishing.
-
-Example format:
-
-```text
-https://raw.githubusercontent.com/<owner>/<repo>/main/deepkeep_openwebui_filter.py
-```
+https://raw.githubusercontent.com/gilarel/openwebui-deepkeep/main/deepkeep_openwebui_filter.py
 
 ## Tags
 
