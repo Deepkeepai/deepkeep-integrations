@@ -60,11 +60,11 @@ Use `MODE=both` and `FAIL_MODE=fail_closed` for strict pre/post moderation.
 
 ## Repository URL
 
-https://github.com/gilarel/openwebui-deepkeep
+https://github.com/Deepkeepai/openwebui-deepkeep
 
 ## Raw Function URL
 
-https://raw.githubusercontent.com/gilarel/openwebui-deepkeep/main/deepkeep_openwebui_filter.py
+https://raw.githubusercontent.com/Deepkeepai/openwebui-deepkeep/main/deepkeep_openwebui_filter.py
 
 ## Tags
 
