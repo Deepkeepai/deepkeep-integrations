@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: deepkeep-webhook
-          image: ghcr.io/gilarel/agentgateway-deepkeep-webhook:latest
+          image: ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000

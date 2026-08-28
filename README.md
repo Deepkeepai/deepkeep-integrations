@@ -89,7 +89,7 @@ More examples are available in `examples/standalone` and `examples/kubernetes`.
 The example manifests use this image name:
 
 ```text
-ghcr.io/gilarel/agentgateway-deepkeep-webhook:latest
+ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:latest
 ```
 
 If you publish the image under another organization, update `examples/kubernetes/deployment.yaml` accordingly.
