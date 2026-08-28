@@ -1,7 +1,7 @@
 """
 title: DeepKeep AI Firewall
 author: DeepKeep
-version: 0.1.0
+version: 0.1.1
 description: Always-on Open WebUI filter for DeepKeep v3 pre/post moderation.
 requirements: httpx
 """
@@ -24,10 +24,10 @@ class DeepKeepError(Exception):
 
 @dataclass(frozen=True)
 class DeepKeepDecision:
-    action: str | None = None
+    action: Optional[str] = None
     reason: str = "DeepKeep allowed this content."
-    modified_content: str | None = None
-    unsupported_action: str | None = None
+    modified_content: Optional[str] = None
+    unsupported_action: Optional[str] = None
 
     @property
     def should_replace(self) -> bool:
@@ -189,10 +189,10 @@ class Filter:
 
 
 def _decision_from_response(result: dict[str, Any]) -> DeepKeepDecision:
-    selected: str | None = None
-    unsupported: str | None = None
+    selected: Optional[str] = None
+    unsupported: Optional[str] = None
     reason = "DeepKeep allowed this content."
-    modified_content: str | None = None
+    modified_content: Optional[str] = None
 
     for item in result.get("verbosity", []):
         if not isinstance(item, dict):
@@ -225,7 +225,7 @@ def _decision_from_response(result: dict[str, Any]) -> DeepKeepDecision:
     )
 
 
-def _last_message(messages: Any, role: str) -> dict[str, Any] | None:
+def _last_message(messages: Any, role: str) -> Optional[dict[str, Any]]:
     if not isinstance(messages, list):
         return None
     for message in reversed(messages):
