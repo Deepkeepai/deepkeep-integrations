@@ -53,6 +53,9 @@ The root monorepo release workflow is manual-dispatch only, gated by
 `<integration>/v<VERSION>` tags, `release-<integration>` job environments, and npm/PyPI
 OIDC trusted publishing. Stop old publishers and configure/verify the new bindings
 before enabling it. Environment names alone do not establish approval protection.
+The six release environments now have reviewer `gilarel` and a `main`-only
+deployment policy; self-review is allowed. Registry trust is not established by
+that GitHub configuration. See [the cutover runbook](docs/PUBLISHING_CUTOVER.md).
 Historical source tags can contain original publishers outside that gate. Do not
 create GitHub Releases against imported source tags, add a repository-wide
 `PYPI_API_TOKEN`, or grant registry trust to historical workflow identities.

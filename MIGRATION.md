@@ -112,6 +112,13 @@ layout, and match the selected package version before testing and publishing.
 The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
 `false` and verified after push. No registry tokens or trust bindings were migrated.
 
+Six `release-<integration>` environments have now been configured and verified
+with reviewer `gilarel` and a custom deployment policy allowing only branch
+`main`. Self-review is allowed; this requires explicit approval but not a second
+person. Registry-side trust and existing GHCR package access are still unverified.
+See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
+the already-published versions that need bumps, and remaining access requirements.
+
 - [x] Import all eight `main` histories without squashing and namespace source tags.
 - [x] Obtain explicit Agentgateway/Kong MIT approval and scan imported history.
 - [x] Record local test/build baselines and outstanding n8n dependency findings.
@@ -124,8 +131,10 @@ The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
   prevent concurrent or duplicate releases.
 - [ ] Configure npm/PyPI OIDC trust for the exact repository, workflow, and
   `release-<integration>` environments; verify registry ownership and bindings.
-- [ ] Configure any desired environment protection rules explicitly and verify
-  GHCR package permissions while preserving the existing image endpoint.
+- [x] Configure and verify the six release environments with required reviewer
+  `gilarel` and a `main`-only deployment policy.
+- [ ] Verify GHCR package permissions while preserving the existing image endpoint;
+  the current CLI token lacks `read:packages` access to inspect the package.
 - [ ] Validate the manual-dispatch workflow, tag/version checks, and independent
   package selection before setting `MONOREPO_PUBLISHING_ENABLED=true`.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; leave Strands

@@ -136,6 +136,12 @@ passed. The upstream template requires the human author's own Human Overview,
 which is intentionally unfilled. Human review, ready-for-review status, merge,
 and live catalog verification remain pending.
 
+Follow-up: the catalog bot flagged the published PyPI metadata still pointing to
+the old repository. The draft description now provides migration/source-commit
+evidence and explicitly acknowledges that registry metadata has not changed.
+This advisory does not block merging by itself; package ownership remains for
+reviewer verification. A new package release is needed to change published URLs.
+
 ## Agno
 
 - Verified live example: https://docs.agno.com/examples/agents/guardrails/deepkeep-ai-firewall
