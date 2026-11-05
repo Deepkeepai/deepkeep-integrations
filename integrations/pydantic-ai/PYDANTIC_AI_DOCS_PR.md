@@ -1,5 +1,7 @@
 # Pydantic AI Docs PR
 
+Status (2026-11-05): [Pydantic AI #7778](https://github.com/pydantic/pydantic-ai/pull/7778) closed unmerged. [Maintainers asked for community sharing and adoption first](https://github.com/pydantic/pydantic-ai/pull/7778#issuecomment-5439420917). Original proposal follows, with current canonical repository URLs; this is not an accepted upstream listing.
+
 ## Title
 
 ```text
@@ -17,7 +19,7 @@ docs/capabilities/third-party.md
 Add this bullet under `## Guardrails & Safety {#guardrails-safety}` after `pydantic-ai-shields`:
 
 ```markdown
-* [`pydantic-ai-deepkeep`](https://github.com/Deepkeepai/pydantic-ai-deepkeep) - DeepKeep AI Firewall guardrails for Pydantic AI. Provides `DeepKeepGuardrail`, a custom capability that runs DeepKeep pre-moderation before model requests and post-moderation after model responses. Supports allow, block, redact, modify, and alert workflows for prompt injection, jailbreaks, sensitive data leakage, unsafe content, and other AI risks.
+* [`pydantic-ai-deepkeep`](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/pydantic-ai) - DeepKeep AI Firewall guardrails for Pydantic AI. Provides `DeepKeepGuardrail`, a custom capability that runs DeepKeep pre-moderation before model requests and post-moderation after model responses. Supports allow, block, redact, modify, and alert workflows for prompt injection, jailbreaks, sensitive data leakage, unsafe content, and other AI risks.
 ```
 
 ## PR body
@@ -37,7 +39,7 @@ Integration surface:
 
 ## Pre-submit checklist
 
-* Public repository exists at `https://github.com/Deepkeepai/pydantic-ai-deepkeep`.
+* Public integration directory exists at `https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/pydantic-ai`.
 * Package is published or at least installable from the public repository.
 * README includes Pydantic AI usage examples.
 * Tests cover DeepKeep decision parsing, API payloads, and capability hook behavior.

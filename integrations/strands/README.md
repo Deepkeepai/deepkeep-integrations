@@ -52,7 +52,7 @@ export DEEPKEEP_BASE_URL="https://your-deepkeep-instance.example"
 
 ## Strands catalog entry
 
-Submit the integration to Strands by adding `site/src/content/catalog/strands-deepkeep.yaml` to `strands-agents/harness-sdk`:
+Status (2026-11-05): [Strands #3996](https://github.com/strands-agents/harness-sdk/pull/3996) merged. Catalog entry below uses the current canonical repository URLs:
 
 ```yaml
 name: strands-deepkeep
@@ -61,8 +61,8 @@ integrationType: plugin
 languages:
   python:
     package: strands-deepkeep
-github: https://github.com/Deepkeepai/strands-deepkeep
-docsUrl: https://github.com/Deepkeepai/strands-deepkeep#readme
+github: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/strands
+docsUrl: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/strands#readme
 addedDate: 2026-08-26
 maintainedBy: partner
 ```

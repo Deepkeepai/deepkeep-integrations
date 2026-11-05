@@ -1,5 +1,7 @@
 # Upstream submission notes
 
+Status (2026-11-05): [Cookbook #9784](https://github.com/agno-agi/agno/pull/9784) merged; [docs #760](https://github.com/agno-agi/docs/pull/760) remains open. Current [repository and guide](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/agno#readme). Original submission rationale follows.
+
 ## Target
 
 Ask Agno to list DeepKeep under Guardrails as a custom guardrail integration named DeepKeep AI Firewall.

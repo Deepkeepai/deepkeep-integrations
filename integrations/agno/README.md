@@ -104,6 +104,8 @@ If DeepKeep returns an unsupported action, the guardrail fails closed.
 
 ## Recommended Agno docs positioning
 
+Status (2026-11-05): [Cookbook #9784](https://github.com/agno-agi/agno/pull/9784) merged; [docs #760](https://github.com/agno-agi/docs/pull/760) remains open. Current [repository and guide](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/agno#readme).
+
 Position the public integration as DeepKeep AI Firewall in Agno's custom guardrails area:
 
 ```text

@@ -1,6 +1,6 @@
 # Strands Integration Submission
 
-Ask Strands Agents to list DeepKeep under plugins as a reusable guardrail integration named DeepKeep AI Firewall.
+Status (2026-11-05): [Strands #3996](https://github.com/strands-agents/harness-sdk/pull/3996) merged. The submission notes below are retained for reference; catalog URLs point to the current monorepo directory.
 
 ## Positioning
 
@@ -23,10 +23,10 @@ integrationType: plugin
 languages:
   python:
     package: strands-deepkeep
-github: https://github.com/Deepkeepai/strands-deepkeep
-docsUrl: https://github.com/Deepkeepai/strands-deepkeep#readme
+github: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/strands
+docsUrl: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/strands#readme
 addedDate: 2026-08-26
 maintainedBy: partner
 ```
 
-DeepKeep is distributed as an external package, so Strands core does not need to maintain vendor-specific API code. The integration uses the documented Strands hook provider interface and can be listed as an approved plugin once accepted by maintainers.
+DeepKeep is distributed as an external package, so Strands core does not need to maintain vendor-specific API code. The integration uses the documented Strands hook provider interface and is listed in the Strands catalog.

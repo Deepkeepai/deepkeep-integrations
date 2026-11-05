@@ -19,10 +19,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Deepkeepai/n8n-nodes-deepkeep.git"
+    "url": "git+https://github.com/Deepkeepai/deepkeep-integrations.git",
+    "directory": "integrations/n8n"
   },
   "bugs": {
-    "url": "https://github.com/Deepkeepai/n8n-nodes-deepkeep/issues"
+    "url": "https://github.com/Deepkeepai/deepkeep-integrations/issues"
   },
   "main": "index.js",
   "scripts": {

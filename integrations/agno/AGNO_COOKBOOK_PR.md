@@ -1,6 +1,6 @@
 # Agno cookbook PR content
 
-Use this content for an Agno cookbook submission.
+Status (2026-11-05): [Cookbook #9784](https://github.com/agno-agi/agno/pull/9784) merged; [docs #760](https://github.com/agno-agi/docs/pull/760) remains open. Original cookbook submission content follows. Current [repository and guide](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/agno#readme).
 
 ## Proposed path
 

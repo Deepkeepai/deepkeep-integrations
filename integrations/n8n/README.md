@@ -119,7 +119,12 @@ Version 0.2.7 introduces light node versioning so existing workflows remain back
 
 ## Local development
 
-See the sibling `n8n-deepkeep/` folder in the source repository for a Docker Compose setup that runs n8n locally with this package mounted as a custom node.
+Source: [integrations/n8n](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/n8n).
+
+```bash
+git clone https://github.com/Deepkeepai/deepkeep-integrations.git
+cd deepkeep-integrations/integrations/n8n
+```
 
 ## License
 
@@ -128,5 +133,5 @@ See the sibling `n8n-deepkeep/` folder in the source repository for a Docker Com
 ## Support
 
 - DeepKeep documentation: https://deepkeep.ai
-- Issues: please file on this repository
+- Issues: https://github.com/Deepkeepai/deepkeep-integrations/issues
 - Contact: contact@deepkeep.ai

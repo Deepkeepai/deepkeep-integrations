@@ -20,7 +20,11 @@ Set these environment variables:
 
 ## Run Locally
 
+Source: [integrations/agentgateway](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/agentgateway). Run the local and Docker commands from this directory.
+
 ```bash
+git clone https://github.com/Deepkeepai/deepkeep-integrations.git
+cd deepkeep-integrations/integrations/agentgateway
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt

@@ -1,0 +1,168 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      python: ${{ steps.matrix.outputs.python }}
+      n8n: ${{ steps.filter.outputs.n8n }}
+      agentgateway: ${{ steps.filter.outputs.agentgateway }}
+      kong: ${{ steps.filter.outputs.kong }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            n8n:
+              - 'integrations/n8n/**'
+              - '.github/**'
+              - 'scripts/**'
+            agentgateway:
+              - 'integrations/agentgateway/**'
+              - '.github/**'
+              - 'scripts/**'
+            openwebui:
+              - 'integrations/openwebui/**'
+              - '.github/**'
+              - 'scripts/**'
+            strands:
+              - 'integrations/strands/**'
+              - '.github/**'
+              - 'scripts/**'
+            agno:
+              - 'integrations/agno/**'
+              - '.github/**'
+              - 'scripts/**'
+            crewai:
+              - 'integrations/crewai/**'
+              - '.github/**'
+              - 'scripts/**'
+            pydantic-ai:
+              - 'integrations/pydantic-ai/**'
+              - '.github/**'
+              - 'scripts/**'
+            kong:
+              - 'integrations/kong/**'
+              - '.github/**'
+              - 'scripts/**'
+      - uses: actions/github-script@v7
+        id: matrix
+        env:
+          CHANGED: ${{ steps.filter.outputs.changes }}
+        with:
+          script: |
+            const python = new Set(['agentgateway', 'openwebui', 'strands', 'agno', 'crewai', 'pydantic-ai']);
+            const changed = context.eventName === 'workflow_dispatch'
+              ? ['n8n', ...python, 'kong'] : JSON.parse(process.env.CHANGED);
+            core.setOutput('python', JSON.stringify(changed.filter(name => python.has(name))));
+
+  tooling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p 'test_*.py'
+      - uses: docker://rhysd/actionlint:1.7.12
+
+  python:
+    needs: changes
+    if: needs.changes.outputs.python != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        integration: ${{ fromJSON(needs.changes.outputs.python) }}
+    defaults:
+      run:
+        working-directory: integrations/${{ matrix.integration }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install adapter or filter dependencies
+        if: matrix.integration == 'agentgateway' || matrix.integration == 'openwebui'
+        run: python -m pip install -r requirements-dev.txt
+      - name: Install package and build tools
+        if: matrix.integration != 'agentgateway' && matrix.integration != 'openwebui'
+        run: python -m pip install -e '.[dev]' build twine
+      - run: python -m pytest
+      - name: Build and check distributions
+        if: matrix.integration != 'agentgateway' && matrix.integration != 'openwebui'
+        run: |
+          python -m build
+          python -m twine check dist/*
+
+  n8n:
+    needs: changes
+    if: needs.changes.outputs.n8n == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: integrations/n8n
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: integrations/n8n/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm pack --dry-run
+
+  container:
+    needs: [changes, python]
+    if: needs.changes.outputs.agentgateway == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: integrations/agentgateway
+          file: integrations/agentgateway/Dockerfile
+          push: false
+
+  kong:
+    needs: changes
+    if: needs.changes.outputs.kong == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install PyYAML
+      - name: Check example syntax
+        run: |
+          python -c "import json, pathlib; [json.loads(p.read_text()) for p in pathlib.Path('integrations/kong/examples').rglob('*.json')]"
+          python -c "import pathlib, yaml; yaml.safe_load(pathlib.Path('integrations/kong/examples/deck/deepkeep-ai-guardrails.yaml').read_text())"
+
+  status:
+    name: CI status
+    if: always()
+    needs: [changes, tooling, python, n8n, container, kong]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require successful or intentionally skipped jobs
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python -c "import json, os; jobs = json.loads(os.environ['RESULTS']); assert all(job['result'] in ('success', 'skipped') for job in jobs.values()), jobs"

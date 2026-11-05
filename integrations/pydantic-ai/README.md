@@ -100,6 +100,8 @@ If DeepKeep returns an unsupported action, the capability fails closed.
 
 ## Recommended Pydantic AI docs positioning
 
+Status (2026-11-05): [Pydantic AI #7778](https://github.com/pydantic/pydantic-ai/pull/7778) closed unmerged. [Maintainers asked for community sharing and adoption first](https://github.com/pydantic/pydantic-ai/pull/7778#issuecomment-5439420917); this is not an accepted upstream listing. Current [repository and guide](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/pydantic-ai#readme).
+
 Position the public integration as DeepKeep AI Firewall in Pydantic AI's integrations or custom capabilities area:
 
 ```text

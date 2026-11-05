@@ -1,5 +1,7 @@
 # Kong docs submission notes
 
+Status: Proposal only, not accepted by Kong.
+
 Lakera's docs PR followed this pattern:
 
 - add the plugin page under `app/_kong_plugins/<plugin-name>/`
@@ -14,4 +16,4 @@ For DeepKeep, the docs PR should include:
 3. A short how-to showing DeepKeep request and response moderation.
 4. The landing-page card under the guardrails section.
 
-Keep the public integration repo as the source of truth for the Kong payloads and DeepKeep request/response mapping.
+Keep [integrations/kong](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong) as the source of truth for the Kong payloads and DeepKeep request/response mapping. The existing `block_detail` metric mapping still needs validation against the target Kong plugin schema before submission.

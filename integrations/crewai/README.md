@@ -106,7 +106,7 @@ For production enforcement, prefer task guardrails and hooks over agent-callable
 
 ## Recommended CrewAI Docs Positioning
 
-If submitting this to CrewAI upstream, position it as an external integration page, not as a request to add DeepKeep classes into CrewAI core:
+Status (2026-11-05): [CrewAI docs #7202](https://github.com/crewAIInc/crewAI/pull/7202) closed unmerged. [Maintainers requested a vendor-hosted guide](https://github.com/crewAIInc/crewAI/pull/7202#issuecomment-5508136001); this README is the integration guide. External integration positioning:
 
 ```text
 DeepKeep integrates with CrewAI's native task guardrails and execution hooks. It is distributed as an external package, so CrewAI core does not need to maintain vendor-specific API code.
@@ -119,8 +119,8 @@ DeepKeep integrates with CrewAI's native task guardrails and execution hooks. It
 
 ## Repository Placement
 
-Recommended upstream repository:
+Canonical integration directory:
 
 ```text
-https://github.com/Deepkeepai/crewai-tools-deepkeep
+https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/crewai
 ```

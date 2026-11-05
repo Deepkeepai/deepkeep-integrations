@@ -1,6 +1,15 @@
 # DeepKeep Kong Guardrail
 
-This repo packages DeepKeep for Kong AI Gateway's `ai-custom-guardrail` plugin.
+This directory packages DeepKeep for Kong AI Gateway's `ai-custom-guardrail` plugin.
+
+Source: [integrations/kong](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong).
+
+```bash
+git clone https://github.com/Deepkeepai/deepkeep-integrations.git
+cd deepkeep-integrations/integrations/kong
+```
+
+The Kong documentation proposal has not been accepted.
 
 ## Mapping
 
@@ -42,5 +51,6 @@ Optional:
 - The Kong plugin still requires an `AI Proxy` or `AI Proxy Advanced` route/service.
 - The deck example assumes an existing service named `example-ai-service`; replace it with your AI Proxy service or route.
 - `allow_masking: true` is the Kong knob for DeepKeep redaction-style outcomes.
+- The existing `block_detail` metric mapping is unchanged; compatibility with the target Kong plugin schema still needs validation.
 - If your DeepKeep deployment uses Bearer auth instead of `X-API-Key`, update the header in the examples.
 - If you want a docs PR like Lakera's, the usual package is: plugin page, examples, audit-log notes, and a landing-page update.

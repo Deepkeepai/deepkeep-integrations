@@ -1,5 +1,7 @@
 # Upstream submission notes
 
+Status (2026-11-05): [Pydantic AI #7778](https://github.com/pydantic/pydantic-ai/pull/7778) closed unmerged. [Maintainers asked for community sharing and adoption first](https://github.com/pydantic/pydantic-ai/pull/7778#issuecomment-5439420917). The submission proposal below is historical, not an accepted listing; repository links use the current monorepo directory.
+
 ## Target
 
 Ask Pydantic AI to list DeepKeep under integrations or custom capabilities as a custom guardrail integration named DeepKeep AI Firewall.
@@ -60,13 +62,13 @@ No `docs/navigation.yml` change should be needed because this edits an existing 
 Suggested Markdown entry:
 
 ```markdown
-- [`pydantic-ai-deepkeep`](https://github.com/Deepkeepai/pydantic-ai-deepkeep) - DeepKeep AI Firewall guardrails for Pydantic AI. Provides `DeepKeepGuardrail`, a custom capability that runs DeepKeep pre-moderation before model requests and post-moderation after model responses. Supports allow, block, redact, modify, and alert workflows for prompt injection, jailbreaks, sensitive data leakage, unsafe content, and other AI risks.
+- [`pydantic-ai-deepkeep`](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/pydantic-ai) - DeepKeep AI Firewall guardrails for Pydantic AI. Provides `DeepKeepGuardrail`, a custom capability that runs DeepKeep pre-moderation before model requests and post-moderation after model responses. Supports allow, block, redact, modify, and alert workflows for prompt injection, jailbreaks, sensitive data leakage, unsafe content, and other AI risks.
 ```
 
 ## PR checklist
 
 - Publish `pydantic-ai-deepkeep` to PyPI first.
-- Make the repository public under `Deepkeepai/pydantic-ai-deepkeep`.
+- Ensure the integration is public at `https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/pydantic-ai`.
 - Include README examples for pre-model and post-model checks.
 - Depend on `pydantic-ai-slim`, not the full `pydantic-ai` package with optional provider extras.
 - Include mocked tests for decision parsing and hook behavior.

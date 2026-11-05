@@ -1,5 +1,7 @@
 # Open WebUI Community Listing Draft
 
+Status: Draft submission text. A live Open WebUI Community listing has not been verified.
+
 ## Title
 
 DeepKeep AI Firewall Filter
@@ -60,11 +62,11 @@ Use `MODE=both` and `FAIL_MODE=fail_closed` for strict pre/post moderation.
 
 ## Repository URL
 
-https://github.com/Deepkeepai/openwebui-deepkeep
+https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/openwebui
 
 ## Raw Function URL
 
-https://raw.githubusercontent.com/Deepkeepai/openwebui-deepkeep/main/deepkeep_openwebui_filter.py
+https://raw.githubusercontent.com/Deepkeepai/deepkeep-integrations/main/integrations/openwebui/deepkeep_openwebui_filter.py
 
 ## Tags
 
