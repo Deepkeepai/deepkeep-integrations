@@ -1,7 +1,8 @@
 # Python Metadata Release Candidates
 
-These patch releases are prepared for review, not published. No release tags or
-GitHub Releases have been created. n8n is excluded from this work.
+These patch versions were approved and merged to `main` in
+[PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1), but are not
+published. No release tags or GitHub Releases have been created. n8n is excluded.
 
 | Integration | Distribution | Published version | Proposed version |
 | --- | --- | --- | --- |
@@ -43,9 +44,10 @@ verified ownership, an exact PyPI trusted publisher for `release.yml` and its
 explicit release approval. Keep the global publishing gate false until those
 requirements are met. CI builds and uploads are not registry publications.
 
-After an approved merge and fresh validation, create a new immutable monorepo tag
-matching the selected package version. Do not reuse imported historical tags or
-create releases against their original source commits.
+The preparation merge is complete. Only after registry setup, fresh validation,
+and explicit release approval, create a new immutable monorepo tag matching the
+selected package version. Do not reuse imported historical tags or create releases
+against their original source commits.
 
 Publishing new Strands metadata will allow its catalog reviewers to recheck the
 old-repository mismatch. Until then, the source-history evidence is in the draft

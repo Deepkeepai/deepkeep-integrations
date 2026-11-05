@@ -26,12 +26,14 @@ n8n follow-up work is paused at the user's request. Its source, publisher, packa
 version, and catalog are not being changed while the other integrations proceed.
 
 [Release-preparation PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1)
-proposes unpublished Python metadata patches: Strands 0.1.1, Agno 0.1.2,
+was approved and merged on 2026-11-05, preparing unpublished Python metadata
+patches on `main`: Strands 0.1.1, Agno 0.1.2,
 CrewAI 0.1.3, and Pydantic AI 0.1.1. In separate Python 3.12.16 environments,
 all 38 candidate integration tests and six release-validator tests passed;
 all eight artifacts passed `twine check` and wheel metadata checks. The PR does
 not create tags, publish packages, change registry bindings, or touch n8n.
-It remains separate from the main branch pending review and cutover approval.
+Registry configuration, publisher cutover, tagging, and actual publication still
+require separate approval. Merging the preparation did not authorize a release.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
