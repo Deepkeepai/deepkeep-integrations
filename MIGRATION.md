@@ -8,6 +8,13 @@ repositories and public publishers remain unchanged. There has been **no publish
 cutover and no monorepo release**. GitHub release assets, issues, and pull requests
 were not ported; Git tags are not a substitute for those GitHub records.
 
+The public destination is live at
+https://github.com/Deepkeepai/deepkeep-integrations. `main` and all 20 namespaced
+source tags were pushed. On 2026-11-05 all eight directory URLs returned HTTP 200
+without authentication, and the Open WebUI raw installation file was fetched
+successfully. The [initial GitHub CI run](https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42054023512)
+passed every job, including the Agentgateway container build without publishing.
+
 Upstream migration PRs, original-repository archival, and registry publisher
 cutover are separate operations from creating this public destination. They have
 not been performed as part of the source import.
@@ -99,13 +106,17 @@ trusted publishers. Registry trust and environment approval rules still require
 configuration; environment names alone do not enforce approvals. Validation
 requires the exact tag commit to be reachable from `main`, contain the monorepo
 layout, and match the selected package version before testing and publishing.
+The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
+`false` and verified after push. No registry tokens or trust bindings were migrated.
 
 - [x] Import all eight `main` histories without squashing and namespace source tags.
 - [x] Obtain explicit Agentgateway/Kong MIT approval and scan imported history.
 - [x] Record local test/build baselines and outstanding n8n dependency findings.
-- [ ] Confirm public destination availability and validate every exact directory,
-  README anchor, example link, and raw installation URL anonymously.
+- [x] Create the public destination, push main and source tags, and verify all
+  eight directory URLs and the raw Open WebUI installation file anonymously.
+- [ ] Finish exhaustive README-anchor and example-link validation before cutover.
 - [x] Add root CI and validate workflow syntax and release-validator tests locally.
+- [x] Verify all initial GitHub CI jobs, including the container build, pass.
 - [ ] Coordinate and stop old publishers before enabling any new publisher;
   prevent concurrent or duplicate releases.
 - [ ] Configure npm/PyPI OIDC trust for the exact repository, workflow, and

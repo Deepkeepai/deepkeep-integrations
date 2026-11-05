@@ -58,6 +58,9 @@ The legacy n8n lockfile was left unchanged. Passing lint/build and moving source
 do not make these dependencies safe. Investigate dependency upgrades separately;
 do not apply a blanket force-fix or silently rewrite the lockfile in a docs change.
 
+The [initial GitHub CI run](https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42054023512)
+also passed all integration, artifact, workflow, and container checks.
+
 ## Changes And Review
 
 - Keep changes scoped to the integration and include relevant tests and docs.

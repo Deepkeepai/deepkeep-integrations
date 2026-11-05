@@ -12,11 +12,11 @@ cutover, monorepo release, upstream migration PR, or source archive has occurred
 GitHub release assets, issues, and PRs were not ported. Upstream PRs and original
 repository archival are not authorized yet.
 
-The proposed public destination is `Deepkeepai/deepkeep-integrations`. It returned
-HTTP 404 during the original research audit. That is a historical observation,
-not a fresh availability check. Do not replace external links until the exact
-destination pages/files work anonymously. Proposed links below are not claims of
-completed or deployed replacements. "Not verified" does not mean proven absent.
+The public destination `Deepkeepai/deepkeep-integrations` was created and pushed
+on 2026-11-05. All eight integration directory URLs returned HTTP 200 anonymously,
+and the Open WebUI raw file was fetched successfully. These are now available
+replacement destinations, not claims that upstream sites have updated their links.
+"Not verified" does not mean proven absent.
 
 ## Official Reference Tracker
 
@@ -212,8 +212,10 @@ without changing package or import names.
 
 ## Cutover Tracking
 
-All external replacement actions remain pending destination validation and
-authorization. See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
+The destination directories and raw filter URL are verified. All external
+replacement submissions remain pending authorization. Prepared titles, bodies,
+and exact changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
+See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
 old repositories/install files through compatibility validation; archive only
 with separate authorization. New Kong, CrewAI, and Pydantic AI listings are
 separate adoption work, not mandatory migrations of accepted entries.
