@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strands-deepkeep"
+version = "0.1.0"
+description = "DeepKeep AI Firewall hook integration for Strands Agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    {name = "DeepKeep", email = "info@deepkeep.ai"}
+]
+keywords = ["deepkeep", "strands", "hooks", "moderation", "guardrails"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "httpx>=0.27.0",
+    "strands-agents>=1.0.0",
+]
+
+[project.urls]
+Documentation = "https://github.com/Deepkeepai/strands-deepkeep#readme"
+Homepage = "https://deepkeep.ai"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "respx>=0.21",
+]
+
+[tool.setuptools.packages.find]
+include = ["strands_deepkeep*"]
