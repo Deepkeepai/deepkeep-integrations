@@ -8,9 +8,9 @@ statuses below are audit-time observations, not newly revalidated claims.
 All eight integrations have since been imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
 Original source repositories and public publishers remain unchanged. No publisher
-cutover, monorepo release, upstream migration PR, or source archive has occurred.
-GitHub release assets, issues, and PRs were not ported. Upstream PRs and original
-repository archival are not authorized yet.
+cutover, monorepo release, or source archive has occurred. GitHub release assets,
+issues, and PRs were not ported. Authorized migration submissions are now tracked
+below; original-repository archival remains a separate, unperformed operation.
 
 The public destination `Deepkeepai/deepkeep-integrations` was created and pushed
 on 2026-11-05. All eight integration directory URLs returned HTTP 200 anonymously,
@@ -23,9 +23,9 @@ replacement destinations, not claims that upstream sites have updated their link
 | Integration | Verified official exposure | Pending action |
 | --- | --- | --- |
 | n8n | Verified live catalog; GitHub link points to the organization | Request integration-specific destination through existing Creator Portal record/catalog maintainers; review legacy operations text |
-| Agentgateway | Four live versioned guides link to old repo and existing image | Future PR after authorization to `agentgateway/website` replacing four direct repository links; preserve image |
+| Agentgateway | Four live versioned guides link to old repo and existing image | [website #1475](https://github.com/agentgateway/website/pull/1475) open; four URL replacements, image unchanged |
 | Open WebUI | Vendor listing draft; no live community listing verified | Locate listing ID/owner or record as unpublished; update raw install URL and vendor guide |
-| Strands | Live partner catalog links to old repo and README | Future PR after authorization updating `github` and `docsUrl` in existing YAML |
+| Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) draft; Human Overview and human review required |
 | Agno | Live official cookbook/example; separate overview proposal pending | Preserve cookbook links; optional external integration link through docs workflow |
 | CrewAI | Docs submissions closed unmerged; vendor-hosted docs requested | Maintain vendor guide; no accepted upstream page to replace |
 | Kong | Generic custom-guardrail docs, not a DeepKeep listing | Optional new, version-appropriate proposal; not a link migration |
@@ -52,6 +52,10 @@ repository/issue URLs. A future release should use the new Git repository for
 URL for `bugs.url`. Preserve `n8n-nodes-deepkeep` and configure trusted publishing/
 provenance before cutover. Local metadata edits do not update published metadata.
 After a catalog change, re-fetch the rendered destination and operations text.
+
+Follow-up on 2026-11-05: the Creator Portal requires a separate sign-in. No
+authenticated portal session is available, so no n8n update was submitted. The
+existing record owner must submit the prepared request in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 
 ## Agentgateway
 
@@ -83,8 +87,13 @@ content/docs/standalone/1.5.x/integrations/llm/guardrails/deepkeep.md
 - https://github.com/agentgateway/agentgateway/issues/3224 was closed in favor of
   the webhook extension, not a shipped native provider.
 
-After an authorized PR merges, verify all four deployed versions and check for
-additional versions introduced before cutover.
+Migration PR [#1475](https://github.com/agentgateway/website/pull/1475) was submitted
+by `gilarel` on 2026-11-05 after checking the current source and replacement URL.
+It changes only the four direct links; the image and examples are untouched.
+The author explicitly approved DCO certification, the PR commit was signed off,
+and the DCO check passed.
+Merge and live deployment verification remain pending. After merge, verify all
+four deployed versions and check for additional versions introduced before cutover.
 
 ## Open WebUI
 
@@ -119,6 +128,13 @@ Use the existing YAML record, not a duplicate listing. Preserve package
 https://pypi.org/pypi/strands-deepkeep/json confirmed `0.1.0` and old-repo links in
 metadata/description; update through a future release. Vendor notes still saying
 "Submit" are stale, not evidence that the accepted listing is pending.
+
+Migration PR [#5852](https://github.com/strands-agents/harness-sdk/pull/5852) was
+submitted by `gilarel` on 2026-11-05 as a draft at the author's request. It changes
+only `github` and `docsUrl`; YAML parsing and a comparison of all other fields
+passed. The upstream template requires the human author's own Human Overview,
+which is intentionally unfilled. Human review, ready-for-review status, merge,
+and live catalog verification remain pending.
 
 ## Agno
 
@@ -212,18 +228,24 @@ without changing package or import names.
 
 ## Cutover Tracking
 
-The destination directories and raw filter URL are verified. All external
-replacement submissions remain pending authorization. Prepared titles, bodies,
-and exact changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
+The destination directories and raw filter URL are verified. Agentgateway and
+Strands submissions are open, with Strands intentionally a draft. n8n remains
+blocked on the existing Creator Portal account. Prepared request text and exact
+changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
 old repositories/install files through compatibility validation; archive only
 with separate authorization. New Kong, CrewAI, and Pydantic AI listings are
 separate adoption work, not mandatory migrations of accepted entries.
 
-For each authorized submission, record submission URL, owner, submitted date,
-merged date, live verification date, and remaining old links. No migration
-submission URLs exist yet. Verify rendered pages after deployment, not merely PR
-merge. Never count pending upstream action as completed documentation migration.
+| Integration | Submission / owner | Submitted | Merged | Live verified |
+| --- | --- | --- | --- | --- |
+| Agentgateway | [#1475](https://github.com/agentgateway/website/pull/1475), gilarel | 2026-11-05 | Pending | Pending |
+| Strands | [#5852](https://github.com/strands-agents/harness-sdk/pull/5852), gilarel | 2026-11-05, draft | Pending | Pending |
+| n8n | Existing portal account owner needed | Not submitted | Not applicable | Pending |
+
+The old links remain in upstream default branches until acceptance. Verify
+rendered pages after deployment, not merely PR merge. Never count pending
+upstream action as completed documentation migration.
 
 ## Audit Limits
 

@@ -1,8 +1,17 @@
-# Prepared Upstream Link Updates
+# Upstream Link Updates
 
-These are submission-ready change specifications, not submitted pull requests.
-Validate the destination URLs and obtain upstream-change approval before sending.
+Status on 2026-11-05: the two GitHub submissions below are open; neither is merged
+or verified live. Replacement directory URLs were rechecked anonymously with
+HTTP 200 before submission. Source repositories and publishers remain unchanged.
 See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats.
+
+| Update | Submission | Status / next action |
+| --- | --- | --- |
+| Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Open for review; user-authorized sign-off added and DCO check passed |
+| Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Draft; human author must supply Human Overview and review before marking ready |
+| n8n | No submission | Creator Portal redirects to login; existing node record owner must submit the request below |
+
+The remaining specifications and request text are retained for review and follow-up.
 
 ## Agentgateway Website
 
@@ -47,6 +56,10 @@ File: `site/src/content/catalog/strands-deepkeep.yaml`.
 
 Suggested title: `docs: update DeepKeep catalog repository and guide links`
 
+Strands requires a Human Overview written by the human author, not an AI agent.
+The draft leaves that section unfilled and discloses AI assistance. Human-review
+attestations are unchecked; do not mark it ready until the author completes them.
+
 Replace the existing two fields without adding a second catalog record:
 
 ```yaml
@@ -74,6 +87,8 @@ After merge, verify both links on https://strandsagents.com/integrations/.
 
 Use the existing Creator Portal record or contact catalog maintainers; the
 specific public catalog record was not found in `n8n-io/n8n-docs`.
+On 2026-11-05 the portal redirected to a sign-in page. GitHub authentication does
+not provide access to this separate account, and no catalog change was submitted.
 
 ```text
 Please update DeepKeep's GitHub resource link on

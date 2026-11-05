@@ -15,9 +15,12 @@ without authentication, and the Open WebUI raw installation file was fetched
 successfully. The [initial GitHub CI run](https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42054023512)
 passed every job, including the Agentgateway container build without publishing.
 
-Upstream migration PRs, original-repository archival, and registry publisher
-cutover are separate operations from creating this public destination. They have
-not been performed as part of the source import.
+Upstream link-update PRs were submitted after the source import:
+[Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) is open,
+and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is a
+draft awaiting the human author's overview and review. Neither has merged or been
+verified live. Original-repository archival and registry publisher cutover remain
+separate, unperformed operations.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
@@ -125,8 +128,12 @@ The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
   GHCR package permissions while preserving the existing image endpoint.
 - [ ] Validate the manual-dispatch workflow, tag/version checks, and independent
   package selection before setting `MONOREPO_PUBLISHING_ENABLED=true`.
-- [ ] Obtain authorization for upstream changes, then follow the exact pending
-  actions in [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
+- [x] Submit authorized Agentgateway and Strands link-update PRs; leave Strands
+  as a draft until its human-authored overview and review are complete.
+- [ ] Submit the n8n catalog request through the existing Creator Portal account;
+  the portal currently requires a separate login unavailable to this session.
+- [ ] Obtain upstream acceptance and verify deployed pages as tracked in
+  [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 - [ ] Publish only after cutover approval; verify artifacts, metadata, provenance,
   installation compatibility, and deployed upstream pages.
 - [ ] Retain original repositories and raw installation files with relocation
@@ -135,8 +142,7 @@ The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
 ## External Documentation
 
 The [reference audit](docs/REFERENCE_AUDIT.md) preserves the verified official
-sources and proposed replacements. No upstream migration PR has been submitted
-as part of this migration. New Kong, CrewAI, or Pydantic AI listings would be
+sources, replacement URLs, and submitted migration PRs. New Kong, CrewAI, or Pydantic AI listings would be
 separate adoption proposals, not repairs to accepted upstream listings. Open
 WebUI listing identity is unverified. Agno's live cookbook provenance must stay
 intact. Recheck external status immediately before any authorized cutover.
