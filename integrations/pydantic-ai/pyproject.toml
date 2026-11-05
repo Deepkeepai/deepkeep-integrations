@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydantic-ai-deepkeep"
-version = "0.1.0"
+version = "0.1.1"
 description = "DeepKeep AI Firewall custom capability for Pydantic AI"
 readme = "README.md"
 requires-python = ">=3.10"
