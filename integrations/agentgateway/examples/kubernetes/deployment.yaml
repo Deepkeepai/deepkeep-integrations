@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: deepkeep-webhook
+type: Opaque
+stringData:
+  DEEPKEEP_BASE_URL: https://deepkeep.example
+  DEEPKEEP_API_KEY: replace-me
+  DEEPKEEP_MODEL: replace-me
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepkeep-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deepkeep-webhook
+  template:
+    metadata:
+      labels:
+        app: deepkeep-webhook
+    spec:
+      containers:
+        - name: deepkeep-webhook
+          image: ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: deepkeep-webhook
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepkeep-webhook
+spec:
+  selector:
+    app: deepkeep-webhook
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000

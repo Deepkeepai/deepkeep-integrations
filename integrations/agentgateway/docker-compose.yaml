@@ -1,0 +1,11 @@
+services:
+  deepkeep-webhook:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DEEPKEEP_BASE_URL: ${DEEPKEEP_BASE_URL}
+      DEEPKEEP_API_KEY: ${DEEPKEEP_API_KEY}
+      DEEPKEEP_MODEL: ${DEEPKEEP_MODEL}
+      DEEPKEEP_TITLE: ${DEEPKEEP_TITLE:-agentgateway}
+      DEEPKEEP_CHAT: ${DEEPKEEP_CHAT:-}

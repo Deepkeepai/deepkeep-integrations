@@ -1,0 +1,10 @@
+# Example shape for standalone agentgateway configuration.
+# The DeepKeep adapter exposes /request and /response under this URL.
+llm:
+  promptGuard:
+    request:
+      webhook:
+        url: http://localhost:8000
+    response:
+      webhook:
+        url: http://localhost:8000
