@@ -22,6 +22,9 @@ draft awaiting the human author's overview and review. Neither has merged or bee
 verified live. Original-repository archival and registry publisher cutover remain
 separate, unperformed operations.
 
+n8n follow-up work is paused at the user's request. Its source, publisher, package
+version, and catalog are not being changed while the other integrations proceed.
+
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
 repositories are part of this migration.
@@ -124,7 +127,9 @@ the already-published versions that need bumps, and remaining access requirement
 - [x] Record local test/build baselines and outstanding n8n dependency findings.
 - [x] Create the public destination, push main and source tags, and verify all
   eight directory URLs and the raw Open WebUI installation file anonymously.
-- [ ] Finish exhaustive README-anchor and example-link validation before cutover.
+- [x] Audit the seven non-n8n integrations' Markdown files for relative links,
+  anchors, and development paths; correct missing example dependencies/imports.
+- [ ] Validate examples requiring live model/API calls or a licensed Kong runtime.
 - [x] Add root CI and validate workflow syntax and release-validator tests locally.
 - [x] Verify all initial GitHub CI jobs, including the container build, pass.
 - [ ] Coordinate and stop old publishers before enabling any new publisher;
@@ -139,8 +144,7 @@ the already-published versions that need bumps, and remaining access requirement
   package selection before setting `MONOREPO_PUBLISHING_ENABLED=true`.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; leave Strands
   as a draft until its human-authored overview and review are complete.
-- [ ] Submit the n8n catalog request through the existing Creator Portal account;
-  the portal currently requires a separate login unavailable to this session.
+- [ ] n8n catalog and publisher follow-up are deferred at the user's request.
 - [ ] Obtain upstream acceptance and verify deployed pages as tracked in
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 - [ ] Publish only after cutover approval; verify artifacts, metadata, provenance,
@@ -153,5 +157,6 @@ the already-published versions that need bumps, and remaining access requirement
 The [reference audit](docs/REFERENCE_AUDIT.md) preserves the verified official
 sources, replacement URLs, and submitted migration PRs. New Kong, CrewAI, or Pydantic AI listings would be
 separate adoption proposals, not repairs to accepted upstream listings. Open
-WebUI listing identity is unverified. Agno's live cookbook provenance must stay
+WebUI's live listing is now verified and its embedded code matches the monorepo;
+its publisher still needs to edit the old repository link. Agno's cookbook provenance must stay
 intact. Recheck external status immediately before any authorized cutover.

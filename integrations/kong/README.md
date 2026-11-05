@@ -11,6 +11,14 @@ cd deepkeep-integrations/integrations/kong
 
 The Kong documentation proposal has not been accepted.
 
+## Requirements And Validation
+
+Kong documents this plugin for AI Gateway Enterprise, starting with Gateway
+3.14, with an AI Proxy or AI Proxy Advanced route/service. See the
+[official plugin requirements](https://developer.konghq.com/plugins/ai-custom-guardrail/).
+The checked-in configurations were checked against published field definitions
+for 3.14, 3.15, and 3.16; no Kong runtime deployment was exercised.
+
 ## Mapping
 
 - `INPUT` -> `POST /api/v3/openai/moderations/pre`
@@ -24,8 +32,14 @@ The Kong documentation proposal has not been accepted.
 
 - `flagged: false` -> allow
 - `guardrail_action: block` -> block
-- `guardrail_action: redact` or `modify` -> mask when `allow_masking: true`
+- `guardrail_action: redact` or `modify` -> marks the `masked` metric; replacement-content enforcement is not verified
 - `guardrail_action: alert` -> allow and log
+
+**Warning:** The example functions supply no replacement text. Setting
+`allow_masking: true` and emitting a `masked` metric is not evidence that Kong
+replaces the content. Do not rely on these examples for policies requiring
+redaction or modification until an end-to-end test on the intended Kong version
+demonstrates enforcement. Runtime behavior was preserved during migration.
 
 ## Files
 
@@ -50,7 +64,7 @@ Optional:
 
 - The Kong plugin still requires an `AI Proxy` or `AI Proxy Advanced` route/service.
 - The deck example assumes an existing service named `example-ai-service`; replace it with your AI Proxy service or route.
-- `allow_masking: true` is the Kong knob for DeepKeep redaction-style outcomes.
-- The existing `block_detail` metric mapping is unchanged; compatibility with the target Kong plugin schema still needs validation.
+- `allow_masking` is a valid plugin setting, but the redaction limitation above still applies.
+- Keep the singular `block_detail` metric key. It is defined in Kong's published [3.14 schema](https://github.com/Kong/developer.konghq.com/blob/main/app/_schemas/gateway/plugins/3.14/AiCustomGuardrail.json), as well as the 3.15 and 3.16 schemas, despite the overview prose using `block_details`.
 - If your DeepKeep deployment uses Bearer auth instead of `X-API-Key`, update the header in the examples.
 - If you want a docs PR like Lakera's, the usual package is: plugin page, examples, audit-log notes, and a landing-page update.

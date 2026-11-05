@@ -22,7 +22,7 @@ Set these environment variables:
 
 Source: [integrations/agentgateway](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/agentgateway). Run the local and Docker commands from this directory.
 
-```bash
+```bat
 git clone https://github.com/Deepkeepai/deepkeep-integrations.git
 cd deepkeep-integrations/integrations/agentgateway
 python -m venv .venv
@@ -47,7 +47,7 @@ docker run --rm -p 8000:8000 \
 
 Or use Docker Compose:
 
-```bash
+```bat
 set DEEPKEEP_BASE_URL=https://deepkeep.example
 set DEEPKEEP_API_KEY=dk_...
 set DEEPKEEP_MODEL=your-firewall-id

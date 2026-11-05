@@ -16,4 +16,8 @@ For DeepKeep, the docs PR should include:
 3. A short how-to showing DeepKeep request and response moderation.
 4. The landing-page card under the guardrails section.
 
-Keep [integrations/kong](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong) as the source of truth for the Kong payloads and DeepKeep request/response mapping. The existing `block_detail` metric mapping still needs validation against the target Kong plugin schema before submission.
+Keep [integrations/kong](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong) as the source of truth for the Kong payloads and DeepKeep request/response mapping. The singular `block_detail` metric matches Kong's published schemas for 3.14, 3.15, and 3.16; do not rename it based only on the overview's plural wording.
+
+Before submission, test the examples on the intended licensed Kong deployment.
+In particular, the functions emit a `masked` metric without supplying replacement
+text, so redaction and modification enforcement must not be claimed as verified.

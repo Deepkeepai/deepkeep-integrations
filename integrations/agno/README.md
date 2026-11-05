@@ -7,7 +7,7 @@ This package follows Agno's native guardrail extension point. Add `DeepKeepGuard
 ## Installation
 
 ```bash
-pip install agno-deepkeep
+pip install agno-deepkeep openai
 ```
 
 Set credentials:
@@ -15,6 +15,7 @@ Set credentials:
 ```bash
 export DEEPKEEP_API_KEY="dk_..."
 export DEEPKEEP_BASE_URL="https://api.example.deepkeep.ai"
+export OPENAI_API_KEY="your-openai-api-key"
 ```
 
 ## Input guardrails

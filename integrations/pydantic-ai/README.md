@@ -7,7 +7,7 @@ This package follows Pydantic AI's native custom capability extension point. Add
 ## Installation
 
 ```bash
-pip install pydantic-ai-deepkeep
+pip install pydantic-ai-deepkeep "pydantic-ai-slim[openai]"
 ```
 
 Set credentials:
@@ -15,6 +15,7 @@ Set credentials:
 ```bash
 export DEEPKEEP_API_KEY="dk_..."
 export DEEPKEEP_BASE_URL="https://api.example.deepkeep.ai"
+export OPENAI_API_KEY="your-openai-api-key"
 ```
 
 ## Input and output guardrails
@@ -41,6 +42,10 @@ print(result.output)
 ## Agent specs
 
 `DeepKeepGuardrail` supports Pydantic AI agent specs when registered as a custom capability type:
+
+```bash
+pip install "pydantic-ai-slim[spec]"
+```
 
 ```yaml
 model: openai:gpt-5.2

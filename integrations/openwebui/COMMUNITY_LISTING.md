@@ -1,6 +1,21 @@
-# Open WebUI Community Listing Draft
+# Open WebUI Community Listing Update
 
-Status: Draft submission text. A live Open WebUI Community listing has not been verified.
+Verified listing: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e
+
+Edit page: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit
+
+The listing is published under `@gilharel11159626bf`. Editing requires that account
+or an authorized moderator/admin session; no edit has been submitted here.
+
+## Minimal Migration Edit
+
+Update the description's Repository link to the monorepo directory below. Add
+the Raw Function URL if desired. Preserve the embedded function and version:
+the published 0.1.1 code matches the migrated source. Keep the existing
+`https://github.com/Deepkeepai/openwebui-deepkeep/releases/tag/v0.1.1` link as a
+historical release reference; the monorepo has not published a replacement release.
+Do not create a duplicate listing. The fuller text below is available if the
+publisher wants to refresh the description separately.
 
 ## Title
 

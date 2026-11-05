@@ -19,6 +19,7 @@ Set credentials:
 ```bash
 export DEEPKEEP_API_KEY="dk_..."
 export DEEPKEEP_BASE_URL="https://api.example.deepkeep.ai"
+export OPENAI_API_KEY="your-openai-api-key"
 ```
 
 ## Task Guardrail
@@ -28,6 +29,12 @@ Use this when you want CrewAI to validate task output and retry the task when De
 ```python
 from crewai import Agent, Task
 from crewai_deepkeep import DeepKeepGuardrail
+
+agent = Agent(
+    role="Assistant",
+    goal="Answer user questions safely.",
+    backstory="You are a helpful assistant.",
+)
 
 deepkeep = DeepKeepGuardrail(
     post_model="output-firewall-id",
@@ -94,10 +101,13 @@ on(InterceptionPoint.POST_TOOL_CALL)(hooks.check_tool_output)
 Tools are available for workflows where the agent should explicitly call DeepKeep:
 
 ```python
+from crewai import Agent
 from crewai_deepkeep.tools import DeepKeepModerateInputTool
 
 agent = Agent(
     role="AI Security Guard",
+    goal="Check user input with DeepKeep.",
+    backstory="You help users review content for AI safety risks.",
     tools=[DeepKeepModerateInputTool(model="input-firewall-id")],
 )
 ```

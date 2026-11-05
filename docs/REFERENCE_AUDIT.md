@@ -22,9 +22,9 @@ replacement destinations, not claims that upstream sites have updated their link
 
 | Integration | Verified official exposure | Pending action |
 | --- | --- | --- |
-| n8n | Verified live catalog; GitHub link points to the organization | Request integration-specific destination through existing Creator Portal record/catalog maintainers; review legacy operations text |
+| n8n | Verified live catalog; GitHub link points to the organization | Deferred at the user's request; leave this integration and its catalog unchanged |
 | Agentgateway | Four live versioned guides link to old repo and existing image | [website #1475](https://github.com/agentgateway/website/pull/1475) open; four URL replacements, image unchanged |
-| Open WebUI | Vendor listing draft; no live community listing verified | Locate listing ID/owner or record as unpublished; update raw install URL and vendor guide |
+| Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Publisher must edit its repository link; embedded filter matches migrated source |
 | Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) draft; Human Overview and human review required |
 | Agno | Live official cookbook/example; separate overview proposal pending | Preserve cookbook links; optional external integration link through docs workflow |
 | CrewAI | Docs submissions closed unmerged; vendor-hosted docs requested | Maintain vendor guide; no accepted upstream page to replace |
@@ -102,14 +102,20 @@ four deployed versions and check for additional versions introduced before cutov
 - Proposed repository destination: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/openwebui
 - Proposed raw installation URL: https://raw.githubusercontent.com/Deepkeepai/deepkeep-integrations/main/integrations/openwebui/deepkeep_openwebui_filter.py
 - Generic official functions source: https://github.com/open-webui/docs/blob/main/docs/features/extensibility/plugin/functions/index.mdx
-- No DeepKeep-specific official docs file or community listing ID was verified.
-  https://openwebui.com/search?query=deepkeep returned a client-rendered shell,
-  not auditable listing results.
+- The initial HTML-only search returned a client-rendered shell. A follow-up
+  through the official public search API resolved the listing:
+  https://api.openwebui.com/api/v1/posts/search?query=deepkeep&sort=top&t=all&page=1
+- Verified live listing: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e
+- Publisher account: `@gilharel11159626bf`; authorized edit access is still required.
+- Edit page: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit
 
-Locate the actual listing URL and owner before claiming an update. If none exists,
-record it as unpublished. Use the raw Python file, not a directory URL, for
-URL-based installation. Keep the old raw file usable during transition. Imported
-function copies do not automatically update when source/listing URLs change.
+The public listing's embedded 0.1.1 filter was compared with the monorepo source
+and matches after newline normalization. Only its repository description needs a
+migration edit. Keep its historical old-repository `v0.1.1` release link valid;
+there is no replacement monorepo release. Prepared instructions are in
+[COMMUNITY_LISTING.md](../integrations/openwebui/COMMUNITY_LISTING.md).
+No site update was submitted. Use the raw Python file for URL-based installation;
+already imported function copies do not automatically update with listing links.
 
 ## Strands
 
@@ -203,8 +209,13 @@ app/_ai_gateway_policies/ai-custom-guardrail/index.md
 Bounded searches found no DeepKeep code/PR match. Vendor
 `examples/kong-docs-submission.md` is proposal material, not an accepted listing.
 Any upstream change is a new submission. Distinguish legacy plugins from AI Gateway
-2.0 policies and reconcile proposal `block_detail` with official `block_details`
-before proposing examples. Proposed guide:
+2.0 policies. Follow-up schema inspection resolved the metric spelling concern:
+the published 3.14, 3.15, and 3.16 JSON schemas define singular `block_detail`,
+despite the overview prose saying `block_details`. Keep the example key unchanged.
+Twelve focused static checks passed across four configurations and three schemas;
+that is not full Kong runtime validation. The examples do not supply replacement
+text, so redaction/modification enforcement remains unverified and must not be
+claimed as working. Proposed guide:
 https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong
 
 The original audit required review before exposing this private source. Subsequent

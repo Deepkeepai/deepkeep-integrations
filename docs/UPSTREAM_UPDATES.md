@@ -9,7 +9,7 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | --- | --- | --- |
 | Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Open for review; user-authorized sign-off added and DCO check passed |
 | Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Draft; human author must supply Human Overview and review before marking ready |
-| n8n | No submission | Creator Portal redirects to login; existing node record owner must submit the request below |
+| n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
 
 The remaining specifications and request text are retained for review and follow-up.
 
@@ -108,12 +108,16 @@ before releasing from the monorepo. Do not create a duplicate verified-node reco
 
 ## Other Integrations
 
-- Open WebUI: locate the actual community listing ID and owner before proposing
-  an edit. The new raw filter URL is documented in the integration's listing draft.
+- Open WebUI: [the live listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e)
+  is verified. Its publisher must use the [edit page](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit)
+  to change the Repository link. Embedded code matches the monorepo; keep its
+  historical 0.1.1 release link. [Exact instructions](../integrations/openwebui/COMMUNITY_LISTING.md)
+  are prepared, but no edit has been submitted.
 - Agno: retain the official cookbook source link. No stale vendor repository link
   was found in the live example, so there is no mandatory replacement PR.
 - CrewAI: maintain vendor-hosted instructions as requested by maintainers; no
   accepted DeepKeep page exists to update.
-- Kong: a new integration example proposal requires target-version schema review.
+- Kong: published schemas confirm `block_detail` for 3.14-3.16. A new proposal
+  still needs licensed runtime testing, especially redaction/modification.
 - Pydantic AI: a renewed listing proposal requires maintainer consultation and
   community-adoption work, not a mechanical URL replacement.
