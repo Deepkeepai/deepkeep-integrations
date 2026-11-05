@@ -92,8 +92,10 @@ disable unrelated workflows or archive repositories as a side effect.
 
 ## Prepare Fresh Versions
 
-Every local npm/PyPI package version currently equals its already published
-version. Do not use republishing as a permission test. Prepare a reviewed version
+The imported npm/PyPI package versions matched already published versions.
+[Python patch candidates](PYTHON_RELEASE_CANDIDATES.md) now prepare fresh versions
+for the four Python packages; these are not publications. Do not use republishing
+as a permission test. Prepare a reviewed version
 bump in the selected integration, including the n8n lockfile where appropriate,
 and rerun its tests/build/artifact checks before creating a new monorepo tag.
 
