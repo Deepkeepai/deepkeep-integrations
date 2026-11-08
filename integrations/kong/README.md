@@ -30,16 +30,43 @@ for 3.14, 3.15, and 3.16; no Kong runtime deployment was exercised.
 
 ## DeepKeep actions
 
-- `flagged: false` -> allow
-- `guardrail_action: block` -> block
-- `guardrail_action: redact` or `modify` -> marks the `masked` metric; replacement-content enforcement is not verified
-- `guardrail_action: alert` -> allow and log
+- Boolean `flagged: false` -> allow, without consulting action details.
+- Boolean `flagged: true` with a nonempty `verbosity` array containing only
+  explicit `details.guardrail_action: alert` actions -> allow and report an alert.
+- `block`, `redact`, or `modify` -> block. No replacement text is supplied, so
+  redaction and modification requests fail closed instead of passing original content.
+- Unknown or missing actions -> block (`block_reason: invalid_action`).
+- Missing/malformed responses, non-boolean/missing `flagged`, or missing/malformed
+  `verbosity`/detail entries on flagged responses -> block (`block_reason: invalid_response`).
 
-**Warning:** The example functions supply no replacement text. Setting
-`allow_masking: true` and emitting a `masked` metric is not evidence that Kong
-replaces the content. Do not rely on these examples for policies requiring
-redaction or modification until an end-to-end test on the intended Kong version
-demonstrates enforcement. Runtime behavior was preserved during migration.
+All four configurations set `allow_masking: false`; the functions always report
+`masked: false`. Mixed actions block if any action is not an explicit alert.
+Known action reporting retains priority `block > redact > modify > alert`;
+invalid actions take precedence over known actions. String guardrail names are
+joined into the singular `block_detail` metric; malformed optional names are ignored.
+
+This is a conservative blocking adapter, not a content-replacement implementation.
+The local tests below execute the embedded Lua but do not validate Kong's HTTP,
+plugin/template handling, or enforcement in a deployed gateway. Licensed Kong
+AI Gateway end-to-end validation remains required.
+
+## Local Tests
+
+From this directory, use Python 3.12 and an isolated environment (with `uv`):
+
+```powershell
+uv venv --python 3.12 .venv
+uv pip install --python .venv/Scripts/python.exe -r requirements-dev.txt
+.venv/Scripts/python.exe -m pytest -q
+.venv/Scripts/python.exe -c "import sys; from lupa.luajit21 import LuaRuntime; print(sys.version); print(LuaRuntime().eval('jit.version'))"
+```
+
+On Unix, substitute `.venv/bin/python` for `.venv/Scripts/python.exe`.
+Tests load both Admin API JSON files and both decK plugins and execute each
+embedded function with actual LuaJIT 2.1 through `lupa.luajit21`, not a Python
+reimplementation. An unavailable LuaJIT module fails collection rather than
+silently skipping the tests. No Kong runtime, Docker, license, or API key is
+needed for these local policy and configuration-contract tests.
 
 ## Files
 
@@ -64,7 +91,7 @@ Optional:
 
 - The Kong plugin still requires an `AI Proxy` or `AI Proxy Advanced` route/service.
 - The deck example assumes an existing service named `example-ai-service`; replace it with your AI Proxy service or route.
-- `allow_masking` is a valid plugin setting, but the redaction limitation above still applies.
+- `allow_masking` stays disabled because these functions do not supply replacement content.
 - Keep the singular `block_detail` metric key. It is defined in Kong's published [3.14 schema](https://github.com/Kong/developer.konghq.com/blob/main/app/_schemas/gateway/plugins/3.14/AiCustomGuardrail.json), as well as the 3.15 and 3.16 schemas, despite the overview prose using `block_details`.
 - If your DeepKeep deployment uses Bearer auth instead of `X-API-Key`, update the header in the examples.
 - If you want a docs PR like Lakera's, the usual package is: plugin page, examples, audit-log notes, and a landing-page update.

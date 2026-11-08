@@ -19,5 +19,6 @@ For DeepKeep, the docs PR should include:
 Keep [integrations/kong](https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong) as the source of truth for the Kong payloads and DeepKeep request/response mapping. The singular `block_detail` metric matches Kong's published schemas for 3.14, 3.15, and 3.16; do not rename it based only on the overview's plural wording.
 
 Before submission, test the examples on the intended licensed Kong deployment.
-In particular, the functions emit a `masked` metric without supplying replacement
-text, so redaction and modification enforcement must not be claimed as verified.
+The functions supply no replacement text: masking is disabled, `masked` is always
+false, and redaction/modification actions block conservatively. Local LuaJIT tests
+do not verify gateway enforcement or content replacement on licensed Kong.

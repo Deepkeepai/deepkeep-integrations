@@ -6,7 +6,7 @@ plugins:
     config:
       guarding_mode: INPUT
       text_source: concatenate_user_content
-      allow_masking: true
+      allow_masking: false
       params:
         api_base: ${{ env "DECK_DEEPKEEP_API_BASE" }}
         api_key: ${{ env "DECK_DEEPKEEP_API_KEY" }}
@@ -33,58 +33,68 @@ plugins:
         deepkeep_check: |
           return function(resp)
             local result = {
-              block = false,
-              block_message = "DeepKeep allowed the request",
+              block = true,
+              block_message = "DeepKeep blocked the request",
               masked = false,
-              block_reason = "",
+              block_reason = "invalid_response",
               block_detail = "",
             }
 
-            if not resp or not resp.flagged then
+            if type(resp) ~= "table" or type(resp.flagged) ~= "boolean" then
+              return result
+            end
+            if resp.flagged == false then
+              result.block = false
+              result.block_message = "DeepKeep allowed the request"
+              result.block_reason = ""
+              return result
+            end
+            if type(resp.verbosity) ~= "table" then
               return result
             end
 
-            local priority = {
-              block = 4,
-              redact = 3,
-              modify = 2,
-              alert = 1,
-            }
+            -- Require a nonempty, dense array so malformed entries cannot be skipped.
+            local count = 0
+            for key in pairs(resp.verbosity) do
+              if type(key) ~= "number" or key < 1 or key % 1 ~= 0 then
+                return result
+              end
+              count = count + 1
+            end
+            if count == 0 then
+              return result
+            end
 
+            local priority = { block = 4, redact = 3, modify = 2, alert = 1 }
             local best_action = "alert"
             local best_score = 1
-            local best_name = "DeepKeep"
             local reasons = {}
-
-            for _, item in ipairs(resp.verbosity or EMPTY_T) do
-              local details = item.details or {}
-              local action = tostring(details.guardrail_action or "alert")
-              local score = priority[action] or 1
-
+            for index = 1, count do
+              local item = resp.verbosity[index]
+              if type(item) ~= "table" or type(item.details) ~= "table" then
+                return result
+              end
+              local action = item.details.guardrail_action
+              if type(action) ~= "string" or not priority[action] then
+                action = "invalid_action"
+              end
+              local score = priority[action] or 5
               if score > best_score then
                 best_score = score
                 best_action = action
-                best_name = item.guardrail_name or best_name
               end
-
-              if item.guardrail_name then
+              if type(item.guardrail_name) == "string" then
                 table.insert(reasons, item.guardrail_name)
               end
             end
 
-            result.block = best_action == "block"
-            result.masked = best_action == "redact" or best_action == "modify"
+            -- No replacement content is supplied; only explicit alerts may pass.
+            result.block = best_action ~= "alert"
             result.block_reason = best_action
             result.block_detail = table.concat(reasons, ", ")
-
-            if result.block then
-              result.block_message = best_name .. " blocked the request"
-            elseif result.masked then
-              result.block_message = best_name .. " requested masking"
-            else
-              result.block_message = best_name .. " raised an alert"
+            if not result.block then
+              result.block_message = "DeepKeep raised an alert"
             end
-
             return result
           end
 
@@ -93,7 +103,7 @@ plugins:
     config:
       guarding_mode: OUTPUT
       text_source: concatenate_all_content
-      allow_masking: true
+      allow_masking: false
       params:
         api_base: ${{ env "DECK_DEEPKEEP_API_BASE" }}
         api_key: ${{ env "DECK_DEEPKEEP_API_KEY" }}
@@ -120,57 +130,67 @@ plugins:
         deepkeep_check: |
           return function(resp)
             local result = {
-              block = false,
-              block_message = "DeepKeep allowed the response",
+              block = true,
+              block_message = "DeepKeep blocked the response",
               masked = false,
-              block_reason = "",
+              block_reason = "invalid_response",
               block_detail = "",
             }
 
-            if not resp or not resp.flagged then
+            if type(resp) ~= "table" or type(resp.flagged) ~= "boolean" then
+              return result
+            end
+            if resp.flagged == false then
+              result.block = false
+              result.block_message = "DeepKeep allowed the response"
+              result.block_reason = ""
+              return result
+            end
+            if type(resp.verbosity) ~= "table" then
               return result
             end
 
-            local priority = {
-              block = 4,
-              redact = 3,
-              modify = 2,
-              alert = 1,
-            }
+            -- Require a nonempty, dense array so malformed entries cannot be skipped.
+            local count = 0
+            for key in pairs(resp.verbosity) do
+              if type(key) ~= "number" or key < 1 or key % 1 ~= 0 then
+                return result
+              end
+              count = count + 1
+            end
+            if count == 0 then
+              return result
+            end
 
+            local priority = { block = 4, redact = 3, modify = 2, alert = 1 }
             local best_action = "alert"
             local best_score = 1
-            local best_name = "DeepKeep"
             local reasons = {}
-
-            for _, item in ipairs(resp.verbosity or EMPTY_T) do
-              local details = item.details or {}
-              local action = tostring(details.guardrail_action or "alert")
-              local score = priority[action] or 1
-
+            for index = 1, count do
+              local item = resp.verbosity[index]
+              if type(item) ~= "table" or type(item.details) ~= "table" then
+                return result
+              end
+              local action = item.details.guardrail_action
+              if type(action) ~= "string" or not priority[action] then
+                action = "invalid_action"
+              end
+              local score = priority[action] or 5
               if score > best_score then
                 best_score = score
                 best_action = action
-                best_name = item.guardrail_name or best_name
               end
-
-              if item.guardrail_name then
+              if type(item.guardrail_name) == "string" then
                 table.insert(reasons, item.guardrail_name)
               end
             end
 
-            result.block = best_action == "block"
-            result.masked = best_action == "redact" or best_action == "modify"
+            -- No replacement content is supplied; only explicit alerts may pass.
+            result.block = best_action ~= "alert"
             result.block_reason = best_action
             result.block_detail = table.concat(reasons, ", ")
-
-            if result.block then
-              result.block_message = best_name .. " blocked the response"
-            elseif result.masked then
-              result.block_message = best_name .. " requested masking"
-            else
-              result.block_message = best_name .. " raised an alert"
+            if not result.block then
+              result.block_message = "DeepKeep raised an alert"
             end
-
             return result
           end
