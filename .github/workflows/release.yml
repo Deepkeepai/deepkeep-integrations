@@ -124,7 +124,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check unused version and capture current latest
+        id: preflight
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.validate.outputs.version }}
+        run: python ../../scripts/check_container_release.py "$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Record previous latest digest
+        env:
+          PREVIOUS_DIGEST: ${{ steps.preflight.outputs.previous_digest }}
+        run: |
+          printf 'Previous Agentgateway latest: `%s`\n' "$PREVIOUS_DIGEST" >> "$GITHUB_STEP_SUMMARY"
       - uses: docker/build-push-action@v6
+        id: build
         with:
           context: integrations/agentgateway
           file: integrations/agentgateway/Dockerfile
@@ -132,3 +145,17 @@ jobs:
           tags: |
             ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:${{ needs.validate.outputs.version }}
             ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:latest
+      - name: Verify published version and latest
+        id: postflight
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.validate.outputs.version }}
+          EXPECTED_DIGEST: ${{ steps.build.outputs.digest }}
+        run: python ../../scripts/check_container_release.py "$VERSION" --expected-digest "$EXPECTED_DIGEST" >> "$GITHUB_OUTPUT"
+      - name: Record published image digest
+        env:
+          VERSION: ${{ needs.validate.outputs.version }}
+          PUBLISHED_DIGEST: ${{ steps.postflight.outputs.published_digest }}
+        run: |
+          printf 'Published Agentgateway %s: `%s`\n' "$VERSION" "$PUBLISHED_DIGEST" >> "$GITHUB_STEP_SUMMARY"
