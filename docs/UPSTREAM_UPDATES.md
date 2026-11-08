@@ -2,7 +2,8 @@
 
 Status on 2026-11-05: the two GitHub submissions below are open; neither is merged
 or verified live. Replacement directory URLs were rechecked anonymously with
-HTTP 200 before submission. Source repositories and publishers remain unchanged.
+HTTP 200 before submission. Source repositories remain available. The four Python
+metadata releases are now verified; only Agno's old publisher was disabled.
 See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats.
 
 | Update | Submission | Status / next action |

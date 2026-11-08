@@ -4,9 +4,10 @@
 
 All eight agreed integration `main` branches were imported using **non-squashed
 git subtree imports**. Original commit IDs are preserved as ancestors. Source
-repositories remain available and their workflows were not changed.
-**Strands 0.1.1 has now been published and verified from this monorepo.** Other
-prepared packages remain unpublished. GitHub release assets, issues, and pull
+repositories remain available. Only Agno's old publishing workflow was explicitly
+disabled; its tests remain active. **All four Python metadata releases have now
+been published and verified from this monorepo:** Strands 0.1.1, Agno 0.1.2,
+CrewAI 0.1.3, and Pydantic AI 0.1.1. GitHub release assets, issues, and pull
 requests were not ported; Git tags are not a substitute for those GitHub records.
 
 The public destination is live at
@@ -20,8 +21,8 @@ Upstream link-update PRs were submitted after the source import:
 [Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) is open,
 and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is a
 draft awaiting the human author's overview and review. Neither has merged or been
-verified live. Original-repository archival remains unperformed. The first
-approved publisher cutover, Strands, is recorded in [RELEASES.md](docs/RELEASES.md).
+verified live. Original-repository archival remains unperformed. The
+approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
 n8n follow-up work is paused at the user's request. Its source, publisher, package
 version, and catalog are not being changed while the other integrations proceed.
@@ -37,8 +38,11 @@ Registry configuration, publisher cutover, tagging, and actual publication still
 require separate approval per integration. After preparation, Strands alone was
 explicitly approved, tagged, and published through run `42225772581`, with human
 environment approval. Its fresh PyPI installation passed all 10 tests; both
-artifact hashes and cryptographic PyPI publish attestations verified. Agno,
-CrewAI, and Pydantic AI are still pending release approval.
+artifact hashes and cryptographic PyPI publish attestations verified. The other
+three releases were then separately authorized and published after CLI deployment
+approvals explicitly requested by the owner. Their six artifacts verified and
+fresh PyPI installations passed 28 tests, for 38 installed-wheel tests across all
+four packages. Publishing was restored to disabled after validation.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
@@ -123,20 +127,21 @@ tag-push publishing. It is gated on repository variable
 `MONOREPO_PUBLISHING_ENABLED` being exactly `true`; the variable is absent by
 default, so publishing is disabled. Use `<integration>/v<VERSION>` tags and job
 environments named `release-<integration>`. npm/PyPI publishing uses OIDC
-trusted publishers. Registry trust and environment approval rules still require
-configuration; environment names alone do not enforce approvals. Validation
+trusted publishers. GitHub approvals and the four PyPI paths are configured and
+verified; future registry bindings still require explicit setup. Validation
 requires the exact tag commit to be reachable from `main`, contain the monorepo
 layout, and match the selected package version before testing and publishing.
 The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
-`false` and verified after push. No registry tokens or trust bindings were migrated.
+`false` and verified after publishing. No long-lived registry tokens were copied;
+new PyPI trusted publishers were configured by the owner.
 
 Six `release-<integration>` environments have now been configured and verified
 with reviewer `gilarel` and a custom deployment policy allowing only branch
 `main`. Self-review is allowed; this requires explicit approval but not a second
-person. Strands' PyPI trust is now demonstrated by its successful, attested
-publication. The other packages' bindings and existing GHCR access remain unverified.
+person. All four PyPI publishing paths are now demonstrated by successful,
+attested publications. npm and existing GHCR access remain unverified and unchanged.
 See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
-the already-published versions that need bumps, and remaining access requirements.
+the completed Python releases and remaining access requirements.
 
 - [x] Import all eight `main` histories without squashing and namespace source tags.
 - [x] Obtain explicit Agentgateway/Kong MIT approval and scan imported history.
@@ -148,23 +153,24 @@ the already-published versions that need bumps, and remaining access requirement
 - [ ] Validate examples requiring live model/API calls or a licensed Kong runtime.
 - [x] Add root CI and validate workflow syntax and release-validator tests locally.
 - [x] Verify all initial GitHub CI jobs, including the container build, pass.
-- [ ] Coordinate and stop old publishers before enabling any new publisher;
-  prevent concurrent or duplicate releases.
-- [ ] Configure npm/PyPI OIDC trust for the exact repository, workflow, and
-  `release-<integration>` environments; verify registry ownership and bindings.
+- [x] Coordinate the four Python releases and disable Agno's old publisher before
+  cutover; its tests remain active. Other automatic publishing paths are unchanged.
+- [x] Verify all four PyPI OIDC publishing paths through successful releases.
+- [ ] npm publisher and catalog follow-up remain deferred with n8n.
 - [x] Configure and verify the six release environments with required reviewer
   `gilarel` and a `main`-only deployment policy.
 - [ ] Verify GHCR package permissions while preserving the existing image endpoint;
   the current CLI token lacks `read:packages` access to inspect the package.
-- [ ] Validate the manual-dispatch workflow, tag/version checks, and independent
-  package selection before setting `MONOREPO_PUBLISHING_ENABLED=true`.
+- [x] Validate the manual-dispatch workflow, tag/version checks, and independent
+  Python package selection; close the global gate after each approved batch.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; leave Strands
   as a draft until its human-authored overview and review are complete.
 - [ ] n8n catalog and publisher follow-up are deferred at the user's request.
 - [ ] Obtain upstream acceptance and verify deployed pages as tracked in
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
-- [ ] Publish only after cutover approval; verify artifacts, metadata, provenance,
-  installation compatibility, and deployed upstream pages.
+- [x] Publish the four Python packages after explicit approval and verify all
+  artifacts, metadata, attestations, and isolated installations.
+- [ ] Finish upstream acceptance/deployment checks and non-Python cutovers.
 - [ ] Retain original repositories and raw installation files with relocation
   notices during transition. Seek separate approval before archiving anything.
 

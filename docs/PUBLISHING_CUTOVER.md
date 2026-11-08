@@ -1,13 +1,15 @@
 # Publishing Cutover
 
-Initial audit: 2026-11-05. Strands 0.1.1 was subsequently published and verified
-on 2026-11-08; see [RELEASES.md](RELEASES.md). No other packages or container
-images have been published here, and no original workflow has been disabled.
+Initial audit: 2026-11-05. All four Python metadata releases were published and
+verified on 2026-11-08; see [RELEASES.md](RELEASES.md). No container image or npm
+package has been published here. Only Agno's old `publish.yml` was disabled,
+with explicit authorization; its test workflow remains active.
 
 ## Verified State
 
 - `MONOREPO_PUBLISHING_ENABLED` is explicitly `false`.
-- All six publishable integrations still match their imported source `main` SHAs.
+- Imported source revisions and ancestry are recorded in `MIGRATION.md`; the
+  monorepo packages include subsequent metadata, documentation, and version edits.
 - Six GitHub environments exist, each requiring reviewer `gilarel` and allowing
   deployments only from branch `main`: `release-n8n`, `release-agentgateway`,
   `release-strands`, `release-agno`, `release-crewai`, `release-pydantic-ai`.
@@ -17,14 +19,15 @@ images have been published here, and no original workflow has been disabled.
   or reviewer configuration as immutable security boundaries.
 - No repository Actions secrets were copied. npm/PyPI publication uses OIDC;
   Agentgateway uses GitHub's automatically supplied `GITHUB_TOKEN`.
-- Strands release run `42225772581` succeeded after human environment approval.
-  That verifies its publishing path, not the other packages' bindings. Successful
-  CI by itself is not proof of registry publishing authorization.
+- All four PyPI runs succeeded after environment approval. The last three reviews
+  were submitted through the CLI at the owner's explicit request, not browser
+  clicks. Their artifacts and installed-wheel tests verified. Successful CI by
+  itself is not proof of registry publishing authorization.
 
 ## Registry Bindings To Configure
 
-These are required settings. Strands' exact binding has been demonstrated by
-its successful attested publication; other bindings still need verification.
+These are required settings. All four PyPI paths have been demonstrated by
+successful attested publications; npm and GHCR permissions remain unverified.
 Use existing npm/PyPI projects, not differently named replacement packages.
 
 | Field | Value |
@@ -42,9 +45,9 @@ Select the exact package-specific environment:
 | --- | --- | --- | --- |
 | npm | `n8n-nodes-deepkeep` | `release-n8n` | `0.2.9` |
 | PyPI | `strands-deepkeep` | `release-strands` | `0.1.1`, verified publication |
-| PyPI | `agno-deepkeep` | `release-agno` | `0.1.1` |
-| PyPI | `crewai-tools-deepkeep` | `release-crewai` | `0.1.2` |
-| PyPI | `pydantic-ai-deepkeep` | `release-pydantic-ai` | `0.1.0` |
+| PyPI | `agno-deepkeep` | `release-agno` | `0.1.2`, verified publication |
+| PyPI | `crewai-tools-deepkeep` | `release-crewai` | `0.1.3`, verified publication |
+| PyPI | `pydantic-ai-deepkeep` | `release-pydantic-ai` | `0.1.1`, verified publication |
 
 For npm, use the existing package's **Settings > Trusted Publishers** and permit
 the workflow's direct `npm publish` operation, not only staged publishing. The
@@ -84,23 +87,23 @@ approval; no authentication scopes were changed during this audit.
 | --- | --- | --- |
 | n8n | Active `release.yml`, triggered by `v*.*.*` tag pushes, npm OIDC/provenance | Coordinate and stop the old release publisher before the new publisher is enabled |
 | Agentgateway | Active `ci.yml`, pushes images on source `main` updates | Stop old image pushes while retaining tests if desired; otherwise the old repository can overwrite `latest` |
-| Agno | Active `publish.yml`, triggered by GitHub Release publication, using `PYPI_API_TOKEN` | Coordinate stopping that publisher and moving to OIDC; do not copy its token |
-| Strands | No repository-defined publisher found | Identify the existing package owner and any manual/external upload process |
-| CrewAI | No repository-defined publisher found | Identify the existing package owner and any manual/external upload process |
-| Pydantic AI | No repository-defined publisher found | Identify the existing package owner and any manual/external upload process |
+| Agno | Old `publish.yml` used `PYPI_API_TOKEN`; now `disabled_manually` | Disabled before the approved monorepo 0.1.2 publication; tests remain active. Token removal/revocation is separate owner cleanup |
+| Strands | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |
+| CrewAI | No repository-defined old publisher found | Monorepo 0.1.3 verified; keep old manual upload paths idle |
+| Pydantic AI | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |
 
 Absence of a checked-in workflow does not prove there is no publisher. Original
-repositories remain authoritative for releases until an explicit cutover. Do not
+repositories were authoritative before the approved cutovers. The four Python
+projects now have verified monorepo publication paths. Do not
 disable unrelated workflows or archive repositories as a side effect.
 
 ## Prepare Fresh Versions
 
 The imported npm/PyPI package versions matched already published versions.
-[Python patch candidates](PYTHON_RELEASE_CANDIDATES.md) now prepare fresh versions
-for the four Python packages; these are not publications. Do not use republishing
-as a permission test. Prepare a reviewed version
-bump in the selected integration, including the n8n lockfile where appropriate,
-and rerun its tests/build/artifact checks before creating a new monorepo tag.
+The [four Python metadata patches](PYTHON_RELEASE_CANDIDATES.md) have now been
+published and cannot be reused. For any future release, prepare another reviewed,
+unused version bump and rerun tests/build/artifact checks before creating its tag.
+Do not use republishing as a permission test. n8n remains paused separately.
 
 The release validator checks tag/package agreement and monorepo layout, not
 whether that version is still unused in a registry. Recheck registry availability

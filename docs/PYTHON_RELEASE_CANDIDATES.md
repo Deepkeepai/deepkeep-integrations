@@ -1,16 +1,16 @@
 # Python Metadata Release Candidates
 
 These patch versions were approved and merged to `main` in
-[PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1). Strands 0.1.1
-has since been tagged, published, and [verified](RELEASES.md); the other three
-remain unpublished candidates. No GitHub Releases have been created. n8n is excluded.
+[PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1).
+All four have since been tagged, published, and [verified](RELEASES.md).
+No GitHub Releases have been created. n8n is excluded.
 
-| Integration | Distribution | Published version | Proposed version |
+| Integration | Distribution | Published version | Status |
 | --- | --- | --- | --- |
 | Strands | `strands-deepkeep` | `0.1.1` | Published and verified |
-| Agno | `agno-deepkeep` | `0.1.1` | `0.1.2` |
-| CrewAI | `crewai-tools-deepkeep` | `0.1.2` | `0.1.3` |
-| Pydantic AI | `pydantic-ai-deepkeep` | `0.1.0` | `0.1.1` |
+| Agno | `agno-deepkeep` | `0.1.2` | Published and verified |
+| CrewAI | `crewai-tools-deepkeep` | `0.1.3` | Published and verified |
+| Pydantic AI | `pydantic-ai-deepkeep` | `0.1.1` | Published and verified |
 
 The proposed versions were unused in public PyPI metadata when checked on
 2026-11-05. Recheck immediately before publication; this does not reserve them.
@@ -23,7 +23,7 @@ package produced a wheel and source distribution; all eight artifacts passed
 `twine check`. Wheel metadata confirms the proposed versions and new repository
 and documentation URLs. Tag-string validation passed without creating any tags.
 During candidate validation, no model API calls, registry uploads, or publisher
-cutover were performed. The later Strands publication is recorded separately.
+cutover were performed. The four later publications are recorded separately.
 
 ## Changes Since The Standalone Distributions
 

@@ -27,7 +27,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for validation commands.
 
 This repository consolidates the eight standalone integrations without changing
 their package names, Python imports, or existing container endpoint. Original
-repositories and publishers remain unchanged during validation. See
+repositories remain available for compatibility. The four Python metadata
+releases are now [published and verified](docs/RELEASES.md); only Agno's old
+publisher was disabled, while its tests remain active. See
 [MIGRATION.md](MIGRATION.md) for imported commits and publishing cutover status,
 and [the reference tracker](docs/REFERENCE_AUDIT.md) for upstream documentation.
 

@@ -7,8 +7,9 @@ statuses below are audit-time observations, not newly revalidated claims.
 
 All eight integrations have since been imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
-Original repositories and their workflows remain unchanged. Strands 0.1.1 is now
-published and verified from the monorepo; no source archive has occurred. GitHub release assets,
+Original repositories remain available; only Agno's old publishing workflow was
+disabled with approval, while its tests remain active. All four Python metadata
+releases are published and verified; no source archive has occurred. GitHub release assets,
 issues, and PRs were not ported. Authorized migration submissions are now tracked
 below; original-repository archival remains a separate, unperformed operation.
 
@@ -142,11 +143,10 @@ passed. The upstream template requires the human author's own Human Overview,
 which is intentionally unfilled. Human review, ready-for-review status, merge,
 and live catalog verification remain pending.
 
-Follow-up: the catalog bot flagged the published PyPI metadata still pointing to
-the old repository. The draft description now provides migration/source-commit
-evidence and explicitly acknowledges that registry metadata has not changed.
-This advisory does not block merging by itself; package ownership remains for
-reviewer verification. A new package release is needed to change published URLs.
+Before publication, the catalog bot flagged PyPI metadata pointing to the old
+repository. At that stage, the draft provided migration/source-commit evidence
+and acknowledged that registry metadata had not changed. The advisory did not
+block merging by itself; a new package release was needed to change those URLs.
 
 Release follow-up: Strands 0.1.1 was published from the new repository and its
 Repository/Documentation metadata now matches the proposed catalog entry. Both

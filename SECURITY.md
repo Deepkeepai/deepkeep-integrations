@@ -49,9 +49,11 @@ replacement until end-to-end enforcement is validated. See the Kong README.
 
 ## Publishing Boundary
 
-Strands 0.1.1 was published after explicit release and environment approval;
-its artifacts, PyPI attestations, and isolated installation were verified. Other
-integrations remain unpublished here, and original workflows are unchanged.
+All four Python metadata releases were published after explicit release and
+environment approval; their artifacts, PyPI attestations, and isolated wheel
+installations were verified. The last three deployment reviews were submitted
+through the CLI at the owner's explicit request. Only Agno's old publisher was
+disabled; tests remain active. No npm or container publication occurred here.
 Imported nested workflows are inactive
 in the current tree. Root CI does not publish artifacts.
 
