@@ -4,9 +4,10 @@
 
 All eight agreed integration `main` branches were imported using **non-squashed
 git subtree imports**. Original commit IDs are preserved as ancestors. Source
-repositories and public publishers remain unchanged. There has been **no publisher
-cutover and no monorepo release**. GitHub release assets, issues, and pull requests
-were not ported; Git tags are not a substitute for those GitHub records.
+repositories remain available and their workflows were not changed.
+**Strands 0.1.1 has now been published and verified from this monorepo.** Other
+prepared packages remain unpublished. GitHub release assets, issues, and pull
+requests were not ported; Git tags are not a substitute for those GitHub records.
 
 The public destination is live at
 https://github.com/Deepkeepai/deepkeep-integrations. `main` and all 20 namespaced
@@ -19,8 +20,8 @@ Upstream link-update PRs were submitted after the source import:
 [Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) is open,
 and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is a
 draft awaiting the human author's overview and review. Neither has merged or been
-verified live. Original-repository archival and registry publisher cutover remain
-separate, unperformed operations.
+verified live. Original-repository archival remains unperformed. The first
+approved publisher cutover, Strands, is recorded in [RELEASES.md](docs/RELEASES.md).
 
 n8n follow-up work is paused at the user's request. Its source, publisher, package
 version, and catalog are not being changed while the other integrations proceed.
@@ -33,7 +34,11 @@ all 38 candidate integration tests and six release-validator tests passed;
 all eight artifacts passed `twine check` and wheel metadata checks. The PR does
 not create tags, publish packages, change registry bindings, or touch n8n.
 Registry configuration, publisher cutover, tagging, and actual publication still
-require separate approval. Merging the preparation did not authorize a release.
+require separate approval per integration. After preparation, Strands alone was
+explicitly approved, tagged, and published through run `42225772581`, with human
+environment approval. Its fresh PyPI installation passed all 10 tests; both
+artifact hashes and cryptographic PyPI publish attestations verified. Agno,
+CrewAI, and Pydantic AI are still pending release approval.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
@@ -128,7 +133,8 @@ The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
 Six `release-<integration>` environments have now been configured and verified
 with reviewer `gilarel` and a custom deployment policy allowing only branch
 `main`. Self-review is allowed; this requires explicit approval but not a second
-person. Registry-side trust and existing GHCR package access are still unverified.
+person. Strands' PyPI trust is now demonstrated by its successful, attested
+publication. The other packages' bindings and existing GHCR access remain unverified.
 See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
 the already-published versions that need bumps, and remaining access requirements.
 

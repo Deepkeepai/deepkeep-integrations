@@ -1,12 +1,13 @@
 # Python Metadata Release Candidates
 
 These patch versions were approved and merged to `main` in
-[PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1), but are not
-published. No release tags or GitHub Releases have been created. n8n is excluded.
+[PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1). Strands 0.1.1
+has since been tagged, published, and [verified](RELEASES.md); the other three
+remain unpublished candidates. No GitHub Releases have been created. n8n is excluded.
 
 | Integration | Distribution | Published version | Proposed version |
 | --- | --- | --- | --- |
-| Strands | `strands-deepkeep` | `0.1.0` | `0.1.1` |
+| Strands | `strands-deepkeep` | `0.1.1` | Published and verified |
 | Agno | `agno-deepkeep` | `0.1.1` | `0.1.2` |
 | CrewAI | `crewai-tools-deepkeep` | `0.1.2` | `0.1.3` |
 | Pydantic AI | `pydantic-ai-deepkeep` | `0.1.0` | `0.1.1` |
@@ -21,7 +22,8 @@ All 38 integration tests and six root release-validator tests passed. Each
 package produced a wheel and source distribution; all eight artifacts passed
 `twine check`. Wheel metadata confirms the proposed versions and new repository
 and documentation URLs. Tag-string validation passed without creating any tags.
-No model API calls, registry uploads, or publisher cutover were performed.
+During candidate validation, no model API calls, registry uploads, or publisher
+cutover were performed. The later Strands publication is recorded separately.
 
 ## Changes Since The Standalone Distributions
 
@@ -49,6 +51,6 @@ and explicit release approval, create a new immutable monorepo tag matching the
 selected package version. Do not reuse imported historical tags or create releases
 against their original source commits.
 
-Publishing new Strands metadata will allow its catalog reviewers to recheck the
-old-repository mismatch. Until then, the source-history evidence is in the draft
-upstream PR; it is not proof of registry-side trust or a completed catalog update.
+The published Strands metadata now permits its catalog reviewers to recheck the
+old-repository mismatch. The draft links to that release and its verification
+evidence; this is not proof of a completed upstream catalog update.

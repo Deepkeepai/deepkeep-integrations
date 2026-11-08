@@ -59,8 +59,10 @@ Suggested title: `docs: update DeepKeep catalog repository and guide links`
 Strands requires a Human Overview written by the human author, not an AI agent.
 The draft leaves that section unfilled and discloses AI assistance. Human-review
 attestations are unchecked; do not mark it ready until the author completes them.
-Its description also documents the catalog bot's registry-metadata mismatch,
-with source-commit evidence and no claim that a new package release has occurred.
+Its description documents the original metadata mismatch and now links to the
+verified Strands 0.1.1 release, whose published URLs and attestations identify the
+monorepo. The old bot comment may remain until upstream rechecks; human overview
+and review requirements are unchanged.
 
 Replace the existing two fields without adding a second catalog record:
 

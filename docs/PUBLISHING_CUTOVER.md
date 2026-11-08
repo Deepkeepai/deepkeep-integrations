@@ -1,7 +1,8 @@
 # Publishing Cutover
 
-Status verified on 2026-11-05. No packages or container images have been published
-from this repository, and no original publisher has been disabled.
+Initial audit: 2026-11-05. Strands 0.1.1 was subsequently published and verified
+on 2026-11-08; see [RELEASES.md](RELEASES.md). No other packages or container
+images have been published here, and no original workflow has been disabled.
 
 ## Verified State
 
@@ -16,13 +17,15 @@ from this repository, and no original publisher has been disabled.
   or reviewer configuration as immutable security boundaries.
 - No repository Actions secrets were copied. npm/PyPI publication uses OIDC;
   Agentgateway uses GitHub's automatically supplied `GITHUB_TOKEN`.
-- There are no monorepo release workflow runs. Successful CI is not proof of
-  registry publishing authorization.
+- Strands release run `42225772581` succeeded after human environment approval.
+  That verifies its publishing path, not the other packages' bindings. Successful
+  CI by itself is not proof of registry publishing authorization.
 
 ## Registry Bindings To Configure
 
-These are required settings, not verified registry-side configuration. Use the
-existing npm/PyPI projects; do not create differently named replacement packages.
+These are required settings. Strands' exact binding has been demonstrated by
+its successful attested publication; other bindings still need verification.
+Use existing npm/PyPI projects, not differently named replacement packages.
 
 | Field | Value |
 | --- | --- |
@@ -35,10 +38,10 @@ existing npm/PyPI projects; do not create differently named replacement packages
 The registry form takes the filename, not the display name `Release Integration`.
 Select the exact package-specific environment:
 
-| Registry | Existing package | Environment | Published version at audit |
+| Registry | Existing package | Environment | Recorded published version |
 | --- | --- | --- | --- |
 | npm | `n8n-nodes-deepkeep` | `release-n8n` | `0.2.9` |
-| PyPI | `strands-deepkeep` | `release-strands` | `0.1.0` |
+| PyPI | `strands-deepkeep` | `release-strands` | `0.1.1`, verified publication |
 | PyPI | `agno-deepkeep` | `release-agno` | `0.1.1` |
 | PyPI | `crewai-tools-deepkeep` | `release-crewai` | `0.1.2` |
 | PyPI | `pydantic-ai-deepkeep` | `release-pydantic-ai` | `0.1.0` |
@@ -130,12 +133,12 @@ Agno tags contain original publishers outside the new workflow's gate. See
 
 ## Strands Catalog Provenance Warning
 
-[Strands PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852) correctly
-reports a mismatch between PyPI's old repository metadata and the proposed new
-catalog link. The draft now provides the imported commit and migration record,
-and explicitly says no replacement package release has occurred. A reviewer can
-verify ownership or wait for a new package release; the advisory is not proof of
-an accepted catalog change. The human author's overview and review remain pending.
+[Strands PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852)
+originally reported a mismatch between PyPI's old repository metadata and the
+proposed catalog link. The verified 0.1.1 release now advertises the monorepo and
+has cryptographically verified publish attestations. The draft description links
+to that evidence. The old advisory comment may remain until upstream rechecks it;
+the human author's overview, review, and catalog acceptance remain pending.
 
 Published metadata cannot be changed by editing a repository README or PR body.
 It must be corrected through a new package release after the publisher cutover.

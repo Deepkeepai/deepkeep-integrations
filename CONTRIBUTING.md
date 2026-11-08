@@ -77,8 +77,9 @@ an owner; it does not itself enforce reviews or branch protection.
 
 ## Releases And External Changes
 
-There has been no monorepo publisher cutover or release. Source repositories and
-their public publishers remain unchanged. Do not publish from this repository,
+Strands 0.1.1 is the first [verified monorepo release](docs/RELEASES.md). Other
+prepared integrations have not been published here; original workflows remain
+unchanged. Do not publish from this repository,
 disable old publishers, submit upstream migration PRs, or archive source repos as
 part of a routine contribution. See the cutover gates in [MIGRATION.md](MIGRATION.md)
 and the pending actions in [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).

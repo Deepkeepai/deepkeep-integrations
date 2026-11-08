@@ -49,8 +49,10 @@ replacement until end-to-end enforcement is validated. See the Kong README.
 
 ## Publishing Boundary
 
-No publisher cutover or monorepo releases have occurred. Original repositories
-and public publishers remain unchanged. Imported nested workflows are inactive
+Strands 0.1.1 was published after explicit release and environment approval;
+its artifacts, PyPI attestations, and isolated installation were verified. Other
+integrations remain unpublished here, and original workflows are unchanged.
+Imported nested workflows are inactive
 in the current tree. Root CI does not publish artifacts.
 
 The root monorepo release workflow is manual-dispatch only, gated by

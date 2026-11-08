@@ -7,8 +7,8 @@ statuses below are audit-time observations, not newly revalidated claims.
 
 All eight integrations have since been imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
-Original source repositories and public publishers remain unchanged. No publisher
-cutover, monorepo release, or source archive has occurred. GitHub release assets,
+Original repositories and their workflows remain unchanged. Strands 0.1.1 is now
+published and verified from the monorepo; no source archive has occurred. GitHub release assets,
 issues, and PRs were not ported. Authorized migration submissions are now tracked
 below; original-repository archival remains a separate, unperformed operation.
 
@@ -147,6 +147,13 @@ the old repository. The draft description now provides migration/source-commit
 evidence and explicitly acknowledges that registry metadata has not changed.
 This advisory does not block merging by itself; package ownership remains for
 reviewer verification. A new package release is needed to change published URLs.
+
+Release follow-up: Strands 0.1.1 was published from the new repository and its
+Repository/Documentation metadata now matches the proposed catalog entry. Both
+publish attestations verified cryptographically, and a fresh PyPI installation
+passed all 10 tests. See [RELEASES.md](RELEASES.md) and the updated draft PR
+description. The original bot comment is historical; no claim is made that an
+upstream reviewer has rechecked it or accepted the catalog change.
 
 ## Agno
 
