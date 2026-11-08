@@ -52,5 +52,5 @@ selected package version. Do not reuse imported historical tags or create releas
 against their original source commits.
 
 The published Strands metadata now permits its catalog reviewers to recheck the
-old-repository mismatch. The draft links to that release and its verification
+old-repository mismatch. The PR links to that release and its verification
 evidence; this is not proof of a completed upstream catalog update.

@@ -76,6 +76,20 @@ In the existing container package's GitHub settings, verify the new repository
 has Actions write access. Repository admin access alone does not prove access to
 an existing package. Changing source repositories does not transfer package access.
 
+Settings: https://github.com/orgs/Deepkeepai/packages/container/agentgateway-deepkeep-webhook/settings
+Under **Manage Actions access**, add `Deepkeepai/deepkeep-integrations` with
+**Write** permission. Do not change visibility, inheritance, or the linked source
+repository as a side effect. This ACL has no documented public REST write endpoint;
+the package administrator must use the authenticated settings page.
+
+The container workflow now performs read-only registry preflight: it requires
+the selected version to be absent and captures the existing `latest` digest.
+After pushing, it requires both tags to match the build digest. These checks use
+the job token without printing credentials and fail closed on unexpected registry
+responses. They do not grant the repository access or prove write permission
+before a successful push. If postflight fails, inspect the registry before any
+retry; do not overwrite a version that may already have been published.
+
 The current CLI token lacks `read:packages`; the package API returned HTTP 403.
 Package association, inherited permissions, visibility, and current image digests
 therefore remain unverified. Granting a token scope requires the account owner's
@@ -139,9 +153,10 @@ Agno tags contain original publishers outside the new workflow's gate. See
 [Strands PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852)
 originally reported a mismatch between PyPI's old repository metadata and the
 proposed catalog link. The verified 0.1.1 release now advertises the monorepo and
-has cryptographically verified publish attestations. The draft description links
+has cryptographically verified publish attestations. The PR description links
 to that evidence. The old advisory comment may remain until upstream rechecks it;
-the human author's overview, review, and catalog acceptance remain pending.
+the human author has now supplied the overview and confirmed review. The PR is
+ready for maintainer review; acceptance remains pending.
 
 Published metadata cannot be changed by editing a repository README or PR body.
 It must be corrected through a new package release after the publisher cutover.

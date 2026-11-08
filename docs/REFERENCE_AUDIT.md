@@ -26,7 +26,7 @@ replacement destinations, not claims that upstream sites have updated their link
 | n8n | Verified live catalog; GitHub link points to the organization | Deferred at the user's request; leave this integration and its catalog unchanged |
 | Agentgateway | Four live versioned guides link to old repo and existing image | [website #1475](https://github.com/agentgateway/website/pull/1475) open; four URL replacements, image unchanged |
 | Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Publisher must edit its repository link; embedded filter matches migrated source |
-| Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) draft; Human Overview and human review required |
+| Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) ready; user-authored overview and link review completed |
 | Agno | Live official cookbook/example; separate overview proposal pending | Preserve cookbook links; optional external integration link through docs workflow |
 | CrewAI | Docs submissions closed unmerged; vendor-hosted docs requested | Maintain vendor guide; no accepted upstream page to replace |
 | Kong | Generic custom-guardrail docs, not a DeepKeep listing | Optional new, version-appropriate proposal; not a link migration |
@@ -139,9 +139,10 @@ metadata/description; update through a future release. Vendor notes still saying
 Migration PR [#5852](https://github.com/strands-agents/harness-sdk/pull/5852) was
 submitted by `gilarel` on 2026-11-05 as a draft at the author's request. It changes
 only `github` and `docsUrl`; YAML parsing and a comparison of all other fields
-passed. The upstream template requires the human author's own Human Overview,
-which is intentionally unfilled. Human review, ready-for-review status, merge,
-and live catalog verification remain pending.
+passed. The upstream template requires the human author's own Human Overview.
+The user subsequently supplied "The reason is housekeeping.", confirmed review
+of the two link changes, and authorized marking the PR ready, which is now done.
+Maintainer acceptance and live catalog verification remain pending.
 
 Before publication, the catalog bot flagged PyPI metadata pointing to the old
 repository. At that stage, the draft provided migration/source-commit evidence
@@ -151,7 +152,7 @@ block merging by itself; a new package release was needed to change those URLs.
 Release follow-up: Strands 0.1.1 was published from the new repository and its
 Repository/Documentation metadata now matches the proposed catalog entry. Both
 publish attestations verified cryptographically, and a fresh PyPI installation
-passed all 10 tests. See [RELEASES.md](RELEASES.md) and the updated draft PR
+passed all 10 tests. See [RELEASES.md](RELEASES.md) and the updated PR
 description. The original bot comment is historical; no claim is made that an
 upstream reviewer has rechecked it or accepted the catalog change.
 
@@ -220,9 +221,12 @@ Any upstream change is a new submission. Distinguish legacy plugins from AI Gate
 the published 3.14, 3.15, and 3.16 JSON schemas define singular `block_detail`,
 despite the overview prose saying `block_details`. Keep the example key unchanged.
 Twelve focused static checks passed across four configurations and three schemas;
-that is not full Kong runtime validation. The examples do not supply replacement
-text, so redaction/modification enforcement remains unverified and must not be
-claimed as working. Proposed guide:
+that was not full Kong runtime validation. The examples were then hardened to
+block redaction/modification, unknown actions, and malformed responses rather
+than pass original content while claiming masking. All 382 executable LuaJIT 2.1
+tests passed. This is a blocking adapter with masking disabled, not a content
+replacement implementation. Licensed gateway HTTP/template tests remain pending.
+Proposed guide:
 https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/kong
 
 The original audit required review before exposing this private source. Subsequent
@@ -253,8 +257,8 @@ without changing package or import names.
 ## Cutover Tracking
 
 The destination directories and raw filter URL are verified. Agentgateway and
-Strands submissions are open, with Strands intentionally a draft. n8n remains
-blocked on the existing Creator Portal account. Prepared request text and exact
+Strands submissions are open and ready for review. n8n is deferred at the user's
+request. Prepared request text and exact
 changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
 old repositories/install files through compatibility validation; archive only

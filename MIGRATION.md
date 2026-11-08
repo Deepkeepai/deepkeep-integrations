@@ -19,8 +19,10 @@ passed every job, including the Agentgateway container build without publishing.
 
 Upstream link-update PRs were submitted after the source import:
 [Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) is open,
-and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is a
-draft awaiting the human author's overview and review. Neither has merged or been
+and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is now
+ready for maintainer review. The user supplied the exact human overview,
+"The reason is housekeeping.", reviewed the two links, and authorized marking
+it ready. Neither upstream PR has merged or been
 verified live. Original-repository archival remains unperformed. The
 approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
@@ -43,6 +45,14 @@ three releases were then separately authorized and published after CLI deploymen
 approvals explicitly requested by the owner. Their six artifacts verified and
 fresh PyPI installations passed 28 tests, for 38 installed-wheel tests across all
 four packages. Publishing was restored to disabled after validation.
+
+Pending-work safety follow-up: Kong's four embedded functions now fail closed for
+unsupported redaction/modification, unknown actions, and malformed responses.
+Masking is disabled. All 382 policy/configuration tests passed in LuaJIT 2.1;
+root CI now executes those tests. Licensed gateway HTTP/template enforcement is
+still untested. Agentgateway now has read-only registry pre/postflight checks
+and 19 mocked tests (25 root unit tests total). These checks have not run against
+the existing image from a publishing job; package-admin Write access is still required.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
@@ -163,8 +173,8 @@ the completed Python releases and remaining access requirements.
   the current CLI token lacks `read:packages` access to inspect the package.
 - [x] Validate the manual-dispatch workflow, tag/version checks, and independent
   Python package selection; close the global gate after each approved batch.
-- [x] Submit authorized Agentgateway and Strands link-update PRs; leave Strands
-  as a draft until its human-authored overview and review are complete.
+- [x] Submit authorized Agentgateway and Strands link-update PRs; after the user
+  provided their own overview and confirmed review, mark Strands ready.
 - [ ] n8n catalog and publisher follow-up are deferred at the user's request.
 - [ ] Obtain upstream acceptance and verify deployed pages as tracked in
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).

@@ -48,8 +48,9 @@ The sdist was verified but not independently rebuilt and tested.
 
 Published Repository and Documentation URLs now point to `integrations/strands`
 in this monorepo. This addresses the old-repository mismatch reported on the
-Strands catalog draft; upstream review, human overview, merge, and live catalog
-verification remain separate pending actions.
+Strands catalog PR. The human author has now supplied the overview, confirmed
+review, and authorized marking it ready. Maintainer acceptance, merge, and live
+catalog verification remain separate pending actions.
 
 ## Remaining Python Metadata Releases
 

@@ -9,7 +9,7 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | Update | Submission | Status / next action |
 | --- | --- | --- |
 | Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Open for review; user-authorized sign-off added and DCO check passed |
-| Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Draft; human author must supply Human Overview and review before marking ready |
+| Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Ready for maintainer review; user-authored overview and link review completed |
 | n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
 
 The remaining specifications and request text are retained for review and follow-up.
@@ -58,12 +58,13 @@ File: `site/src/content/catalog/strands-deepkeep.yaml`.
 Suggested title: `docs: update DeepKeep catalog repository and guide links`
 
 Strands requires a Human Overview written by the human author, not an AI agent.
-The draft leaves that section unfilled and discloses AI assistance. Human-review
-attestations are unchecked; do not mark it ready until the author completes them.
+The user supplied "The reason is housekeeping.", confirmed review of the two
+URL changes, and explicitly authorized marking the PR ready. Those two human
+checklist items are now checked; the unrun `hatch run prepare` item is not.
 Its description documents the original metadata mismatch and now links to the
 verified Strands 0.1.1 release, whose published URLs and attestations identify the
-monorepo. The old bot comment may remain until upstream rechecks; human overview
-and review requirements are unchanged.
+monorepo. The old bot comment may remain until upstream rechecks; maintainer
+acceptance and deployment verification are still pending.
 
 Replace the existing two fields without adding a second catalog record:
 
@@ -120,7 +121,8 @@ before releasing from the monorepo. Do not create a duplicate verified-node reco
   was found in the live example, so there is no mandatory replacement PR.
 - CrewAI: maintain vendor-hosted instructions as requested by maintainers; no
   accepted DeepKeep page exists to update.
-- Kong: published schemas confirm `block_detail` for 3.14-3.16. A new proposal
-  still needs licensed runtime testing, especially redaction/modification.
+- Kong: published schemas confirm `block_detail` for 3.14-3.16. The current
+  examples fail closed rather than claim unsupported masking. A new proposal
+  still needs licensed gateway HTTP/template enforcement tests.
 - Pydantic AI: a renewed listing proposal requires maintainer consultation and
   community-adoption work, not a mechanical URL replacement.

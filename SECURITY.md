@@ -42,10 +42,11 @@ Six Python pytest suites passed all 63 tests on Python 3.12 and four Python
 packages built during migration validation. These checks do not establish a
 security guarantee, complete runtime coverage, or a supported-version matrix.
 
-The Kong examples emit a `masked` metric for redaction/modification but supply
-no replacement text. Those outcomes have not been demonstrated on a licensed
-Kong runtime. Do not rely on these configurations for policies requiring content
-replacement until end-to-end enforcement is validated. See the Kong README.
+The Kong examples are now conservative blocking adapters: redaction/modification,
+unknown actions, and malformed decisions fail closed; masking is disabled. The
+embedded functions have executable LuaJIT coverage, but deployed Kong HTTP,
+template handling, and licensed gateway enforcement are not yet validated.
+These configurations do not provide content replacement. See the Kong README.
 
 ## Publishing Boundary
 
