@@ -135,7 +135,7 @@ jobs:
         env:
           PREVIOUS_DIGEST: ${{ steps.preflight.outputs.previous_digest }}
         run: |
-          printf 'Previous Agentgateway latest: `%s`\n' "$PREVIOUS_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Previous Agentgateway latest: %s\n' "$PREVIOUS_DIGEST" >> "$GITHUB_STEP_SUMMARY"
       - uses: docker/build-push-action@v6
         id: build
         with:
@@ -158,4 +158,4 @@ jobs:
           VERSION: ${{ needs.validate.outputs.version }}
           PUBLISHED_DIGEST: ${{ steps.postflight.outputs.published_digest }}
         run: |
-          printf 'Published Agentgateway %s: `%s`\n' "$VERSION" "$PUBLISHED_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          printf 'Published Agentgateway %s: %s\n' "$VERSION" "$PUBLISHED_DIGEST" >> "$GITHUB_STEP_SUMMARY"
