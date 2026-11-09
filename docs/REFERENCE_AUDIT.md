@@ -24,7 +24,7 @@ replacement destinations, not claims that upstream sites have updated their link
 | Integration | Verified official exposure | Pending action |
 | --- | --- | --- |
 | n8n | Verified live catalog; GitHub link points to the organization | Deferred at the user's request; leave this integration and its catalog unchanged |
-| Agentgateway | Four live versioned guides link to old repo and existing image | [website #1475](https://github.com/agentgateway/website/pull/1475) open; four URL replacements, image unchanged |
+| Agentgateway | Four live versioned guides now link to the monorepo | [website #1475](https://github.com/agentgateway/website/pull/1475) merged and live; image name retained |
 | Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Complete: monorepo repository link saved; code/version unchanged and historical release URL retained |
 | Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) ready; user-authored overview and link review completed |
 | Agno | Live official cookbook/example; separate overview proposal pending | Preserve cookbook links; optional external integration link through docs workflow |
@@ -93,8 +93,9 @@ by `gilarel` on 2026-11-05 after checking the current source and replacement URL
 It changes only the four direct links; the image and examples are untouched.
 The author explicitly approved DCO certification, the PR commit was signed off,
 and the DCO check passed.
-Merge and live deployment verification remain pending. After merge, verify all
-four deployed versions and check for additional versions introduced before cutover.
+The PR merged at 2026-11-09 15:32:05 UTC. All four deployed versions (`latest`,
+`main`, `1.6.x`, and `1.5.x`) were verified with the new directory link, the old
+standalone repository link absent, and the existing image name retained.
 
 Image cutover follow-up: the package owner granted the monorepo Actions access.
 Image 0.1.0 and `latest` now match the verified build digest. A separate read-only
@@ -265,8 +266,9 @@ without changing package or import names.
 
 ## Cutover Tracking
 
-The destination directories and raw filter URL are verified. Agentgateway and
-Strands submissions are open and ready for review. n8n is deferred at the user's
+The destination directories and raw filter URL are verified. Agentgateway merged
+and its four deployed guides are verified; Strands is open and ready for review.
+n8n is deferred at the user's
 request. Prepared request text and exact
 changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
@@ -276,7 +278,7 @@ separate adoption work, not mandatory migrations of accepted entries.
 
 | Integration | Submission / owner | Submitted | Merged | Live verified |
 | --- | --- | --- | --- | --- |
-| Agentgateway | [#1475](https://github.com/agentgateway/website/pull/1475), gilarel | 2026-11-05 | Pending | Pending |
+| Agentgateway | [#1475](https://github.com/agentgateway/website/pull/1475), gilarel | 2026-11-05 | 2026-11-09 | 2026-11-09, all four guides |
 | Strands | [#5852](https://github.com/strands-agents/harness-sdk/pull/5852), gilarel | 2026-11-05, draft | Pending | Pending |
 | n8n | Existing portal account owner needed | Not submitted | Not applicable | Pending |
 

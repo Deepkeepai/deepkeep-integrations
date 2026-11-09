@@ -21,12 +21,13 @@ successfully. The [initial GitHub CI run](https://github.com/Deepkeepai/deepkeep
 passed every job, including the Agentgateway container build without publishing.
 
 Upstream link-update PRs were submitted after the source import:
-[Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) is open,
-and [Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is now
+[Agentgateway #1475](https://github.com/agentgateway/website/pull/1475) merged on
+2026-11-09; all four versioned guides were verified live with the monorepo link.
+[Strands #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is now
 ready for maintainer review. The user supplied the exact human overview,
 "The reason is housekeeping.", reviewed the two links, and authorized marking
-it ready. Neither upstream PR has merged or been
-verified live. Original-repository archival remains unperformed. The
+it ready. Strands acceptance and live verification remain pending.
+Original-repository archival remains unperformed. The
 approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
 n8n follow-up work is paused at the user's request. Its source, publisher, package
@@ -63,6 +64,22 @@ networking disabled. Live moderation and Kong gateway validation remain separate
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
 repositories are part of this migration.
+
+## Legacy Repository Notices
+
+The requested notices were prepared in order: Pydantic AI first, then CrewAI.
+Both are README-only PRs and remain unmerged; the original default branches and
+repository settings were not changed. Package names, code, release references,
+and raw installation URLs remain intact.
+
+| Legacy repository | Notice | Status |
+| --- | --- | --- |
+| `pydantic-ai-deepkeep` | [PR #1](https://github.com/Deepkeepai/pydantic-ai-deepkeep/pull/1) | Open; banner points development and new issues/PRs to `integrations/pydantic-ai` |
+| `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Open; banner and current-source footer point to `integrations/crewai` |
+| `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
+
+Other legacy notices remain pending. No repository has been archived or deleted;
+n8n remains paused and LangChain stays separate.
 
 ## Imported Source Tips
 

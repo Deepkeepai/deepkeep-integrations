@@ -1,7 +1,8 @@
 # Upstream Link Updates
 
-Status on 2026-11-05: the two GitHub submissions below are open; neither is merged
-or verified live. Replacement directory URLs were rechecked anonymously with
+The GitHub submissions below were opened on 2026-11-05. Agentgateway subsequently
+merged, and all four published guide versions were verified with the new source
+link; Strands is still awaiting review. Replacement directory URLs returned
 HTTP 200 before submission. Source repositories remain available. The four Python
 metadata releases and Agentgateway image 0.1.0 are now verified. Agno's old
 publisher is disabled, and Agentgateway's legacy CI builds/tests without pushing.
@@ -9,12 +10,15 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 
 | Update | Submission | Status / next action |
 | --- | --- | --- |
-| Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Open for review; user-authorized sign-off added and DCO check passed |
+| Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Merged 2026-11-09; all four live guides verified with the new link and unchanged image name |
 | Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Ready for maintainer review; user-authored overview and link review completed |
 | Open WebUI | [Existing listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) | Repository URL updated by publisher and publicly verified; retain historical v0.1.1 release URL |
 | n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
 
 The remaining specifications and request text are retained for review and follow-up.
+Legacy source-repository notice PRs for Pydantic AI and CrewAI are tracked in
+[MIGRATION.md](../MIGRATION.md#legacy-repository-notices); they are distinct from
+official framework documentation submissions.
 
 ## Agentgateway Website
 
