@@ -36,6 +36,12 @@ uvicorn deepkeep_webhook:app --host 0.0.0.0 --port 8000
 
 ## Run With Docker
 
+Published image: `ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:0.1.0`.
+The `latest` tag matched the same [verified digest](../../docs/RELEASES.md) at
+release time; pin a version or digest for reproducible deployments. Pull access
+follows the existing GHCR package permissions; no visibility change was made as
+part of the cutover. You can also build locally as below.
+
 ```bash
 docker build -t agentgateway-deepkeep-webhook .
 docker run --rm -p 8000:8000 \

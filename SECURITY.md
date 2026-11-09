@@ -53,8 +53,11 @@ These configurations do not provide content replacement. See the Kong README.
 All four Python metadata releases were published after explicit release and
 environment approval; their artifacts, PyPI attestations, and isolated wheel
 installations were verified. The last three deployment reviews were submitted
-through the CLI at the owner's explicit request. Only Agno's old publisher was
-disabled; tests remain active. No npm or container publication occurred here.
+through the CLI at the owner's explicit request. Agentgateway image 0.1.0 was
+subsequently published with matching authenticated digests and passed a separate
+read-only, network-isolated container health check. Agno's old publisher is
+disabled; Agentgateway's old CI no longer logs in or pushes, but tests/builds
+remain active. No npm publication occurred here.
 Imported nested workflows are inactive
 in the current tree. Root CI does not publish artifacts.
 

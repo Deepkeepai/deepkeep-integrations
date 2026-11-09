@@ -4,11 +4,14 @@
 
 All eight agreed integration `main` branches were imported using **non-squashed
 git subtree imports**. Original commit IDs are preserved as ancestors. Source
-repositories remain available. Only Agno's old publishing workflow was explicitly
-disabled; its tests remain active. **All four Python metadata releases have now
+repositories remain available. Agno's old publishing workflow is disabled;
+Agentgateway's old CI now tests/builds without registry login or image pushes.
+**All four Python metadata releases have now
 been published and verified from this monorepo:** Strands 0.1.1, Agno 0.1.2,
 CrewAI 0.1.3, and Pydantic AI 0.1.1. GitHub release assets, issues, and pull
 requests were not ported; Git tags are not a substitute for those GitHub records.
+Agentgateway image 0.1.0 and `latest` have also been published and verified from
+the monorepo; [RELEASES.md](docs/RELEASES.md) records both image digests and evidence.
 
 The public destination is live at
 https://github.com/Deepkeepai/deepkeep-integrations. `main` and all 20 namespaced
@@ -51,8 +54,11 @@ unsupported redaction/modification, unknown actions, and malformed responses.
 Masking is disabled. All 382 policy/configuration tests passed in LuaJIT 2.1;
 root CI now executes those tests. Licensed gateway HTTP/template enforcement is
 still untested. Agentgateway now has read-only registry pre/postflight checks
-and 19 mocked tests (25 root unit tests total). These checks have not run against
-the existing image from a publishing job; package-admin Write access is still required.
+and 19 mocked tests (25 root unit tests total). The owner granted package Actions
+access, and approved run `42584070541` published image 0.1.0 after passing those
+registry checks and 13 application tests. Separate read-only run `42585703883`
+pulled the immutable digest and verified container startup and `/healthz` with
+networking disabled. Live moderation and Kong gateway validation remain separate.
 
 `gilarel/pydantic-ai` is an upstream fork and is excluded. The actual
 `Deepkeepai/pydantic-ai-deepkeep` package repository is included instead. No other
@@ -149,7 +155,8 @@ Six `release-<integration>` environments have now been configured and verified
 with reviewer `gilarel` and a custom deployment policy allowing only branch
 `main`. Self-review is allowed; this requires explicit approval but not a second
 person. All four PyPI publishing paths are now demonstrated by successful,
-attested publications. npm and existing GHCR access remain unverified and unchanged.
+attested publications. GHCR read/write publication and a separate read-only pull
+are now verified for Agentgateway. npm remains deferred with n8n.
 See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
 the completed Python releases and remaining access requirements.
 
@@ -164,13 +171,13 @@ the completed Python releases and remaining access requirements.
 - [x] Add root CI and validate workflow syntax and release-validator tests locally.
 - [x] Verify all initial GitHub CI jobs, including the container build, pass.
 - [x] Coordinate the four Python releases and disable Agno's old publisher before
-  cutover; its tests remain active. Other automatic publishing paths are unchanged.
+  cutover; its tests remain active. Agentgateway's image path was cut over separately.
 - [x] Verify all four PyPI OIDC publishing paths through successful releases.
 - [ ] npm publisher and catalog follow-up remain deferred with n8n.
 - [x] Configure and verify the six release environments with required reviewer
   `gilarel` and a `main`-only deployment policy.
-- [ ] Verify GHCR package permissions while preserving the existing image endpoint;
-  the current CLI token lacks `read:packages` access to inspect the package.
+- [x] Verify GHCR publication, matching version/latest digests, and a separate
+  read-only image pull/runtime health check while preserving the image name.
 - [x] Validate the manual-dispatch workflow, tag/version checks, and independent
   Python package selection; close the global gate after each approved batch.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; after the user
@@ -180,7 +187,8 @@ the completed Python releases and remaining access requirements.
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 - [x] Publish the four Python packages after explicit approval and verify all
   artifacts, metadata, attestations, and isolated installations.
-- [ ] Finish upstream acceptance/deployment checks and non-Python cutovers.
+- [x] Complete the Agentgateway image-publisher cutover without stopping legacy tests/builds.
+- [ ] Finish upstream acceptance/deployment checks and account-specific listing edits.
 - [ ] Retain original repositories and raw installation files with relocation
   notices during transition. Seek separate approval before archiving anything.
 

@@ -78,7 +78,8 @@ an owner; it does not itself enforce reviews or branch protection.
 ## Releases And External Changes
 
 The four Python metadata releases are [published and verified](docs/RELEASES.md).
-Only Agno's old publishing workflow was disabled; original tests remain active.
+Agentgateway image 0.1.0 is also verified. Agno's old publisher is disabled;
+Agentgateway's old CI builds/tests without pushing. Original tests remain active.
 Do not publish from this repository,
 disable old publishers, submit upstream migration PRs, or archive source repos as
 part of a routine contribution. See the cutover gates in [MIGRATION.md](MIGRATION.md)

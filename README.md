@@ -28,8 +28,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for validation commands.
 This repository consolidates the eight standalone integrations without changing
 their package names, Python imports, or existing container endpoint. Original
 repositories remain available for compatibility. The four Python metadata
-releases are now [published and verified](docs/RELEASES.md); only Agno's old
-publisher was disabled, while its tests remain active. See
+releases and Agentgateway image 0.1.0 are now [published and verified](docs/RELEASES.md).
+Agno's old publisher is disabled; Agentgateway's old CI still tests/builds but no
+longer pushes images. See
 [MIGRATION.md](MIGRATION.md) for imported commits and publishing cutover status,
 and [the reference tracker](docs/REFERENCE_AUDIT.md) for upstream documentation.
 

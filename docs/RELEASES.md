@@ -110,5 +110,61 @@ mode and repository pytest configuration disabled.
 
 Together with Strands, all four published wheels passed **38 tests**. Live model
 and DeepKeep calls were not exercised. Registry publication does not by itself
-complete upstream documentation reviews, Open WebUI listing edits, GHCR cutover,
+complete upstream documentation reviews, Open WebUI listing edits,
 Kong runtime validation, or original-repository archival.
+
+## Agentgateway 0.1.0
+
+Published image: `ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:0.1.0`.
+At publication and the separate verification run, `latest` resolved to the same
+OCI image-index digest:
+
+```text
+sha256:a21ac055ca8603c63ea9e93979f4532b302c7b9a4cf1e69607549a877ddd909a
+```
+
+Previous `latest` digest, recorded before the push:
+
+```text
+sha256:2df68cff99f320143c4bc066b7263d39e56be251793553aecb2b345f534cbb39
+```
+
+The previous digest is a rollback reference, not a guarantee of future registry
+retention. No rollback, image deletion, package-visibility change, inheritance
+change, or explicit repository relinking was performed.
+
+### Publication Evidence
+
+- Release: https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42584070541
+- Tag: `agentgateway/v0.1.0`, resolving to `542b763d939c166dd21b2624b816c333a5f7ba97`.
+- Published on 2026-11-09; build/push completed at 08:11:51 UTC and postflight at 08:11:52 UTC.
+- Environment: `release-agentgateway`, approved through the CLI at the explicit request of the `gilarel` owner.
+- The application source is byte-for-byte identical to the originally imported adapter; all 13 application tests passed in the release job.
+- Preflight required an unused `0.1.0` tag and captured the existing latest digest.
+- Buildx pushed both tags with the digest above; authenticated postflight required both registry HEAD digests to match that build output.
+- The global publishing gate was restored to `false` after validation. Python/n8n publishers were not selected in this run.
+
+### Independent Pull And Runtime Check
+
+[Verification run 42585703883](https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42585703883)
+used a separate job with `contents: read` and `packages: read`, not publishing
+permissions. It rechecked both registry tags, pulled the immutable digest, and
+started the image without published ports, host mounts, network access, real API
+keys, or elevated capabilities. CPU, memory, and process limits were applied.
+`GET /healthz` inside the container returned HTTP 200 and exactly
+`{"status": "ok"}`. The container was removed afterward. This verifies image
+pull/startup/health, not live DeepKeep moderation or an agentgateway deployment.
+
+The descriptor is `application/vnd.oci.image.index.v1+json`. Build logs show a
+provenance-attestation export, but no cryptographic container-attestation or
+SLSA verification was performed. Do not conflate this image verification with the
+cryptographic PyPI publish-attestation checks recorded above.
+
+### Legacy Repository
+
+The old repository now points to the monorepo and retains its source and URLs.
+Commit `c3bbe8d88fbd944f1498592c7725ed224c1dc16b` removes `packages: write` and the
+registry login from legacy CI and sets Docker `push: false`. Its test and build
+jobs remain active; [legacy CI run 42583755756](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/actions/runs/42583755756)
+passed both jobs, including all 13 tests and compilation. No old image push was
+in progress at cutover. The repository was not archived or deleted.

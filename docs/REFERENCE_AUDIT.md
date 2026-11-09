@@ -7,9 +7,9 @@ statuses below are audit-time observations, not newly revalidated claims.
 
 All eight integrations have since been imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
-Original repositories remain available; only Agno's old publishing workflow was
-disabled with approval, while its tests remain active. All four Python metadata
-releases are published and verified; no source archive has occurred. GitHub release assets,
+Original repositories remain available. Agno's old publishing workflow is disabled;
+Agentgateway's old CI now builds/tests without pushing. All four Python metadata
+releases and Agentgateway image 0.1.0 are verified; no source archive has occurred. GitHub release assets,
 issues, and PRs were not ported. Authorized migration submissions are now tracked
 below; original-repository archival remains a separate, unperformed operation.
 
@@ -95,6 +95,12 @@ The author explicitly approved DCO certification, the PR commit was signed off,
 and the DCO check passed.
 Merge and live deployment verification remain pending. After merge, verify all
 four deployed versions and check for additional versions introduced before cutover.
+
+Image cutover follow-up: the package owner granted the monorepo Actions access.
+Image 0.1.0 and `latest` now match the verified build digest. A separate read-only
+job pulled that immutable digest and verified `/healthz` with networking disabled.
+The original repository's CI still tests/builds but cannot push images; its README
+points to the monorepo. The image name is unchanged. See [RELEASES.md](RELEASES.md).
 
 ## Open WebUI
 

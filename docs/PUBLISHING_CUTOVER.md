@@ -1,9 +1,9 @@
 # Publishing Cutover
 
 Initial audit: 2026-11-05. All four Python metadata releases were published and
-verified on 2026-11-08; see [RELEASES.md](RELEASES.md). No container image or npm
-package has been published here. Only Agno's old `publish.yml` was disabled,
-with explicit authorization; its test workflow remains active.
+verified on 2026-11-08; Agentgateway image 0.1.0 followed on 2026-11-09. See
+[RELEASES.md](RELEASES.md). No npm package has been published here. Agno's old
+publisher is disabled; Agentgateway's old CI now builds/tests without image pushes.
 
 ## Verified State
 
@@ -27,7 +27,8 @@ with explicit authorization; its test workflow remains active.
 ## Registry Bindings To Configure
 
 These are required settings. All four PyPI paths have been demonstrated by
-successful attested publications; npm and GHCR permissions remain unverified.
+successful attested publications. Agentgateway's GHCR publishing and read-only
+image verification succeeded; npm remains deferred.
 Use existing npm/PyPI projects, not differently named replacement packages.
 
 | Field | Value |
@@ -91,16 +92,19 @@ before a successful push. If postflight fails, inspect the registry before any
 retry; do not overwrite a version that may already have been published.
 
 The current CLI token lacks `read:packages`; the package API returned HTTP 403.
-Package association, inherited permissions, visibility, and current image digests
-therefore remain unverified. Granting a token scope requires the account owner's
-approval; no authentication scopes were changed during this audit.
+Package association, inherited permissions, and visibility were not inspected
+or explicitly changed. No personal token scopes were expanded. The package owner
+granted the monorepo Actions access; job-scoped tokens successfully published,
+read back, and pulled image 0.1.0. Its current/previous digests and isolated
+runtime-health check are recorded in [RELEASES.md](RELEASES.md). This verifies the
+workflow access path without requiring package-admin rights for the CLI account.
 
 ## Coordinate Existing Publishers
 
 | Integration | Existing publication path | Cutover requirement |
 | --- | --- | --- |
 | n8n | Active `release.yml`, triggered by `v*.*.*` tag pushes, npm OIDC/provenance | Coordinate and stop the old release publisher before the new publisher is enabled |
-| Agentgateway | Active `ci.yml`, pushes images on source `main` updates | Stop old image pushes while retaining tests if desired; otherwise the old repository can overwrite `latest` |
+| Agentgateway | Legacy CI remains active with `contents: read`, no registry login, and `push: false` | Cut over before verified monorepo image 0.1.0; legacy tests and Docker builds passed |
 | Agno | Old `publish.yml` used `PYPI_API_TOKEN`; now `disabled_manually` | Disabled before the approved monorepo 0.1.2 publication; tests remain active. Token removal/revocation is separate owner cleanup |
 | Strands | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |
 | CrewAI | No repository-defined old publisher found | Monorepo 0.1.3 verified; keep old manual upload paths idle |
@@ -108,7 +112,7 @@ approval; no authentication scopes were changed during this audit.
 
 Absence of a checked-in workflow does not prove there is no publisher. Original
 repositories were authoritative before the approved cutovers. The four Python
-projects now have verified monorepo publication paths. Do not
+projects and Agentgateway now have verified monorepo publication paths. Do not
 disable unrelated workflows or archive repositories as a side effect.
 
 ## Prepare Fresh Versions
