@@ -57,7 +57,7 @@ def check_release(version, expected_digest=None):
         raise ValueError("Missing or invalid credentials")
     opener = build_opener(HTTPSHandler(context=ssl.create_default_context()), NoRedirect())
     basic = base64.b64encode(f"{actor}:{credential}".encode("utf-8")).decode("ascii")
-    query = urlencode({"service": "ghcr.io", "scope": f"repository:{NAME}:pull,push"})
+    query = urlencode({"service": "ghcr.io", "scope": f"repository:{NAME}:pull"})
     status, _, body = request(opener, f"{REGISTRY}/token?{query}", {"Authorization": f"Basic {basic}"})
     if status != 200:
         raise ValueError("Registry authentication failed")

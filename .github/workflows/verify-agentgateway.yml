@@ -1,0 +1,62 @@
+name: Verify Published Agentgateway
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published image version to verify
+        type: string
+        required: true
+      digest:
+        description: Expected published sha256 digest
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authenticated registry digests
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ inputs.version }}
+          EXPECTED_DIGEST: ${{ inputs.digest }}
+        run: python scripts/check_container_release.py "$VERSION" --expected-digest "$EXPECTED_DIGEST"
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run immutable image with isolated networking
+        env:
+          VERSION: ${{ inputs.version }}
+          EXPECTED_DIGEST: ${{ inputs.digest }}
+        run: |
+          image="ghcr.io/deepkeepai/agentgateway-deepkeep-webhook@$EXPECTED_DIGEST"
+          docker pull "$image"
+          container=$(docker run --detach --network none \
+            --memory 256m --cpus 1 --pids-limit 64 \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --env DEEPKEEP_BASE_URL=https://deepkeep.example \
+            --env DEEPKEEP_API_KEY=dk-test \
+            --env DEEPKEEP_MODEL=fw-test "$image")
+          trap 'docker rm --force "$container" >/dev/null 2>&1' EXIT
+          for _ in $(seq 1 30); do
+            if docker exec "$container" python -c 'import json, urllib.request; response = urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=2); assert response.status == 200; assert json.load(response) == {"status": "ok"}' >/dev/null 2>&1; then
+              printf 'Verified Agentgateway %s at %s: healthz returned 200 and status ok with isolated networking.\n' "$VERSION" "$EXPECTED_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs "$container"
+          exit 1

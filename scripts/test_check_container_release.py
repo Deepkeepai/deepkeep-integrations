@@ -47,7 +47,7 @@ class ContainerReleaseTests(unittest.TestCase):
         url = urlsplit(token_request.full_url)
         self.assertEqual((url.scheme, url.netloc, url.path), ("https", "ghcr.io", "/token"))
         self.assertEqual(parse_qs(url.query), {
-            "service": ["ghcr.io"], "scope": [f"repository:{release.NAME}:pull,push"]
+            "service": ["ghcr.io"], "scope": [f"repository:{release.NAME}:pull"]
         })
         basic = base64.b64encode(b"actor:private-secret").decode()
         self.assertEqual(token_request.get_header("Authorization"), f"Basic {basic}")
