@@ -7,6 +7,25 @@ Edit page: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit
 The listing is published under `@gilharel11159626bf`. Editing requires that account
 or an authorized moderator/admin session; no edit has been submitted here.
 
+## If The Edit Link Returns Home
+
+The site's root is now a marketing page; its verified Community link points to
+https://openwebui.com/home. Sign in directly at
+https://openwebui.com/auth?type=login using the original community-account login
+method. The current page offers email/password, Google, and GitHub. The
+[official community documentation](https://docs.openwebui.com/ecosystem/community/)
+confirms this account is separate from a self-hosted Open WebUI account.
+
+After signing in, use the Community page's Profile navigation to check that the
+account is `@gilharel11159626bf`, then retry the edit link above. Authenticated
+editor controls have not been inspected, so do not assume a particular tab or
+form label. Do not create a duplicate account/listing to work around an edit issue.
+
+If the correct publisher account still redirects home, ask through the
+[official Discord](https://discord.gg/5rJgQTnV4s) for the supported editor or
+website-bug reporting route. A dedicated website issue tracker/channel was not
+verified. Include the public post ID and redirect behavior, but no credentials.
+
 ## Minimal Migration Edit
 
 Update the description's Repository link to the monorepo directory below. Add
