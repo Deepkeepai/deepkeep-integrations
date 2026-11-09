@@ -1,7 +1,0 @@
-{
-  "name": "deepkeep",
-  "owner": { "name": "DeepKeep" },
-  "plugins": [
-    { "name": "deepkeep", "source": "cursor-plugin" }
-  ]
-}
