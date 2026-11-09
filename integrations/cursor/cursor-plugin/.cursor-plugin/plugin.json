@@ -1,0 +1,19 @@
+{
+    "name": "deepkeep",
+    "version": "0.1.0",
+    "description": "Checks prompts, shell commands, file reads, and MCP tool calls against your organization's DeepKeep policies. Configurable failure behavior controls whether actions proceed when validation fails.",
+    "author": { "name": "DeepKeep" },
+    "homepage": "https://deepkeep.ai",
+    "repository": "https://github.com/Deepkeepai/deepkeep-integrations",
+    "license": "Apache-2.0",
+    "logo": "./assets/logo.svg",
+    "keywords": [
+        "security",
+        "guardrails",
+        "firewall",
+        "policy",
+        "ai-safety",
+        "dlp",
+        "compliance"
+    ]
+}
