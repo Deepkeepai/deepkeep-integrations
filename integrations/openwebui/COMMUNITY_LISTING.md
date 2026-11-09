@@ -4,8 +4,12 @@ Verified listing: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd
 
 Edit page: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit
 
-The listing is published under `@gilharel11159626bf`. Editing requires that account
-or an authorized moderator/admin session; no edit has been submitted here.
+The listing is published under `@gilharel11159626bf`. The publisher updated its
+Repository URL to the monorepo directory; the official public API confirms the
+saved update at 2026-11-09 08:43:47 UTC. The embedded code is still version 0.1.1
+and matches this repository. The original v0.1.1 GitHub release remains valid and
+should remain the Release URL; no replacement Open WebUI release was created here.
+The assistant verified public data only and did not use an authenticated editor.
 
 ## If The Edit Link Returns Home
 
@@ -28,8 +32,8 @@ verified. Include the public post ID and redirect behavior, but no credentials.
 
 ## Minimal Migration Edit
 
-Update the description's Repository link to the monorepo directory below. Add
-the Raw Function URL if desired. Preserve the embedded function and version:
+The Repository link below is now updated. The Raw Function URL is optional.
+Preserve the embedded function and version:
 the published 0.1.1 code matches the migrated source. Keep the existing
 `https://github.com/Deepkeepai/openwebui-deepkeep/releases/tag/v0.1.1` link as a
 historical release reference; the monorepo has not published a replacement release.

@@ -25,7 +25,7 @@ replacement destinations, not claims that upstream sites have updated their link
 | --- | --- | --- |
 | n8n | Verified live catalog; GitHub link points to the organization | Deferred at the user's request; leave this integration and its catalog unchanged |
 | Agentgateway | Four live versioned guides link to old repo and existing image | [website #1475](https://github.com/agentgateway/website/pull/1475) open; four URL replacements, image unchanged |
-| Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Publisher must edit its repository link; embedded filter matches migrated source |
+| Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Complete: monorepo repository link saved; code/version unchanged and historical release URL retained |
 | Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) ready; user-authored overview and link review completed |
 | Agno | Live official cookbook/example; separate overview proposal pending | Preserve cookbook links; optional external integration link through docs workflow |
 | CrewAI | Docs submissions closed unmerged; vendor-hosted docs requested | Maintain vendor guide; no accepted upstream page to replace |
@@ -106,22 +106,25 @@ points to the monorepo. The image name is unchanged. See [RELEASES.md](RELEASES.
 
 - Vendor document explicitly marked draft: https://github.com/Deepkeepai/openwebui-deepkeep/blob/main/COMMUNITY_LISTING.md
 - Current raw installation file: https://raw.githubusercontent.com/Deepkeepai/openwebui-deepkeep/main/deepkeep_openwebui_filter.py
-- Proposed repository destination: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/openwebui
+- Current repository destination: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/openwebui
 - Proposed raw installation URL: https://raw.githubusercontent.com/Deepkeepai/deepkeep-integrations/main/integrations/openwebui/deepkeep_openwebui_filter.py
 - Generic official functions source: https://github.com/open-webui/docs/blob/main/docs/features/extensibility/plugin/functions/index.mdx
 - The initial HTML-only search returned a client-rendered shell. A follow-up
   through the official public search API resolved the listing:
   https://api.openwebui.com/api/v1/posts/search?query=deepkeep&sort=top&t=all&page=1
 - Verified live listing: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e
-- Publisher account: `@gilharel11159626bf`; authorized edit access is still required.
+- Publisher account: `@gilharel11159626bf`; the publisher performed the repository-link edit.
 - Edit page: https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit
 
-The public listing's embedded 0.1.1 filter was compared with the monorepo source
-and matches after newline normalization. Only its repository description needs a
-migration edit. Keep its historical old-repository `v0.1.1` release link valid;
-there is no replacement monorepo release. Prepared instructions are in
+The official API confirms the saved link update at 2026-11-09 08:43:47 UTC.
+The public listing's embedded 0.1.1 filter matches the monorepo source after
+newline normalization; the imported v0.1.1 tag's filter also matches the tracked
+monorepo file exactly. Its historical old-repository `v0.1.1` release link returns
+HTTP 200 and identifies a published, non-draft GitHub release. Keep that URL:
+there is no replacement monorepo Open WebUI release. Instructions are in
 [COMMUNITY_LISTING.md](../integrations/openwebui/COMMUNITY_LISTING.md).
-No site update was submitted. Use the raw Python file for URL-based installation;
+The assistant verified public data and did not submit the authenticated site edit.
+Use the raw Python file for URL-based installation;
 already imported function copies do not automatically update with listing links.
 
 ## Strands

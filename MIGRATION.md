@@ -188,7 +188,9 @@ the completed Python releases and remaining access requirements.
 - [x] Publish the four Python packages after explicit approval and verify all
   artifacts, metadata, attestations, and isolated installations.
 - [x] Complete the Agentgateway image-publisher cutover without stopping legacy tests/builds.
-- [ ] Finish upstream acceptance/deployment checks and account-specific listing edits.
+- [x] Verify the Open WebUI publisher's saved monorepo Repository link, unchanged
+  filter/version, and valid historical v0.1.1 Release URL.
+- [ ] Finish upstream PR acceptance and deployed documentation checks.
 - [ ] Retain original repositories and raw installation files with relocation
   notices during transition. Seek separate approval before archiving anything.
 
@@ -197,6 +199,6 @@ the completed Python releases and remaining access requirements.
 The [reference audit](docs/REFERENCE_AUDIT.md) preserves the verified official
 sources, replacement URLs, and submitted migration PRs. New Kong, CrewAI, or Pydantic AI listings would be
 separate adoption proposals, not repairs to accepted upstream listings. Open
-WebUI's live listing is now verified and its embedded code matches the monorepo;
-its publisher still needs to edit the old repository link. Agno's cookbook provenance must stay
+WebUI's live listing now points to the monorepo and its embedded code matches;
+its historical v0.1.1 release link remains unchanged and valid. Agno's cookbook provenance must stay
 intact. Recheck external status immediately before any authorized cutover.

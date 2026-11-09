@@ -6,7 +6,9 @@ Source: [integrations/openwebui](https://github.com/Deepkeepai/deepkeep-integrat
 
 Community listing: [DeepKeep AI Firewall](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e).
 Its embedded version 0.1.1 was verified to match this directory's filter source.
-The listing's repository link still needs updating by its publisher.
+Its repository link now points here. The historical
+[v0.1.1 release](https://github.com/Deepkeepai/openwebui-deepkeep/releases/tag/v0.1.1)
+remains the correct Release URL; no replacement filter release was needed.
 
 ```bash
 git clone https://github.com/Deepkeepai/deepkeep-integrations.git

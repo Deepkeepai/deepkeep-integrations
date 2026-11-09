@@ -11,6 +11,7 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | --- | --- | --- |
 | Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Open for review; user-authorized sign-off added and DCO check passed |
 | Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Ready for maintainer review; user-authored overview and link review completed |
+| Open WebUI | [Existing listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) | Repository URL updated by publisher and publicly verified; retain historical v0.1.1 release URL |
 | n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
 
 The remaining specifications and request text are retained for review and follow-up.
@@ -114,10 +115,10 @@ before releasing from the monorepo. Do not create a duplicate verified-node reco
 ## Other Integrations
 
 - Open WebUI: [the live listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e)
-  is verified. Its publisher must use the [edit page](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e/edit)
-  to change the Repository link. Embedded code matches the monorepo; keep its
-  historical 0.1.1 release link. [Exact instructions](../integrations/openwebui/COMMUNITY_LISTING.md)
-  are prepared, but no edit has been submitted.
+  now points to the monorepo directory. The saved edit was verified through its
+  official API. Embedded code remains 0.1.1 and matches the migrated source; its
+  historical release URL stays unchanged and valid. [Details](../integrations/openwebui/COMMUNITY_LISTING.md)
+  are recorded; no further listing change is needed for this migration.
 - Agno: retain the official cookbook source link. No stale vendor repository link
   was found in the live example, so there is no mandatory replacement PR.
 - CrewAI: maintain vendor-hosted instructions as requested by maintainers; no
