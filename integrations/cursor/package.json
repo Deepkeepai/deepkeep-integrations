@@ -2,7 +2,7 @@
     "name": "@deepkeep/agent-guardrails",
     "version": "0.1.0",
     "private": true,
-    "description": "DeepKeep firewall as a guardrail for AI coding agents (Cursor, Claude Code).",
+    "description": "DeepKeep firewall guardrails for Cursor.",
     "license": "Apache-2.0",
     "type": "module",
     "engines": {
