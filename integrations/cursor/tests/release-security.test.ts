@@ -7,6 +7,7 @@ import { runHook } from "../src/commands/hooks/runner.js"
 import { runFileReadHook } from "../src/commands/hooks/file-read.js"
 import { runPromptHook } from "../src/commands/hooks/prompt.js"
 import { runMcpHook } from "../src/commands/hooks/mcp.js"
+import { runShellHook } from "../src/commands/hooks/shell.js"
 import * as stdin from "../src/lib/stdin.js"
 import * as config from "../src/lib/config.js"
 import * as firewall from "../src/lib/firewall-client.js"
@@ -35,6 +36,30 @@ describe("release security", () => {
         vi.restoreAllMocks()
         vi.unstubAllEnvs()
         resetConfigForTests()
+    })
+
+    it.each([
+        ["prompt", runPromptHook, { prompt: "test", attachments: [] }],
+        ["shell", runShellHook, { command: "echo test" }],
+        ["file", runFileReadHook, { file_path: "/file", content: "test" }],
+        ["mcp", runMcpHook, { tool_name: "test", tool_input: {} }]
+    ])("sends the workspace directory for %s hooks", async (_name, hook, input) => {
+        vi.spyOn(config, "loadConfig").mockReturnValue(BLOCK_CONFIG)
+        vi.spyOn(stdin, "readStdin").mockResolvedValue(JSON.stringify({ ...input, workspace_roots: ["/workspace"] }))
+        const request = vi.spyOn(firewall, "validate").mockResolvedValue({ violatePolicy: false, content: "" })
+        vi.spyOn(process.stdout, "write").mockImplementation(() => true)
+        await hook()
+        expect(request.mock.calls[0]?.[1].context.cwd).toBe("/workspace")
+    })
+
+    it("does not report the plugin directory when the workspace is unknown", async () => {
+        vi.stubEnv("CURSOR_PROJECT_DIR", "")
+        vi.spyOn(config, "loadConfig").mockReturnValue(BLOCK_CONFIG)
+        vi.spyOn(stdin, "readStdin").mockResolvedValue(JSON.stringify({ prompt: "test" }))
+        const request = vi.spyOn(firewall, "validate").mockResolvedValue({ violatePolicy: false, content: "" })
+        vi.spyOn(process.stdout, "write").mockImplementation(() => true)
+        await runPromptHook()
+        expect(request.mock.calls[0]?.[1].context.cwd).toBeUndefined()
     })
 
     it("parses hook JSON with a leading UTF-8 BOM", () => {

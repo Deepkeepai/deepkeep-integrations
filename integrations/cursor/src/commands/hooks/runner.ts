@@ -29,10 +29,6 @@ function emit(out: PromptOutput | PermissionOutput): void {
     process.stdout.write(JSON.stringify(out))
 }
 
-function baseContext(): FirewallContext {
-    return { device_id: getDeviceId(), cwd: process.cwd() }
-}
-
 function stringField(obj: Record<string, unknown>, ...keys: string[]): string | undefined {
     for (const key of keys) {
         const value = obj[key]
@@ -41,7 +37,19 @@ function stringField(obj: Record<string, unknown>, ...keys: string[]): string | 
     return undefined
 }
 
-function contextFromRaw(raw: unknown): Pick<FirewallContext, "session_id" | "conversation_id" | "generation_id" | "user_email"> {
+export function resolveCwd(raw: Record<string, unknown>): string | undefined {
+    const cwd = stringField(raw, "cwd")
+    if (cwd) return cwd
+    if (Array.isArray(raw.workspace_roots)) {
+        const root = raw.workspace_roots.find((value): value is string =>
+            typeof value === "string" && value.trim().length > 0
+        )
+        if (root) return root
+    }
+    return process.env.CURSOR_PROJECT_DIR?.trim() ? process.env.CURSOR_PROJECT_DIR : undefined
+}
+
+function contextFromRaw(raw: unknown): Pick<FirewallContext, "cwd" | "session_id" | "conversation_id" | "generation_id" | "user_email"> {
     if (!raw || typeof raw !== "object") return {}
     const record = raw as Record<string, unknown>
     const nested = record.context && typeof record.context === "object"
@@ -49,6 +57,7 @@ function contextFromRaw(raw: unknown): Pick<FirewallContext, "session_id" | "con
         : {}
 
     return {
+        cwd: resolveCwd(record),
         // Cursor hook payloads may evolve; accept both snake_case and
         // camelCase, either top-level or under a `context` object. The API
         // stores both values separately in firewall_event.additional_data.
@@ -76,7 +85,7 @@ export async function runHook<TInput, TOutput extends PromptOutput | PermissionO
     const startedAt = Date.now()
 
     let input: TInput | null = null
-    let rawContext: Pick<FirewallContext, "session_id" | "conversation_id" | "generation_id"> = {}
+    let rawContext: Pick<FirewallContext, "cwd" | "session_id" | "conversation_id" | "generation_id" | "user_email"> = {}
     try {
         const raw = await readStdin()
         const parsed = parseJson(raw)
@@ -93,7 +102,7 @@ export async function runHook<TInput, TOutput extends PromptOutput | PermissionO
     }
 
     const baseCtx: FirewallContext = {
-        ...baseContext(),
+        device_id: cfg.deviceId,
         ...rawContext,
         hostname: cfg.hostname,
         os: cfg.os,

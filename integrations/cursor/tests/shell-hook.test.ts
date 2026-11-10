@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 
-import { resolveCwd } from "../src/commands/hooks/shell.js"
+import { resolveCwd } from "../src/commands/hooks/runner.js"
 
 const ENV_KEY = "CURSOR_PROJECT_DIR"
 

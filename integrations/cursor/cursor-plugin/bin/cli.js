@@ -41257,9 +41257,6 @@ function parseJson(raw) {
 function emit(out) {
   process.stdout.write(JSON.stringify(out));
 }
-function baseContext() {
-  return { device_id: getDeviceId(), cwd: process.cwd() };
-}
 function stringField(obj, ...keys) {
   for (const key of keys) {
     const value = obj[key];
@@ -41267,11 +41264,23 @@ function stringField(obj, ...keys) {
   }
   return void 0;
 }
+function resolveCwd(raw) {
+  const cwd = stringField(raw, "cwd");
+  if (cwd) return cwd;
+  if (Array.isArray(raw.workspace_roots)) {
+    const root = raw.workspace_roots.find(
+      (value) => typeof value === "string" && value.trim().length > 0
+    );
+    if (root) return root;
+  }
+  return process.env.CURSOR_PROJECT_DIR?.trim() ? process.env.CURSOR_PROJECT_DIR : void 0;
+}
 function contextFromRaw(raw) {
   if (!raw || typeof raw !== "object") return {};
   const record2 = raw;
   const nested = record2.context && typeof record2.context === "object" ? record2.context : {};
   return {
+    cwd: resolveCwd(record2),
     // Cursor hook payloads may evolve; accept both snake_case and
     // camelCase, either top-level or under a `context` object. The API
     // stores both values separately in firewall_event.additional_data.
@@ -41305,7 +41314,7 @@ async function runHook(spec) {
     return;
   }
   const baseCtx = {
-    ...baseContext(),
+    device_id: cfg.deviceId,
     ...rawContext,
     hostname: cfg.hostname,
     os: cfg.os,
@@ -41435,19 +41444,6 @@ async function runPromptHook() {
 }
 
 // src/commands/hooks/shell.ts
-function resolveCwd(raw) {
-  if (typeof raw.cwd === "string" && raw.cwd.length > 0) return raw.cwd;
-  if (Array.isArray(raw.workspace_roots)) {
-    for (const candidate of raw.workspace_roots) {
-      if (typeof candidate === "string" && candidate.length > 0) {
-        return candidate;
-      }
-    }
-  }
-  const envDir = process.env.CURSOR_PROJECT_DIR;
-  if (typeof envDir === "string" && envDir.length > 0) return envDir;
-  return void 0;
-}
 async function runShellHook() {
   await runHook({
     action: "before-shell",

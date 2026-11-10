@@ -39,6 +39,16 @@ describe.skipIf(process.platform === "win32")("POSIX hook launcher", () => {
     })
 })
 
+describe.skipIf(!process.allowedNodeEnvironmentFlags.has("--no-experimental-detect-module"))("plugin module format", () => {
+    it("runs the bundle without syntax detection outside the source repository", () => {
+        const result = spawnSync(process.execPath, ["--no-experimental-detect-module", join(plugin, "bin/cli.js"), "--version"], {
+            encoding: "utf8"
+        })
+        expect(result.status).toBe(0)
+        expect(result.stdout.trim()).toMatch(/^\d+\.\d+\.\d+$/)
+    })
+})
+
 describe.skipIf(process.platform !== "win32")("Windows hook launcher", () => {
     it("runs a prompt hook from a path with spaces", () => {
         const hooks = JSON.parse(readFileSync(join(plugin, "hooks/hooks.json"), "utf8"))

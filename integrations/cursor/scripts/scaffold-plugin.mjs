@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-// Recreate the static Cursor plugin scaffold on every plugin build.
-// This keeps `npm run build:plugin` idempotent even if `cursor-plugin/`
-// was deleted, extracted partially, or contains stale files from an
-// earlier scaffold. We nuke the managed subpaths first, then re-write.
+// Recreate managed static plugin files on every build.
 //
 // `bin/` is NOT managed here. It holds hand-written launchers
 // (`deepkeep-hook`, `deepkeep-hook.cmd`, `run.ps1`) plus the CLI bundle
@@ -16,7 +13,7 @@ const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(here, "..")
 const pluginRoot = join(repoRoot, "cursor-plugin")
 
-const MANAGED_SUBPATHS = [".cursor-plugin", "hooks", "commands", "assets", "README.md"]
+const MANAGED_SUBPATHS = [".cursor-plugin", "hooks", "commands", "assets", "README.md", "package.json"]
 for (const sub of MANAGED_SUBPATHS) {
     rmSync(join(pluginRoot, sub), { recursive: true, force: true })
 }
@@ -28,9 +25,12 @@ function write(relPath, contents, mode) {
     if (mode != null) chmodSync(path, mode)
 }
 
+mkdirSync(pluginRoot, { recursive: true })
 for (const file of ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES"]) {
     copyFileSync(join(repoRoot, file), join(pluginRoot, file))
 }
+
+write("package.json", `{ "type": "module" }\n`)
 
 write(".cursor-plugin/plugin.json", `{
     "name": "deepkeep",
