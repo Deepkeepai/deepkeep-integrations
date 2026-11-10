@@ -1,0 +1,7 @@
+{
+  "name": "deepkeep-integrations",
+  "owner": { "name": "DeepKeep" },
+  "plugins": [
+    { "name": "deepkeep", "source": "integrations/cursor/cursor-plugin" }
+  ]
+}

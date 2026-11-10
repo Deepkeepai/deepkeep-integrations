@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "hooks": {
+        "beforeSubmitPrompt": [
+            {
+                "command": "./bin/deepkeep-hook.cmd prompt",
+                "timeout": 10,
+                "failClosed": true
+            }
+        ],
+        "beforeShellExecution": [
+            {
+                "command": "./bin/deepkeep-hook.cmd shell",
+                "timeout": 10,
+                "failClosed": true
+            }
+        ],
+        "beforeReadFile": [
+            {
+                "command": "./bin/deepkeep-hook.cmd file-read",
+                "timeout": 10,
+                "failClosed": true
+            }
+        ],
+        "beforeMCPExecution": [
+            {
+                "command": "./bin/deepkeep-hook.cmd mcp",
+                "timeout": 10,
+                "failClosed": true
+            }
+        ]
+    }
+}

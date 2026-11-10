@@ -13,6 +13,7 @@ platforms. Each integration keeps its own dependencies, tests, and release versi
 | [CrewAI](integrations/crewai/) | `pip install crewai-tools-deepkeep` |
 | [Kong](integrations/kong/) | AI Custom Guardrail configuration examples |
 | [Pydantic AI](integrations/pydantic-ai/) | `pip install pydantic-ai-deepkeep` |
+| [Cursor](integrations/cursor/) | Cursor plugin for DeepKeep guardrails |
 
 See each integration's README for supported versions, configuration, and examples.
 Do not put API keys or customer data in issues, examples, or pull requests.
@@ -36,4 +37,4 @@ and [the reference tracker](docs/REFERENCE_AUDIT.md) for upstream documentation.
 
 ## License
 
-MIT. Package-local license files are retained for independently distributed artifacts.
+MIT unless otherwise stated in an integration's license. The Cursor integration is Apache-2.0.

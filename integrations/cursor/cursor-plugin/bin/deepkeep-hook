@@ -1,0 +1,112 @@
+#!/bin/sh
+# DeepKeep hook launcher (macOS / Linux).
+#
+# Cursor invokes this for every registered hook event. It locates a usable
+# JavaScript runtime and hands off to the bundled CLI.
+#
+# The customer is never asked to install Node. Cursor itself ships one, so the
+# runtime arrives with the editor. Resolution order is defined in resolve_node.
+#
+# This is a shell script rather than JavaScript on purpose: when no runtime can
+# be found, JavaScript cannot run, so only a non-JS entry point can still emit a
+# well-formed decision. The failure path below uses shell builtins only and
+# therefore works even with a broken PATH.
+#
+# Contract: argv[1] is the DeepKeep hook name (prompt|shell|file-read|mcp).
+# stdout carries the Cursor decision JSON and nothing else; diagnostics go to
+# stderr so they cannot corrupt what Cursor parses.
+
+set -u
+
+EVENT="${1:-}"
+[ "$EVENT" = "hook" ] && { shift; EVENT="${1:-}"; }
+
+MIN_MAJOR=20
+
+log() { [ -n "${DEEPKEEP_DEBUG:-}" ] && printf '[deepkeep] %s\n' "$1" >&2; return 0; }
+
+# Emit a fail-closed decision in the shape this hook expects. `prompt` uses a
+# different schema from the three permission hooks; sending the wrong one makes
+# Cursor treat the response as invalid and block with no explanation.
+deny() {
+    _m="DeepKeep guardrails could not start: $1. Contact your administrator."
+    if [ "$EVENT" = "prompt" ]; then
+        printf '{"continue":false,"user_message":"%s"}\n' "$_m"
+    else
+        printf '{"permission":"deny","user_message":"%s","agent_message":"%s"}\n' "$_m" "$_m"
+    fi
+    exit 0
+}
+
+# A candidate is only usable if it executes and reports a supported major
+# version. An unrelated or too-old `node` on PATH must not be accepted just
+# because the name matches.
+usable() {
+    [ -n "${1:-}" ] && [ -x "$1" ] || return 1
+    _v=$("$1" --version 2>/dev/null) || return 1
+    case "$_v" in v[0-9]*) ;; *) return 1 ;; esac
+    _v=${_v#v}
+    _maj=${_v%%.*}
+    case "$_maj" in *[!0-9]*) return 1 ;; esac
+    [ "$_maj" -ge "$MIN_MAJOR" ] || return 1
+    return 0
+}
+
+# Derive Cursor's application root from VSCODE_NLS_CONFIG, which Cursor's child
+# processes inherit. Pure parameter expansion, so this works without sed, awk,
+# python or jq — none of which may be reachable when PATH is minimal.
+cursor_root_from_nls() {
+    [ -n "${VSCODE_NLS_CONFIG:-}" ] || return 1
+    case "$VSCODE_NLS_CONFIG" in *'"defaultMessagesFile":"'*) ;; *) return 1 ;; esac
+    _t=${VSCODE_NLS_CONFIG#*\"defaultMessagesFile\":\"}
+    _t=${_t%%\"*}
+    case "$_t" in */out/*) ;; *) return 1 ;; esac
+    printf '%s' "${_t%/out/*}"
+}
+
+resolve_node() {
+    # 1. Explicit administrator override always wins.
+    if usable "${DEEPKEEP_NODE:-}"; then printf '%s' "$DEEPKEEP_NODE"; return 0; fi
+
+    # 2. A runtime the customer already has.
+    _p=$(command -v node 2>/dev/null) || _p=""
+    if usable "$_p"; then printf '%s' "$_p"; return 0; fi
+
+    # 3. Cursor's own bundled runtime, located from the inherited environment.
+    if _root=$(cursor_root_from_nls); then
+        if usable "$_root/resources/helpers/node"; then
+            printf '%s' "$_root/resources/helpers/node"; return 0
+        fi
+    fi
+
+    # 4. Cursor's bundled runtime at the documented default install locations.
+    for _c in \
+        "/Applications/Cursor.app/Contents/Resources/app/resources/helpers/node" \
+        "$HOME/Applications/Cursor.app/Contents/Resources/app/resources/helpers/node" \
+        "/usr/share/cursor/resources/app/resources/helpers/node" \
+        "/opt/Cursor/resources/app/resources/helpers/node" \
+        "/opt/cursor/resources/app/resources/helpers/node" \
+        "$HOME/.local/share/cursor/resources/app/resources/helpers/node"
+    do
+        if usable "$_c"; then printf '%s' "$_c"; return 0; fi
+    done
+
+    return 1
+}
+
+[ -n "$EVENT" ] || deny "no hook event was supplied"
+
+# ${CURSOR_PLUGIN_ROOT} is expanded by Cursor for plugin hooks. Fall back to the
+# directory holding this script, derived without calling dirname.
+ROOT="${CURSOR_PLUGIN_ROOT:-}"
+if [ -z "$ROOT" ]; then
+    case "$0" in */*) ROOT="${0%/*}/.." ;; *) ROOT=".." ;; esac
+fi
+
+CLI="$ROOT/bin/cli.js"
+[ -f "$CLI" ] || deny "the plugin payload is missing"
+
+NODE=$(resolve_node) || deny "no compatible JavaScript runtime was found"
+log "runtime: $NODE"
+
+exec "$NODE" "$CLI" hook "$EVENT"
