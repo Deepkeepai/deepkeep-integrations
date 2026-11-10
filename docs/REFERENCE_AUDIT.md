@@ -154,6 +154,12 @@ The user subsequently supplied "The reason is housekeeping.", confirmed review
 of the two link changes, and authorized marking the PR ready, which is now done.
 Maintainer acceptance and live catalog verification remain pending.
 
+The separate [legacy repository notice PR](https://github.com/Deepkeepai/strands-deepkeep/pull/1)
+merged on 2026-11-10. Its public main README now routes development and new
+issues/PRs to the monorepo, preserves the `strands-deepkeep` installation command,
+and explicitly labels the official catalog-link update as pending. That notice
+does not imply acceptance of [upstream catalog PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852).
+
 Before publication, the catalog bot flagged PyPI metadata pointing to the old
 repository. At that stage, the draft provided migration/source-commit evidence
 and acknowledged that registry metadata had not changed. The advisory did not

@@ -16,7 +16,7 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
 
 The remaining specifications and request text are retained for review and follow-up.
-Legacy source-repository notice PRs for Pydantic AI and CrewAI are tracked in
+Merged legacy source-repository notice PRs for Pydantic AI, CrewAI, and Strands are tracked in
 [MIGRATION.md](../MIGRATION.md#legacy-repository-notices); they are distinct from
 official framework documentation submissions.
 

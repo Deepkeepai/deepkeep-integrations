@@ -67,8 +67,8 @@ repositories are part of this migration.
 
 ## Legacy Repository Notices
 
-The requested notices were merged in order: Pydantic AI first, then CrewAI.
-Both changes are README-only, and their main-branch READMEs were verified live
+The requested notices were merged in order: Pydantic AI, CrewAI, then Strands.
+All three changes are README-only, and their main-branch READMEs were verified live
 with the monorepo banners and issue-routing links. Repository settings, package
 names, code, release references, and raw installation URLs remain intact.
 
@@ -76,9 +76,11 @@ names, code, release references, and raw installation URLs remain intact.
 | --- | --- | --- |
 | `pydantic-ai-deepkeep` | [PR #1](https://github.com/Deepkeepai/pydantic-ai-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/pydantic-ai` banner |
 | `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/crewai` banner and footer |
+| `strands-deepkeep` | [PR #1](https://github.com/Deepkeepai/strands-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the banner and accurate pending-catalog status |
 | `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
 
-Other legacy notices remain pending. No repository has been archived or deleted;
+Legacy notices for Agno, Open WebUI, and Kong remain pending.
+No repository has been archived or deleted;
 n8n remains paused and LangChain stays separate.
 
 ## Imported Source Tips
