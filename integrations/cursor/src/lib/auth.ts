@@ -1,18 +1,25 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, linkSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs"
 import { randomBytes } from "node:crypto"
 
 import { AUTH_FILE, DEEPKEEP_DIR, DEVICE_ID_FILE } from "./paths.js"
 
 export function getDeviceId(): string {
     try {
-        if (existsSync(DEVICE_ID_FILE)) {
-            const v = readFileSync(DEVICE_ID_FILE, "utf8").trim()
-            if (v.length > 0) return v
-        }
+        if (existsSync(DEVICE_ID_FILE)) return readFileSync(DEVICE_ID_FILE, "utf8").trim() || "unknown-device"
         mkdirSync(DEEPKEEP_DIR, { recursive: true })
         const id = randomBytes(16).toString("hex")
-        writeFileSync(DEVICE_ID_FILE, id, { mode: 0o600 })
-        return id
+        const temporaryFile = `${DEVICE_ID_FILE}.${id}.tmp`
+        writeFileSync(temporaryFile, id, { mode: 0o600, flag: "wx" })
+        try {
+            try {
+                linkSync(temporaryFile, DEVICE_ID_FILE)
+            } catch (error) {
+                if ((error as NodeJS.ErrnoException).code !== "EEXIST") throw error
+            }
+            return readFileSync(DEVICE_ID_FILE, "utf8").trim() || "unknown-device"
+        } finally {
+            try { unlinkSync(temporaryFile) } catch { /* best-effort cleanup */ }
+        }
     } catch {
         return "unknown-device"
     }

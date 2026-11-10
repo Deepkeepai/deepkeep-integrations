@@ -14982,7 +14982,7 @@ var {
 import { existsSync as existsSync3, readFileSync as readFileSync3 } from "fs";
 
 // src/lib/auth.ts
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, linkSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import { randomBytes } from "crypto";
 
 // src/lib/paths.ts
@@ -15003,14 +15003,24 @@ var CURSOR_HOOKS_BACKUP = join(CURSOR_DIR, "hooks.json.bak");
 // src/lib/auth.ts
 function getDeviceId() {
   try {
-    if (existsSync(DEVICE_ID_FILE)) {
-      const v = readFileSync(DEVICE_ID_FILE, "utf8").trim();
-      if (v.length > 0) return v;
-    }
+    if (existsSync(DEVICE_ID_FILE)) return readFileSync(DEVICE_ID_FILE, "utf8").trim() || "unknown-device";
     mkdirSync(DEEPKEEP_DIR, { recursive: true });
     const id = randomBytes(16).toString("hex");
-    writeFileSync(DEVICE_ID_FILE, id, { mode: 384 });
-    return id;
+    const temporaryFile = `${DEVICE_ID_FILE}.${id}.tmp`;
+    writeFileSync(temporaryFile, id, { mode: 384, flag: "wx" });
+    try {
+      try {
+        linkSync(temporaryFile, DEVICE_ID_FILE);
+      } catch (error62) {
+        if (error62.code !== "EEXIST") throw error62;
+      }
+      return readFileSync(DEVICE_ID_FILE, "utf8").trim() || "unknown-device";
+    } finally {
+      try {
+        unlinkSync(temporaryFile);
+      } catch {
+      }
+    }
   } catch {
     return "unknown-device";
   }
@@ -41111,15 +41121,16 @@ function hasLegacyUserHooks() {
 async function runDoctor() {
   const checks = [];
   const cfg = loadConfig(getDeviceId());
+  const hasCredentials = Boolean(cfg.apiKey || cfg.bearerToken || readBearerFromFile());
   checks.push({
     name: "policy endpoint",
     ok: cfg.firewallUrl.length > 0,
     detail: cfg.firewallUrl || "missing - set firewallUrl in ~/.deepkeep/config.json"
   });
   checks.push({
-    name: "api key",
-    ok: cfg.apiKey != null,
-    detail: cfg.apiKey ? "configured" : "missing - set apiKey in ~/.deepkeep/config.json"
+    name: "authentication",
+    ok: hasCredentials,
+    detail: hasCredentials ? "configured" : "missing - configure an API key or bearer token"
   });
   checks.push({
     name: "fail mode",

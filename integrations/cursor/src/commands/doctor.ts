@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs"
 
-import { getDeviceId } from "../lib/auth.js"
+import { getDeviceId, readBearerFromFile } from "../lib/auth.js"
 import { loadConfig } from "../lib/config.js"
 import { validate } from "../lib/firewall-client.js"
 import { CURSOR_HOOKS_FILE } from "../lib/paths.js"
@@ -33,6 +33,7 @@ function hasLegacyUserHooks(): boolean {
 export async function runDoctor(): Promise<void> {
     const checks: CheckResult[] = []
     const cfg = loadConfig(getDeviceId())
+    const hasCredentials = Boolean(cfg.apiKey || cfg.bearerToken || readBearerFromFile())
 
     checks.push({
         name: "policy endpoint",
@@ -40,9 +41,9 @@ export async function runDoctor(): Promise<void> {
         detail: cfg.firewallUrl || "missing - set firewallUrl in ~/.deepkeep/config.json"
     })
     checks.push({
-        name: "api key",
-        ok: cfg.apiKey != null,
-        detail: cfg.apiKey ? "configured" : "missing - set apiKey in ~/.deepkeep/config.json"
+        name: "authentication",
+        ok: hasCredentials,
+        detail: hasCredentials ? "configured" : "missing - configure an API key or bearer token"
     })
     checks.push({
         name: "fail mode",
