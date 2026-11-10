@@ -13,10 +13,10 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Merged 2026-11-09; all four live guides verified with the new link and unchanged image name |
 | Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Ready for maintainer review; user-authored overview and link review completed |
 | Open WebUI | [Existing listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) | Repository URL updated by publisher and publicly verified; retain historical v0.1.1 release URL |
-| n8n | Deferred | Skipped at the user's request; no portal, package, or repository changes |
+| n8n | Email request sent, user-reported | Await response and live link verification; source/package publishing remains paused |
 
 The remaining specifications and request text are retained for review and follow-up.
-Merged legacy source-repository notice PRs for Pydantic AI, CrewAI, and Strands are tracked in
+Merged legacy source-repository notice PRs for Pydantic AI, CrewAI, Strands, and Agno are tracked in
 [MIGRATION.md](../MIGRATION.md#legacy-repository-notices); they are distinct from
 official framework documentation submissions.
 
@@ -101,6 +101,13 @@ Use the existing Creator Portal record or contact catalog maintainers; the
 specific public catalog record was not found in `n8n-io/n8n-docs`.
 On 2026-11-05 the portal redirected to a sign-in page. GitHub authentication does
 not provide access to this separate account, and no catalog change was submitted.
+
+The user subsequently accessed the portal, reported that only the name could be
+edited, and sent the repository-URL request by email. Receipt or acceptance has
+not been independently verified. The public catalog still links to
+`https://github.com/Deepkeepai/`; wait for n8n's response and verify the new link
+before marking this complete. No duplicate request was sent by the assistant.
+This catalog follow-up does not resume npm or source-publishing changes.
 
 ```text
 Please update DeepKeep's GitHub resource link on

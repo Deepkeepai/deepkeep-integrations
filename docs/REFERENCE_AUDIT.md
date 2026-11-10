@@ -23,7 +23,7 @@ replacement destinations, not claims that upstream sites have updated their link
 
 | Integration | Verified official exposure | Pending action |
 | --- | --- | --- |
-| n8n | Verified live catalog; GitHub link points to the organization | Deferred at the user's request; leave this integration and its catalog unchanged |
+| n8n | Verified live catalog; GitHub link still points to the organization | User reports email request sent; await n8n response/live verification, publishing remains paused |
 | Agentgateway | Four live versioned guides now link to the monorepo | [website #1475](https://github.com/agentgateway/website/pull/1475) merged and live; image name retained |
 | Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Complete: monorepo repository link saved; code/version unchanged and historical release URL retained |
 | Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) ready; user-authored overview and link review completed |
@@ -56,7 +56,13 @@ After a catalog change, re-fetch the rendered destination and operations text.
 
 Follow-up on 2026-11-05: the Creator Portal requires a separate sign-in. No
 authenticated portal session is available, so no n8n update was submitted. The
-existing record owner must submit the prepared request in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
+existing record owner needed to submit the prepared request in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
+
+The user later reported name-only editing in the portal and sending the
+repository-URL request by email. A fresh public-page check still found the
+organization link, not the requested monorepo directory. Email receipt/acceptance
+is not verified; await a response and independently check the live link. Source
+and npm publishing changes remain paused, and no duplicate request was sent here.
 
 ## Agentgateway
 
@@ -195,6 +201,13 @@ https://pypi.org/pypi/agno-deepkeep/json confirmed `0.1.1` with only a vendor
 homepage in project URLs. Add integration-specific repository/docs metadata in a
 future release while preserving package identity and coordinating trusted publishing.
 
+The separate [legacy repository notice PR](https://github.com/Deepkeepai/agno-deepkeep/pull/1)
+merged on 2026-11-10. Its public main README now routes development and new
+issues/PRs to the monorepo, preserves `pip install agno-deepkeep`, and distinguishes
+the accepted cookbook from the still-open overview proposal. Python 3.10-3.13
+tests and CodeQL passed. The old publisher remains disabled and tests remain
+active; no package, release, or repository-archival changes were made.
+
 ## CrewAI
 
 No official DeepKeep page was verified. Candidate URLs returned generic home
@@ -274,8 +287,8 @@ without changing package or import names.
 
 The destination directories and raw filter URL are verified. Agentgateway merged
 and its four deployed guides are verified; Strands is open and ready for review.
-n8n is deferred at the user's
-request. Prepared request text and exact
+n8n's source/publishing work remains deferred; its emailed catalog request is
+awaiting response and live verification. Prepared request text and exact
 changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
 old repositories/install files through compatibility validation; archive only
@@ -286,7 +299,7 @@ separate adoption work, not mandatory migrations of accepted entries.
 | --- | --- | --- | --- | --- |
 | Agentgateway | [#1475](https://github.com/agentgateway/website/pull/1475), gilarel | 2026-11-05 | 2026-11-09 | 2026-11-09, all four guides |
 | Strands | [#5852](https://github.com/strands-agents/harness-sdk/pull/5852), gilarel | 2026-11-05, draft | Pending | Pending |
-| n8n | Existing portal account owner needed | Not submitted | Not applicable | Pending |
+| n8n | Email request, user-reported | Sent; no timestamp reported | Not applicable | Pending; organization link still present |
 
 The old links remain in upstream default branches until acceptance. Verify
 rendered pages after deployment, not merely PR merge. Never count pending

@@ -30,8 +30,10 @@ it ready. Strands acceptance and live verification remain pending.
 Original-repository archival remains unperformed. The
 approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
-n8n follow-up work is paused at the user's request. Its source, publisher, package
-version, and catalog are not being changed while the other integrations proceed.
+n8n source/package publishing work remains paused at the user's request. The user
+reports sending the repository-URL request to n8n by email. The public catalog
+still links to the organization, so response and live verification are pending.
+No additional request, node rename, or publisher change was performed here.
 
 [Release-preparation PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1)
 was approved and merged on 2026-11-05, preparing unpublished Python metadata
@@ -67,8 +69,8 @@ repositories are part of this migration.
 
 ## Legacy Repository Notices
 
-The requested notices were merged in order: Pydantic AI, CrewAI, then Strands.
-All three changes are README-only, and their main-branch READMEs were verified live
+The requested notices were merged in order: Pydantic AI, CrewAI, Strands, then Agno.
+All four changes are README-only, and their main-branch READMEs were verified live
 with the monorepo banners and issue-routing links. Repository settings, package
 names, code, release references, and raw installation URLs remain intact.
 
@@ -77,9 +79,10 @@ names, code, release references, and raw installation URLs remain intact.
 | `pydantic-ai-deepkeep` | [PR #1](https://github.com/Deepkeepai/pydantic-ai-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/pydantic-ai` banner |
 | `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/crewai` banner and footer |
 | `strands-deepkeep` | [PR #1](https://github.com/Deepkeepai/strands-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the banner and accurate pending-catalog status |
+| `agno-deepkeep` | [PR #1](https://github.com/Deepkeepai/agno-deepkeep/pull/1) | Merged 2026-11-10; main README verified with banner and separate cookbook/overview status; publisher still disabled |
 | `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
 
-Legacy notices for Agno, Open WebUI, and Kong remain pending.
+Legacy notices for Open WebUI and Kong remain pending.
 No repository has been archived or deleted;
 n8n remains paused and LangChain stays separate.
 
@@ -192,7 +195,7 @@ the completed Python releases and remaining access requirements.
 - [x] Coordinate the four Python releases and disable Agno's old publisher before
   cutover; its tests remain active. Agentgateway's image path was cut over separately.
 - [x] Verify all four PyPI OIDC publishing paths through successful releases.
-- [ ] npm publisher and catalog follow-up remain deferred with n8n.
+- [ ] npm publisher/source work remains deferred with n8n.
 - [x] Configure and verify the six release environments with required reviewer
   `gilarel` and a `main`-only deployment policy.
 - [x] Verify GHCR publication, matching version/latest digests, and a separate
@@ -201,7 +204,8 @@ the completed Python releases and remaining access requirements.
   Python package selection; close the global gate after each approved batch.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; after the user
   provided their own overview and confirmed review, mark Strands ready.
-- [ ] n8n catalog and publisher follow-up are deferred at the user's request.
+- [x] Record the user's report that the n8n repository-URL email was sent.
+- [ ] Await n8n's response and verify the live catalog link before marking it complete.
 - [ ] Obtain upstream acceptance and verify deployed pages as tracked in
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 - [x] Publish the four Python packages after explicit approval and verify all
