@@ -19,6 +19,8 @@ export interface RuntimeConfig {
 const PKG_VERSION = "0.1.0"
 const FAIL_MODE_ALLOW = "allow"
 const FAIL_MODE_BLOCK = "block"
+const DEFAULT_REQUEST_TIMEOUT_MS = 2500
+const MAX_REQUEST_TIMEOUT_MS = 5000
 
 function readFile(): Record<string, unknown> {
     if (!existsSync(CONFIG_FILE)) return {}
@@ -58,6 +60,10 @@ export function loadConfig(deviceId: string): RuntimeConfig {
 
     const firewallUrl = pickString(typeof f.firewallUrl === "string" ? f.firewallUrl : undefined, process.env.DEEPKEEP_FIREWALL_URL)
     const apiKey = pickString(typeof f.apiKey === "string" ? f.apiKey : undefined, process.env.DEEPKEEP_API_KEY)
+    const configuredTimeoutMs = pickNumber(process.env.DEEPKEEP_TIMEOUT_MS, f.timeoutMs, DEFAULT_REQUEST_TIMEOUT_MS)
+    const timeoutMs = configuredTimeoutMs >= 1
+        ? Math.min(Math.floor(configuredTimeoutMs), MAX_REQUEST_TIMEOUT_MS)
+        : DEFAULT_REQUEST_TIMEOUT_MS
 
     if (!firewallUrl) {
         process.stderr.write(
@@ -72,7 +78,7 @@ export function loadConfig(deviceId: string): RuntimeConfig {
         apiKey,
         bearerToken: pickString(typeof f.bearerToken === "string" ? f.bearerToken : undefined, process.env.DEEPKEEP_BEARER_TOKEN),
         failMode: pickFailMode(process.env.DEEPKEEP_FAIL_MODE, f.failMode),
-        timeoutMs: pickNumber(process.env.DEEPKEEP_TIMEOUT_MS, f.timeoutMs, 2500),
+        timeoutMs,
         cacheTtlMs: pickNumber(process.env.DEEPKEEP_CACHE_TTL_MS, f.cacheTtlMs, 300_000),
         deviceId,
         hostname: hostname(),

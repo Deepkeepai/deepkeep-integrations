@@ -127,6 +127,9 @@ result and defaults to \`block\`. Set it to \`allow\` to let actions proceed unc
 The API truncates serialized payloads over 32,768 characters before inspection,
 so a decision may not cover the full action.
 Hook inputs over 5 MiB also follow \`failMode\` before payload parsing.
+The policy request timeout defaults to 2,500 ms and is capped at 5,000 ms to
+leave time before Cursor's hook deadline. Startup delays can still cause Cursor
+to block a hook before the configured failure mode is applied.
 
 ## Requirements
 

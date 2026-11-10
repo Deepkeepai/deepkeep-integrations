@@ -50,6 +50,7 @@ export async function validate(cfg: RuntimeConfig, req: FirewallRequest): Promis
     try {
         const res = await axios.post(cfg.firewallUrl, req, {
             timeout: cfg.timeoutMs,
+            signal: AbortSignal.timeout(cfg.timeoutMs),
             headers: buildHeaders(cfg),
             maxRedirects: 0,
             validateStatus: (s) => s >= 200 && s < 300

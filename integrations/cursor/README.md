@@ -56,6 +56,10 @@ truncates serialized payloads over 32,768 characters before inspection, so a
 decision may not cover the full action. Plugin startup failures are
 configured to block independently of `failMode`.
 
+The policy request timeout defaults to 2,500 ms and is capped at 5,000 ms to
+leave time before Cursor's hook deadline. Startup delays can still cause Cursor
+to block a hook before the configured failure mode is applied.
+
 The plugin and its configuration are user-writable. They are not a
 tamper-resistant enforcement boundary.
 

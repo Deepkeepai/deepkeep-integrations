@@ -111,6 +111,37 @@ describe("release security", () => {
         expect(loadConfig("device").failMode).toBe("allow")
     })
 
+    it.each([
+        [30000, 5000],
+        [5000, 5000],
+        [1200, 1200],
+        [0, 2500]
+    ])("bounds timeoutMs %s to %s", (configured, expected) => {
+        vi.spyOn(fs, "existsSync").mockReturnValue(true)
+        vi.spyOn(fs, "readFileSync").mockReturnValue(JSON.stringify({ timeoutMs: configured }))
+        vi.stubEnv("DEEPKEEP_TIMEOUT_MS", "")
+        // An unset environment value must not override the file setting.
+        delete process.env.DEEPKEEP_TIMEOUT_MS
+        expect(loadConfig("device").timeoutMs).toBe(expected)
+    })
+
+    it("bounds an environment timeout", () => {
+        vi.spyOn(fs, "existsSync").mockReturnValue(false)
+        vi.stubEnv("DEEPKEEP_TIMEOUT_MS", "30000")
+        expect(loadConfig("device").timeoutMs).toBe(5000)
+    })
+
+    it.each(["allow", "block"] as const)("uses %s fail mode when the request deadline expires", async (mode) => {
+        vi.spyOn(config, "loadConfig").mockReturnValue({ ...BLOCK_CONFIG, failMode: mode, timeoutMs: 20 })
+        vi.spyOn(stdin, "readStdin").mockResolvedValue(JSON.stringify({ prompt: "test" }))
+        vi.spyOn(axios, "post").mockImplementation((_url, _data, options) => new Promise((_resolve, reject) => {
+            options?.signal?.addEventListener?.("abort", () => reject(new AxiosError("timeout", "ERR_CANCELED")))
+        }))
+        const output = vi.spyOn(process.stdout, "write").mockImplementation(() => true)
+        await runPromptHook()
+        expect(JSON.parse(String(output.mock.lastCall?.[0]))).toMatchObject({ continue: mode === "allow" })
+    })
+
     it.each(["block", "allow"] as const)("handles invalid input using fail mode %s", async (mode) => {
         vi.spyOn(config, "loadConfig").mockReturnValue({ ...BLOCK_CONFIG, failMode: mode })
         vi.spyOn(stdin, "readStdin").mockRejectedValue(new Error("input too large"))
