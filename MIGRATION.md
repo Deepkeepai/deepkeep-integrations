@@ -67,15 +67,15 @@ repositories are part of this migration.
 
 ## Legacy Repository Notices
 
-The requested notices were prepared in order: Pydantic AI first, then CrewAI.
-Both are README-only PRs and remain unmerged; the original default branches and
-repository settings were not changed. Package names, code, release references,
-and raw installation URLs remain intact.
+The requested notices were merged in order: Pydantic AI first, then CrewAI.
+Both changes are README-only, and their main-branch READMEs were verified live
+with the monorepo banners and issue-routing links. Repository settings, package
+names, code, release references, and raw installation URLs remain intact.
 
 | Legacy repository | Notice | Status |
 | --- | --- | --- |
-| `pydantic-ai-deepkeep` | [PR #1](https://github.com/Deepkeepai/pydantic-ai-deepkeep/pull/1) | Open; banner points development and new issues/PRs to `integrations/pydantic-ai` |
-| `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Open; banner and current-source footer point to `integrations/crewai` |
+| `pydantic-ai-deepkeep` | [PR #1](https://github.com/Deepkeepai/pydantic-ai-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/pydantic-ai` banner |
+| `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/crewai` banner and footer |
 | `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
 
 Other legacy notices remain pending. No repository has been archived or deleted;
