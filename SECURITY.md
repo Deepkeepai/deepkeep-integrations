@@ -58,6 +58,9 @@ subsequently published with matching authenticated digests and passed a separate
 read-only, network-isolated container health check. Agno's old publisher is
 disabled; Agentgateway's old CI no longer logs in or pushes, but tests/builds
 remain active. No npm publication occurred here.
+The approved five-repository retirement batch is now archived read-only, with
+Kong still private and source heads unchanged. Archival is not token revocation
+or licensed gateway validation; see [retirement status](docs/LEGACY_RETIREMENT.md).
 Imported nested workflows are inactive
 in the current tree. Root CI does not publish artifacts.
 

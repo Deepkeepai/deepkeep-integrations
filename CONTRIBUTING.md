@@ -79,7 +79,9 @@ an owner; it does not itself enforce reviews or branch protection.
 
 The four Python metadata releases are [published and verified](docs/RELEASES.md).
 Agentgateway image 0.1.0 is also verified. Agno's old publisher is disabled;
-Agentgateway's old CI builds/tests without pushing. Original tests remain active.
+Agentgateway's old CI builds/tests without pushing. Five other legacy repositories
+are now archived read-only; use monorepo CI for active validation. See
+[retirement status](docs/LEGACY_RETIREMENT.md) for the exact archived and held set.
 Do not publish from this repository,
 disable old publishers, submit upstream migration PRs, or archive source repos as
 part of a routine contribution. See the cutover gates in [MIGRATION.md](MIGRATION.md)

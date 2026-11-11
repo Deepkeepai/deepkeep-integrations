@@ -27,7 +27,8 @@ Upstream link-update PRs were submitted after the source import:
 ready for maintainer review. The user supplied the exact human overview,
 "The reason is housekeeping.", reviewed the two links, and authorized marking
 it ready. Strands acceptance and live verification remain pending.
-Original-repository archival remains unperformed. The
+Five legacy repositories were subsequently archived after explicit approval;
+[LEGACY_RETIREMENT.md](docs/LEGACY_RETIREMENT.md) records the batch and held repos. The
 approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
 n8n source/package publishing work remains paused at the user's request. The user
@@ -86,7 +87,11 @@ references, raw installation URLs, visibility, or archival settings.
 | `deepkeep-kong-guardrail` | [PR #1](https://github.com/Deepkeepai/deepkeep-kong-guardrail/pull/1) | Merged 2026-11-11; private main notice verified with historical-example and public-issue privacy warnings |
 | `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
 
-All non-n8n legacy notices in this scope are complete. No archival or deletion was performed here;
+All non-n8n legacy notices in this scope are complete. Pydantic AI, CrewAI, Agno,
+Open WebUI, and Kong are now archived read-only with preserved source heads and
+visibility; Kong remains private. Historical Open WebUI release/raw URLs were
+rechecked after archival and still work. Strands is held for catalog acceptance,
+and Agentgateway archival needs a repository admin. No repositories were deleted;
 n8n remains paused and LangChain stays separate.
 
 ## Imported Source Tips
@@ -196,7 +201,8 @@ the completed Python releases and remaining access requirements.
 - [x] Add root CI and validate workflow syntax and release-validator tests locally.
 - [x] Verify all initial GitHub CI jobs, including the container build, pass.
 - [x] Coordinate the four Python releases and disable Agno's old publisher before
-  cutover; its tests remain active. Agentgateway's image path was cut over separately.
+  cutover; tests were initially retained before approved archival. Agentgateway's
+  image path was cut over separately and its old validation CI remains active.
 - [x] Verify all four PyPI OIDC publishing paths through successful releases.
 - [ ] npm publisher/source work remains deferred with n8n.
 - [x] Configure and verify the six release environments with required reviewer
@@ -219,7 +225,10 @@ the completed Python releases and remaining access requirements.
 - [ ] Finish upstream PR acceptance and deployed documentation checks.
 - [x] Retain original code, release references, and raw installation files while
   publishing the seven non-n8n legacy relocation notices.
-- [ ] Obtain separate approval before archival; preserve active historical release/raw links.
+- [x] Obtain explicit approval for the five-repository archival batch and verify
+  archived flags, unchanged source/visibility, and historical Open WebUI downloads.
+- [ ] Obtain separate retirement approval for Strands after catalog acceptance
+  and for Agentgateway through a repository admin.
 
 ## External Documentation
 

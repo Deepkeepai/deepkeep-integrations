@@ -4,6 +4,8 @@ Initial audit: 2026-11-05. All four Python metadata releases were published and
 verified on 2026-11-08; Agentgateway image 0.1.0 followed on 2026-11-09. See
 [RELEASES.md](RELEASES.md). No npm package has been published here. Agno's old
 publisher is disabled; Agentgateway's old CI now builds/tests without image pushes.
+Five legacy repositories have since been archived with explicit approval; see
+[LEGACY_RETIREMENT.md](LEGACY_RETIREMENT.md). Agentgateway and Strands remain active.
 
 ## Verified State
 
@@ -105,7 +107,7 @@ workflow access path without requiring package-admin rights for the CLI account.
 | --- | --- | --- |
 | n8n | Active `release.yml`, triggered by `v*.*.*` tag pushes, npm OIDC/provenance | Coordinate and stop the old release publisher before the new publisher is enabled |
 | Agentgateway | Legacy CI remains active with `contents: read`, no registry login, and `push: false` | Cut over before verified monorepo image 0.1.0; legacy tests and Docker builds passed |
-| Agno | Old `publish.yml` used `PYPI_API_TOKEN`; now `disabled_manually` | Disabled before the approved monorepo 0.1.2 publication; tests remain active. Token removal/revocation is separate owner cleanup |
+| Agno | Old publisher was disabled before cutover; legacy repo is now archived | Historical test results are retained; active validation belongs in the monorepo. Token revocation is separate owner cleanup |
 | Strands | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |
 | CrewAI | No repository-defined old publisher found | Monorepo 0.1.3 verified; keep old manual upload paths idle |
 | Pydantic AI | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |

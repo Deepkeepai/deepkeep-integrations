@@ -9,9 +9,11 @@ All eight integrations have since been imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
 Original repositories remain available. Agno's old publishing workflow is disabled;
 Agentgateway's old CI now builds/tests without pushing. All four Python metadata
-releases and Agentgateway image 0.1.0 are verified; no source archive has occurred. GitHub release assets,
+releases and Agentgateway image 0.1.0 are verified. Five legacy repositories were
+subsequently archived with approval; [retirement status](LEGACY_RETIREMENT.md)
+records their unchanged source heads and visibility. GitHub release assets,
 issues, and PRs were not ported. Authorized migration submissions are now tracked
-below; original-repository archival remains a separate, unperformed operation.
+below; retirement did not delete or rewrite historical references.
 
 The public destination `Deepkeepai/deepkeep-integrations` was created and pushed
 on 2026-11-05. All eight integration directory URLs returned HTTP 200 anonymously,
@@ -211,8 +213,9 @@ The separate [legacy repository notice PR](https://github.com/Deepkeepai/agno-de
 merged on 2026-11-10. Its public main README now routes development and new
 issues/PRs to the monorepo, preserves `pip install agno-deepkeep`, and distinguishes
 the accepted cookbook from the still-open overview proposal. Python 3.10-3.13
-tests and CodeQL passed. The old publisher remains disabled and tests remain
-active; no package, release, or repository-archival changes were made.
+tests and CodeQL passed. At the notice merge, the old publisher was disabled and
+the Test workflow remained active. Agno was later archived read-only in the approved
+retirement batch; the notice itself made no package, release, or archival changes.
 
 ## CrewAI
 
@@ -272,7 +275,7 @@ upstream submissions or certify runtime/dependency safety.
 The separate [legacy repository notice PR](https://github.com/Deepkeepai/deepkeep-kong-guardrail/pull/1)
 merged on 2026-11-11. The authenticated default-branch README was verified with
 the migration notice and explicit warning that historical masking metrics do not
-establish content replacement. The repository remains private and unarchived,
+establish content replacement. It was later archived read-only and remains private,
 with a reminder not to put credentials or private customer/deployment data in the
 public monorepo issue tracker. Kong has no configured Actions workflows; this was
 a manually checked README-only change, not gateway-runtime validation.

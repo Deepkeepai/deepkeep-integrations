@@ -68,7 +68,9 @@ was restored to `false` once all validation jobs passed.
 All three annotated tags resolve to
 `0fc63daf720aff9525ac64764ccc8794907b0988`. No GitHub Releases were created.
 Before dispatch, Agno's standalone `publish.yml` was explicitly disabled to avoid
-competing publishers; its `Test` workflow remains active. No other old workflow
+competing publishers; its `Test` workflow was left active at cutover. The legacy
+repo was later archived in the [approved retirement batch](LEGACY_RETIREMENT.md).
+No other old workflow
 was disabled. n8n, LangChain, and the Agentgateway publisher were not changed.
 
 ### Artifact Verification
