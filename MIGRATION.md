@@ -69,10 +69,12 @@ repositories are part of this migration.
 
 ## Legacy Repository Notices
 
-The requested notices were merged in order: Pydantic AI, CrewAI, Strands, then Agno.
-All four changes are README-only, and their main-branch READMEs were verified live
-with the monorepo banners and issue-routing links. Repository settings, package
-names, code, release references, and raw installation URLs remain intact.
+Notices are now live in all seven non-n8n legacy repositories in the agreed scope.
+The six notice PRs are README-only; Agentgateway's notice was part of its
+separate publisher cutover.
+Default-branch READMEs were verified with the monorepo links. The Kong repository
+remains private. These notice PRs did not change code, package names, release
+references, raw installation URLs, visibility, or archival settings.
 
 | Legacy repository | Notice | Status |
 | --- | --- | --- |
@@ -80,10 +82,11 @@ names, code, release references, and raw installation URLs remain intact.
 | `crewai-tools-deepkeep` | [PR #1](https://github.com/Deepkeepai/crewai-tools-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the `integrations/crewai` banner and footer |
 | `strands-deepkeep` | [PR #1](https://github.com/Deepkeepai/strands-deepkeep/pull/1) | Merged 2026-11-10; main README verified with the banner and accurate pending-catalog status |
 | `agno-deepkeep` | [PR #1](https://github.com/Deepkeepai/agno-deepkeep/pull/1) | Merged 2026-11-10; main README verified with banner and separate cookbook/overview status; publisher still disabled |
+| `openwebui-deepkeep` | [PR #1](https://github.com/Deepkeepai/openwebui-deepkeep/pull/1) | Merged 2026-11-11; public main notice verified; raw filter unchanged and v0.1.1 release link retained |
+| `deepkeep-kong-guardrail` | [PR #1](https://github.com/Deepkeepai/deepkeep-kong-guardrail/pull/1) | Merged 2026-11-11; private main notice verified with historical-example and public-issue privacy warnings |
 | `agentgateway-deepkeep-webhook` | [Cutover commit](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/commit/c3bbe8d88fbd944f1498592c7725ed224c1dc16b) | Notice already live; legacy tests/builds active, image pushes off |
 
-Legacy notices for Open WebUI and Kong remain pending.
-No repository has been archived or deleted;
+All non-n8n legacy notices in this scope are complete. No archival or deletion was performed here;
 n8n remains paused and LangChain stays separate.
 
 ## Imported Source Tips
@@ -214,8 +217,9 @@ the completed Python releases and remaining access requirements.
 - [x] Verify the Open WebUI publisher's saved monorepo Repository link, unchanged
   filter/version, and valid historical v0.1.1 Release URL.
 - [ ] Finish upstream PR acceptance and deployed documentation checks.
-- [ ] Retain original repositories and raw installation files with relocation
-  notices during transition. Seek separate approval before archiving anything.
+- [x] Retain original code, release references, and raw installation files while
+  publishing the seven non-n8n legacy relocation notices.
+- [ ] Obtain separate approval before archival; preserve active historical release/raw links.
 
 ## External Documentation
 

@@ -134,6 +134,12 @@ The assistant verified public data and did not submit the authenticated site edi
 Use the raw Python file for URL-based installation;
 already imported function copies do not automatically update with listing links.
 
+The separate [legacy repository notice PR](https://github.com/Deepkeepai/openwebui-deepkeep/pull/1)
+merged on 2026-11-11. The public default README now points development and new
+issues/PRs to the monorepo and preserves the historical release URL. The raw
+filter was fetched again and still matches the monorepo source. Existing tests
+and CodeQL passed; code, version, and release assets were not changed.
+
 ## Strands
 
 - Verified live catalog: https://strandsagents.com/integrations/
@@ -262,6 +268,14 @@ The original audit required review before exposing this private source. Subseque
 migration validation recorded explicit MIT approval and a clean gitleaks scan of
 all four Kong commits, plus the full imported history. This does not authorize
 upstream submissions or certify runtime/dependency safety.
+
+The separate [legacy repository notice PR](https://github.com/Deepkeepai/deepkeep-kong-guardrail/pull/1)
+merged on 2026-11-11. The authenticated default-branch README was verified with
+the migration notice and explicit warning that historical masking metrics do not
+establish content replacement. The repository remains private and unarchived,
+with a reminder not to put credentials or private customer/deployment data in the
+public monorepo issue tracker. Kong has no configured Actions workflows; this was
+a manually checked README-only change, not gateway-runtime validation.
 
 ## Pydantic AI
 

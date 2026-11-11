@@ -16,7 +16,8 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | n8n | Email request sent, user-reported | Await response and live link verification; source/package publishing remains paused |
 
 The remaining specifications and request text are retained for review and follow-up.
-Merged legacy source-repository notice PRs for Pydantic AI, CrewAI, Strands, and Agno are tracked in
+All seven non-n8n legacy source notices are live, including the merged Open WebUI
+and Kong README-only PRs. They are tracked in
 [MIGRATION.md](../MIGRATION.md#legacy-repository-notices); they are distinct from
 official framework documentation submissions.
 
