@@ -5,7 +5,6 @@ platforms. Each integration keeps its own dependencies, tests, and release versi
 
 | Integration | Installation or usage |
 | --- | --- |
-| [n8n](integrations/n8n/) | `n8n-nodes-deepkeep` community node |
 | [Agentgateway](integrations/agentgateway/) | HTTP webhook adapter and container |
 | [Open WebUI](integrations/openwebui/) | Importable Python filter function |
 | [Strands](integrations/strands/) | `pip install strands-deepkeep` |
@@ -17,6 +16,8 @@ platforms. Each integration keeps its own dependencies, tests, and release versi
 
 See each integration's README for supported versions, configuration, and examples.
 Do not put API keys or customer data in issues, examples, or pull requests.
+n8n is maintained separately in [n8n-nodes-deepkeep](https://github.com/Deepkeepai/n8n-nodes-deepkeep)
+and is not built or published from this repository.
 
 ## Development
 
@@ -26,8 +27,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for validation commands.
 
 ## Migration
 
-This repository consolidates the eight standalone integrations without changing
-their package names, Python imports, or existing container endpoint. Original
+The original eight integrations were imported with history. n8n has since been
+excluded at its maintainers' request and remains standalone; its imported history
+and tags are retained, not rewritten. The remaining integrations keep their
+package names, Python imports, and existing container endpoint. Original
 repositories remain available for compatibility. The four Python metadata
 releases and Agentgateway image 0.1.0 are now [published and verified](docs/RELEASES.md).
 Agno's old publisher is disabled; Agentgateway's old CI still tests/builds but no

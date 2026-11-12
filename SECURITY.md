@@ -20,7 +20,10 @@ for a repository change to remove the exposure.
 
 ## Scope And Known Limits
 
-Reports are welcome for all eight integrations and their packaging/configuration.
+Reports are welcome for the current monorepo integrations and their packaging/configuration.
+n8n is permanently standalone at https://github.com/Deepkeepai/n8n-nodes-deepkeep;
+report current n8n issues through that repository's private reporting guidance.
+The original eight-import count is historical, not the current-tree scope.
 This is not a commitment to maintain every historical release. The integrations
 have independent versions and upstream framework compatibility requirements;
 consult their READMEs when assessing an affected deployment.
@@ -31,12 +34,14 @@ the absence of secrets or vulnerabilities. The formerly private Kong content was
 reviewed for public import, and Agentgateway/Kong MIT licensing was explicitly
 approved; neither constitutes a blanket security certification.
 
-The unchanged legacy n8n lockfile produced **24 npm vulnerability reports:
+During the 2026-11-05 migration validation, the imported n8n snapshot's unchanged
+legacy lockfile produced **24 npm vulnerability reports:
 11 moderate, 11 high, and 2 critical** during `npm ci`. n8n lint/build passed,
 but the migration did not remediate those findings or establish that the affected
 dependencies are safe. `npm audit --omit=dev` reported zero findings; the reported
-vulnerabilities are in the development dependency graph. Review exposure and upgrade options
-before deployment. Do not confuse a clean secret scan with a clean dependency audit.
+vulnerabilities were in that snapshot's development dependency graph. These are
+historical findings, not current-tree dependencies or a fresh standalone audit.
+Do not confuse a clean secret scan with a clean dependency audit.
 
 Six Python pytest suites passed all 63 tests on Python 3.12 and four Python
 packages built during migration validation. These checks do not establish a
@@ -66,11 +71,17 @@ in the current tree. Root CI does not publish artifacts.
 
 The root monorepo release workflow is manual-dispatch only, gated by
 `MONOREPO_PUBLISHING_ENABLED=true` (absent by default), with independent versions,
-`<integration>/v<VERSION>` tags, `release-<integration>` job environments, and npm/PyPI
-OIDC trusted publishing. Stop old publishers and configure/verify the new bindings
+`<integration>/v<VERSION>` tags, five `release-<integration>` job environments, and PyPI
+OIDC trusted publishing for four Python packages plus Agentgateway GHCR publishing.
+n8n/npm is excluded; its standalone CI and Release workflows remain active, with
+no known npm registry-trust migration and no monorepo npm releases.
+Stop old publishers for in-scope cutovers and configure/verify the new bindings
 before enabling it. Environment names alone do not establish approval protection.
-The six release environments now have reviewer `gilarel` and a `main`-only
-deployment policy; self-review is allowed. Registry trust is not established by
+The five in-scope release environments retain reviewer `gilarel` and a `main`-only
+deployment policy; self-review is allowed. Six environments were originally
+configured; the empty `release-n8n` environment awaits inspection and possible
+removal only after the main code changes merge. It is not deleted by this change.
+Registry trust is not established by
 that GitHub configuration. See [the cutover runbook](docs/PUBLISHING_CUTOVER.md).
 Historical source tags can contain original publishers outside that gate. Do not
 create GitHub Releases against imported source tags, add a repository-wide

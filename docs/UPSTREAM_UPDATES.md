@@ -13,7 +13,7 @@ See [REFERENCE_AUDIT.md](REFERENCE_AUDIT.md) for acceptance evidence and caveats
 | Agentgateway | [website #1475](https://github.com/agentgateway/website/pull/1475) | Merged 2026-11-09; all four live guides verified with the new link and unchanged image name |
 | Strands | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) | Ready for maintainer review; user-authored overview and link review completed |
 | Open WebUI | [Existing listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) | Repository URL updated by publisher and publicly verified; retain historical v0.1.1 release URL |
-| n8n | Email request sent, user-reported | Await response and live link verification; source/package publishing remains paused |
+| n8n | Earlier email request sent, user-reported; monorepo destination superseded | Canonical source is the standalone repository; no counterrequest sent, catalog follow-up/live verification pending |
 
 The remaining specifications and request text are retained for review and follow-up.
 All seven non-n8n legacy source notices are live, including the merged Open WebUI
@@ -104,16 +104,18 @@ On 2026-11-05 the portal redirected to a sign-in page. GitHub authentication doe
 not provide access to this separate account, and no catalog change was submitted.
 
 The user subsequently accessed the portal, reported that only the name could be
-edited, and sent the repository-URL request by email. Receipt or acceptance has
-not been independently verified. The public catalog still links to
-`https://github.com/Deepkeepai/`; wait for n8n's response and verify the new link
-before marking this complete. No duplicate request was sent by the assistant.
-This catalog follow-up does not resume npm or source-publishing changes.
+edited, and sent a monorepo repository-URL request by email. That earlier request
+is now superseded: n8n requested exclusion from the monorepo and the user set a
+permanent standalone boundary. The canonical current desired source URL is
+https://github.com/Deepkeepai/n8n-nodes-deepkeep. Receipt or acceptance of the old
+email is unverified; the last recorded public catalog link was the organization.
+No counterrequest or duplicate request was sent here. Follow-up and live
+verification remain pending. The following is desired request text, not a sent request:
 
 ```text
 Please update DeepKeep's GitHub resource link on
 https://n8n.io/integrations/deepkeep/ to:
-https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/n8n
+https://github.com/Deepkeepai/n8n-nodes-deepkeep
 
 The verified npm package remains n8n-nodes-deepkeep. Its package name and node
 identity are not changing. Please also review the operation descriptions against
@@ -121,8 +123,9 @@ the current package, since the page currently describes legacy Firewall
 Conversation operations.
 ```
 
-Coordinate any package verification or trusted-publisher requirements separately
-before releasing from the monorepo. Do not create a duplicate verified-node record.
+The public standalone repository remains active with CI and Release unchanged;
+there is no monorepo npm release or known npm registry-trust migration. Do not
+configure monorepo npm publishing or create a duplicate verified-node record.
 
 ## Other Integrations
 
