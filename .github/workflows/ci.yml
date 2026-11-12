@@ -17,7 +17,6 @@ jobs:
       pull-requests: read
     outputs:
       python: ${{ steps.matrix.outputs.python }}
-      n8n: ${{ steps.filter.outputs.n8n }}
       agentgateway: ${{ steps.filter.outputs.agentgateway }}
       kong: ${{ steps.filter.outputs.kong }}
     steps:
@@ -26,10 +25,6 @@ jobs:
         id: filter
         with:
           filters: |
-            n8n:
-              - 'integrations/n8n/**'
-              - '.github/**'
-              - 'scripts/**'
             agentgateway:
               - 'integrations/agentgateway/**'
               - '.github/**'
@@ -66,7 +61,7 @@ jobs:
           script: |
             const python = new Set(['agentgateway', 'openwebui', 'strands', 'agno', 'crewai', 'pydantic-ai']);
             const changed = context.eventName === 'workflow_dispatch'
-              ? ['n8n', ...python, 'kong'] : JSON.parse(process.env.CHANGED);
+              ? [...python, 'kong'] : JSON.parse(process.env.CHANGED);
             core.setOutput('python', JSON.stringify(changed.filter(name => python.has(name))));
 
   tooling:
@@ -108,25 +103,6 @@ jobs:
           python -m build
           python -m twine check dist/*
 
-  n8n:
-    needs: changes
-    if: needs.changes.outputs.n8n == 'true' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: integrations/n8n
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: npm
-          cache-dependency-path: integrations/n8n/package-lock.json
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
-      - run: npm pack --dry-run
-
   container:
     needs: [changes, python]
     if: needs.changes.outputs.agentgateway == 'true' || github.event_name == 'workflow_dispatch'
@@ -156,7 +132,7 @@ jobs:
   status:
     name: CI status
     if: always()
-    needs: [changes, tooling, python, n8n, container, kong]
+    needs: [changes, tooling, python, container, kong]
     runs-on: ubuntu-latest
     steps:
       - name: Require successful or intentionally skipped jobs

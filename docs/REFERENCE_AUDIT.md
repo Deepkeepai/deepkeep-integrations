@@ -5,7 +5,7 @@ Original research audit: **2026-11-05**, from
 preserves its verified findings and exact source/replacement links. External
 statuses below are audit-time observations, not newly revalidated claims.
 
-All eight integrations have since been imported locally with history; see
+All eight integrations were originally imported locally with history; see
 [MIGRATION.md](../MIGRATION.md) for source SHAs, licensing, validation, and gates.
 Original repositories remain available. Agno's old publishing workflow is disabled;
 Agentgateway's old CI now builds/tests without pushing. All four Python metadata
@@ -17,15 +17,17 @@ below; retirement did not delete or rewrite historical references.
 
 The public destination `Deepkeepai/deepkeep-integrations` was created and pushed
 on 2026-11-05. All eight integration directory URLs returned HTTP 200 anonymously,
-and the Open WebUI raw file was fetched successfully. These are now available
-replacement destinations, not claims that upstream sites have updated their links.
+and the Open WebUI raw file was fetched successfully. These are historical checks;
+the n8n path is removed from current-tree scope under the permanent standalone
+boundary, not an available replacement destination. Older commits retain its code.
+The other destinations are not claims that upstream sites have updated their links.
 "Not verified" does not mean proven absent.
 
 ## Official Reference Tracker
 
 | Integration | Verified official exposure | Pending action |
 | --- | --- | --- |
-| n8n | Verified live catalog; GitHub link still points to the organization | User reports email request sent; await n8n response/live verification, publishing remains paused |
+| n8n | Catalog GitHub link pointed to the organization at last check | Earlier monorepo email request superseded by permanent standalone URL; no counterrequest sent, follow-up/live verification pending |
 | Agentgateway | Four live versioned guides now link to the monorepo | [website #1475](https://github.com/agentgateway/website/pull/1475) merged and live; image name retained |
 | Open WebUI | [Live function listing](https://openwebui.com/posts/11544def-a732-4f5a-bb04-8df2e9fedd7e) verified through official public API | Complete: monorepo repository link saved; code/version unchanged and historical release URL retained |
 | Strands | Live partner catalog links to old repo and README | [harness-sdk #5852](https://github.com/strands-agents/harness-sdk/pull/5852) ready; user-authored overview and link review completed |
@@ -37,7 +39,7 @@ replacement destinations, not claims that upstream sites have updated their link
 ## n8n
 
 - Live catalog: https://n8n.io/integrations/deepkeep/
-- The page explicitly describes DeepKeep as verified by n8n. Its current GitHub
+- At the last check, the page described DeepKeep as verified by n8n. Its GitHub
   destination is https://github.com/Deepkeepai/, not the standalone repository.
 - Catalog operations describe legacy Firewall Conversation behavior; compare
   with current v2 moderation before requesting copy changes.
@@ -47,24 +49,26 @@ replacement destinations, not claims that upstream sites have updated their link
 - Submission guidance: https://docs.n8n.io/integrations/community-nodes/installation/verified-install/
   and https://docs.n8n.io/connect/create-nodes/deploy-your-node/submit-community-nodes.md
 - No DeepKeep-specific source was found in the bounded `n8n-io/n8n-docs` search.
-- Proposed catalog destination: https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/n8n
+- Canonical current desired catalog/source destination: https://github.com/Deepkeepai/n8n-nodes-deepkeep
 
-https://registry.npmjs.org/n8n-nodes-deepkeep/latest reported `0.2.9` with old
-repository/issue URLs. A future release should use the new Git repository for
-`repository.url`, `integrations/n8n` for `repository.directory`, and the new issues
-URL for `bugs.url`. Preserve `n8n-nodes-deepkeep` and configure trusted publishing/
-provenance before cutover. Local metadata edits do not update published metadata.
+At the 2026-11-05 audit, https://registry.npmjs.org/n8n-nodes-deepkeep/latest
+reported `0.2.9` with standalone repository/issue URLs. Those URLs are consistent
+with the current permanent boundary; do not migrate metadata or npm trust to the
+monorepo. Preserve `n8n-nodes-deepkeep`. Local edits cannot update published metadata.
 After a catalog change, re-fetch the rendered destination and operations text.
 
 Follow-up on 2026-11-05: the Creator Portal requires a separate sign-in. No
 authenticated portal session is available, so no n8n update was submitted. The
-existing record owner needed to submit the prepared request in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
+existing record owner was needed for the then-proposed monorepo request.
 
 The user later reported name-only editing in the portal and sending the
 repository-URL request by email. A fresh public-page check still found the
-organization link, not the requested monorepo directory. Email receipt/acceptance
-is not verified; await a response and independently check the live link. Source
-and npm publishing changes remain paused, and no duplicate request was sent here.
+organization link, not the then-requested monorepo directory. That request is now
+superseded by the permanent standalone URL above. No counterrequest was sent here;
+email receipt/acceptance and the desired live link remain unverified. The public
+standalone repository is active at `main`
+`ba711303b21e336a06a8579f2fe321aef9edf4a1`, with CI and Release still active.
+No npm registry-trust migration is known and no monorepo npm release occurred.
 
 ## Agentgateway
 
@@ -302,10 +306,11 @@ without changing package or import names.
 
 ## Cutover Tracking
 
-The destination directories and raw filter URL are verified. Agentgateway merged
+The in-scope destination directories and raw filter URL were verified. Agentgateway merged
 and its four deployed guides are verified; Strands is open and ready for review.
-n8n's source/publishing work remains deferred; its emailed catalog request is
-awaiting response and live verification. Prepared request text and exact
+n8n remains permanently standalone; its earlier monorepo catalog request is
+superseded, with no counterrequest sent. Catalog follow-up and live verification
+remain pending. Desired request text and exact
 changes are in [UPSTREAM_UPDATES.md](UPSTREAM_UPDATES.md).
 See [MIGRATION.md](../MIGRATION.md) for publishing gates. Preserve
 old repositories/install files through compatibility validation; archive only
@@ -316,7 +321,7 @@ separate adoption work, not mandatory migrations of accepted entries.
 | --- | --- | --- | --- | --- |
 | Agentgateway | [#1475](https://github.com/agentgateway/website/pull/1475), gilarel | 2026-11-05 | 2026-11-09 | 2026-11-09, all four guides |
 | Strands | [#5852](https://github.com/strands-agents/harness-sdk/pull/5852), gilarel | 2026-11-05, draft | Pending | Pending |
-| n8n | Email request, user-reported | Sent; no timestamp reported | Not applicable | Pending; organization link still present |
+| n8n | Earlier monorepo email request, user-reported; superseded by standalone destination | Earlier request sent; no timestamp reported; no counterrequest sent | Not applicable | Pending; last check found organization link |
 
 The old links remain in upstream default branches until acceptance. Verify
 rendered pages after deployment, not merely PR merge. Never count pending

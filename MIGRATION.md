@@ -2,7 +2,7 @@
 
 ## Status And Scope
 
-All eight agreed integration `main` branches were imported using **non-squashed
+Historically, all eight agreed integration `main` branches were imported using **non-squashed
 git subtree imports**. Original commit IDs are preserved as ancestors. Source
 repositories remain available. Agno's old publishing workflow is disabled;
 Agentgateway's old CI now tests/builds without registry login or image pushes.
@@ -31,10 +31,20 @@ Five legacy repositories were subsequently archived after explicit approval;
 [LEGACY_RETIREMENT.md](docs/LEGACY_RETIREMENT.md) records the batch and held repos. The
 approved Python publisher cutovers are recorded in [RELEASES.md](docs/RELEASES.md).
 
-n8n source/package publishing work remains paused at the user's request. The user
-reports sending the repository-URL request to n8n by email. The public catalog
-still links to the organization, so response and live verification are pending.
-No additional request, node rename, or publisher change was performed here.
+n8n is permanently excluded from the monorepo at the user's request, not a paused
+migration. Its canonical source is https://github.com/Deepkeepai/n8n-nodes-deepkeep.
+The standalone repository is public and active, with `main` at
+`ba711303b21e336a06a8579f2fe321aef9edf4a1`; its CI and Release workflows remain
+active. No npm registry-trust migration is known and no monorepo npm release occurred.
+The earlier user-reported email requesting a monorepo catalog URL is superseded
+by this standalone destination. No counterrequest was sent; catalog follow-up and
+live verification remain pending, with the last recorded link at the organization.
+
+The current-tree boundary removes `integrations/n8n`, its root CI job, npm release
+choice/job, and script enumeration through a normal forward deletion.
+Older commits still contain n8n code. Preserve all imported
+history and namespaced source tags: public PyPI/GHCR source-commit provenance is
+immutable. Do not rewrite history, move tags, or change standalone repo settings.
 
 [Release-preparation PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1)
 was approved and merged on 2026-11-05, preparing unpublished Python metadata
@@ -92,7 +102,8 @@ Open WebUI, and Kong are now archived read-only with preserved source heads and
 visibility; Kong remains private. Historical Open WebUI release/raw URLs were
 rechecked after archival and still work. Strands is held for catalog acceptance,
 and Agentgateway archival needs a repository admin. No repositories were deleted;
-n8n remains paused and LangChain stays separate.
+n8n remains active standalone and LangChain stays separate. The company Cursor
+integration is a separate new feature with a different license, not a retired import.
 
 ## Imported Source Tips
 
@@ -101,9 +112,9 @@ These exact source SHAs were read from local remote-tracking refs with
 They identify the imported source snapshot, not later monorepo edits or the
 current state of a remote server.
 
-| Source repository | Destination | Source ref | Imported SHA |
+| Source repository | Historical import destination | Source ref | Imported SHA |
 | --- | --- | --- | --- |
-| [Deepkeepai/n8n-nodes-deepkeep](https://github.com/Deepkeepai/n8n-nodes-deepkeep) | `integrations/n8n` | `source-n8n/main` | `ba711303b21e336a06a8579f2fe321aef9edf4a1` |
+| [Deepkeepai/n8n-nodes-deepkeep](https://github.com/Deepkeepai/n8n-nodes-deepkeep) | `integrations/n8n` (removed from current-tree scope) | `source-n8n/main` | `ba711303b21e336a06a8579f2fe321aef9edf4a1` |
 | [Deepkeepai/agentgateway-deepkeep-webhook](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook) | `integrations/agentgateway` | `source-agentgateway/main` | `8c7506376b36aea62fd0111328855901005e6e2e` |
 | [Deepkeepai/openwebui-deepkeep](https://github.com/Deepkeepai/openwebui-deepkeep) | `integrations/openwebui` | `source-openwebui/main` | `a706f97be218500375af0a33121c8a913492b81d` |
 | [Deepkeepai/strands-deepkeep](https://github.com/Deepkeepai/strands-deepkeep) | `integrations/strands` | `source-strands/main` | `f0ed4e82f67ae48184f453f38045cc06f373d158` |
@@ -113,7 +124,7 @@ current state of a remote server.
 | [Deepkeepai/pydantic-ai-deepkeep](https://github.com/Deepkeepai/pydantic-ai-deepkeep) | `integrations/pydantic-ai` | `source-pydantic-ai/main` | `0c1a52f1b6416e4973f5536268fb1dec9ff6375e` |
 
 Historical commits still contain files at their original repository-root paths.
-The subtree prefix exists in the import commits and subsequent monorepo tree;
+The subtree prefix exists in the import commits and subsequent trees until removal;
 history was not rewritten to prefix every original file. `git log --follow` is
 not rewritten history and should not be assumed to cross every subtree merge.
 Inspect the original source commit/path directly when tracing provenance:
@@ -142,11 +153,12 @@ Recorded migration validation on Python 3.12: six pytest suites, all 63 tests
 passing; all four Python packages built and their eight artifacts passed
 `twine check`. Six release-validator tests and actionlint passed. Kong's two JSON
 examples and one YAML example parsed successfully; that is not Kong schema or
-runtime validation. n8n lint and build passed. `npm ci`
+runtime validation. In the 2026-11-05 imported n8n snapshot, lint and build passed. `npm ci`
 reported **24 vulnerabilities: 11 moderate, 11 high, and 2 critical** against the
 untouched legacy lockfile. Moving source does not remediate those findings or
 make dependencies safe. `npm audit --omit=dev` reported zero vulnerabilities;
-the findings are in the development dependency graph. See [SECURITY.md](SECURITY.md).
+the findings were in that snapshot's development dependency graph, not the current
+tree or a fresh standalone audit. See [SECURITY.md](SECURITY.md).
 
 Root CI validates changed integrations, packaging, workflow syntax, and release
 tooling, with a single aggregate `CI status` check. Python CI currently uses
@@ -166,13 +178,15 @@ than rewriting history to remove these workflows.
 
 Keep package names, Python imports, independent versions, and the existing image
 `ghcr.io/deepkeepai/agentgateway-deepkeep-webhook:latest` unchanged. Local metadata
-edits do not update already published npm/PyPI artifacts.
+edits do not update already published PyPI artifacts. n8n/npm publishing remains
+exclusively standalone and is not a monorepo cutover target.
 
 The root `release.yml` workflow is manual-dispatch only, with no automatic
 tag-push publishing. It is gated on repository variable
 `MONOREPO_PUBLISHING_ENABLED` being exactly `true`; the variable is absent by
 default, so publishing is disabled. Use `<integration>/v<VERSION>` tags and job
-environments named `release-<integration>`. npm/PyPI publishing uses OIDC
+environments named `release-<integration>` for the five publishable distributions
+(four PyPI packages and Agentgateway's GHCR image). PyPI publishing uses OIDC
 trusted publishers. GitHub approvals and the four PyPI paths are configured and
 verified; future registry bindings still require explicit setup. Validation
 requires the exact tag commit to be reachable from `main`, contain the monorepo
@@ -181,18 +195,20 @@ The new repository variable `MONOREPO_PUBLISHING_ENABLED` was explicitly set to
 `false` and verified after publishing. No long-lived registry tokens were copied;
 new PyPI trusted publishers were configured by the owner.
 
-Six `release-<integration>` environments have now been configured and verified
+Historically, six `release-<integration>` environments were configured and verified
 with reviewer `gilarel` and a custom deployment policy allowing only branch
 `main`. Self-review is allowed; this requires explicit approval but not a second
 person. All four PyPI publishing paths are now demonstrated by successful,
 attested publications. GHCR read/write publication and a separate read-only pull
-are now verified for Agentgateway. npm remains deferred with n8n.
+are now verified for Agentgateway. The five in-scope job environments remain
+unchanged. The empty `release-n8n` environment awaits inspection and possible
+removal only after the main code changes merge; no deletion is claimed here.
 See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
 the completed Python releases and remaining access requirements.
 
 - [x] Import all eight `main` histories without squashing and namespace source tags.
 - [x] Obtain explicit Agentgateway/Kong MIT approval and scan imported history.
-- [x] Record local test/build baselines and outstanding n8n dependency findings.
+- [x] Record historical local test/build baselines and imported-snapshot n8n dependency findings.
 - [x] Create the public destination, push main and source tags, and verify all
   eight directory URLs and the raw Open WebUI installation file anonymously.
 - [x] Audit the seven non-n8n integrations' Markdown files for relative links,
@@ -204,8 +220,8 @@ the completed Python releases and remaining access requirements.
   cutover; tests were initially retained before approved archival. Agentgateway's
   image path was cut over separately and its old validation CI remains active.
 - [x] Verify all four PyPI OIDC publishing paths through successful releases.
-- [ ] npm publisher/source work remains deferred with n8n.
-- [x] Configure and verify the six release environments with required reviewer
+- [x] Set the permanent standalone n8n boundary; no monorepo npm publishing or trust setup.
+- [x] Historically configure and verify six release environments with required reviewer
   `gilarel` and a `main`-only deployment policy.
 - [x] Verify GHCR publication, matching version/latest digests, and a separate
   read-only image pull/runtime health check while preserving the image name.
@@ -214,7 +230,8 @@ the completed Python releases and remaining access requirements.
 - [x] Submit authorized Agentgateway and Strands link-update PRs; after the user
   provided their own overview and confirmed review, mark Strands ready.
 - [x] Record the user's report that the n8n repository-URL email was sent.
-- [ ] Await n8n's response and verify the live catalog link before marking it complete.
+- [ ] Follow up on the superseded n8n catalog request using the standalone URL;
+  no counterrequest has been sent, and live verification remains pending.
 - [ ] Obtain upstream acceptance and verify deployed pages as tracked in
   [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 - [x] Publish the four Python packages after explicit approval and verify all

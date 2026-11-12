@@ -12,14 +12,17 @@ Five legacy repositories have since been archived with explicit approval; see
 - `MONOREPO_PUBLISHING_ENABLED` is explicitly `false`.
 - Imported source revisions and ancestry are recorded in `MIGRATION.md`; the
   monorepo packages include subsequent metadata, documentation, and version edits.
-- Six GitHub environments exist, each requiring reviewer `gilarel` and allowing
-  deployments only from branch `main`: `release-n8n`, `release-agentgateway`,
+- Five in-scope job environments retain reviewer `gilarel` and allow
+  deployments only from branch `main`: `release-agentgateway`,
   `release-strands`, `release-agno`, `release-crewai`, `release-pydantic-ai`.
+- Six environments were originally configured. The unused `release-n8n` was
+  inspected with zero secrets, variables, and deployments. Its removal waits
+  until the main code changes merge; it has not been deleted by this change.
 - Self-review is allowed, so the author can explicitly approve a manually
   dispatched release. This is an approval gate, not two-person separation of duty.
   Repository administrators can change protection settings; do not treat names
   or reviewer configuration as immutable security boundaries.
-- No repository Actions secrets were copied. npm/PyPI publication uses OIDC;
+- No repository Actions secrets were copied. PyPI publication uses OIDC;
   Agentgateway uses GitHub's automatically supplied `GITHUB_TOKEN`.
 - All four PyPI runs succeeded after environment approval. The last three reviews
   were submitted through the CLI at the owner's explicit request, not browser
@@ -30,8 +33,12 @@ Five legacy repositories have since been archived with explicit approval; see
 
 These are required settings. All four PyPI paths have been demonstrated by
 successful attested publications. Agentgateway's GHCR publishing and read-only
-image verification succeeded; npm remains deferred.
-Use existing npm/PyPI projects, not differently named replacement packages.
+image verification succeeded. The root pipeline covers these five publishable
+distributions only. n8n is permanently standalone at
+https://github.com/Deepkeepai/n8n-nodes-deepkeep, with CI and Release still active.
+No npm registry-trust migration is known and no monorepo npm release occurred.
+Do not configure monorepo npm trust or stop the standalone n8n publisher.
+Use existing PyPI projects, not differently named replacement packages.
 
 | Field | Value |
 | --- | --- |
@@ -46,26 +53,20 @@ Select the exact package-specific environment:
 
 | Registry | Existing package | Environment | Recorded published version |
 | --- | --- | --- | --- |
-| npm | `n8n-nodes-deepkeep` | `release-n8n` | `0.2.9` |
 | PyPI | `strands-deepkeep` | `release-strands` | `0.1.1`, verified publication |
 | PyPI | `agno-deepkeep` | `release-agno` | `0.1.2`, verified publication |
 | PyPI | `crewai-tools-deepkeep` | `release-crewai` | `0.1.3`, verified publication |
 | PyPI | `pydantic-ai-deepkeep` | `release-pydantic-ai` | `0.1.1`, verified publication |
-
-For npm, use the existing package's **Settings > Trusted Publishers** and permit
-the workflow's direct `npm publish` operation, not only staged publishing. The
-workflow uses `--provenance`; trusted publishing requires a supported npm CLI
-(at least 11.5.1). Node 24 is selected by the workflow.
 
 For PyPI, use each existing project's **Publishing** settings and add a GitHub
 trusted publisher with the fields above. Keep the environment restriction rather
 than granting an unrestricted workflow identity. Do not introduce a shared
 `PYPI_API_TOKEN` to bypass trust configuration.
 
-References: [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)
-and [PyPI publisher setup](https://docs.pypi.org/trusted-publishers/adding-a-publisher/).
+Reference: [PyPI publisher setup](https://docs.pypi.org/trusted-publishers/adding-a-publisher/).
 
-The local `npm whoami` check returned HTTP 401. This means no usable local npm
+During the 2026-11-05 audit, the local `npm whoami` check returned HTTP 401.
+This historical observation means no usable local npm
 session was available; it does **not** prove that GitHub OIDC publishing would
 fail. Registry settings require the appropriate project-owner account and have
 not been inspected through an authenticated registry management session.
@@ -105,7 +106,7 @@ workflow access path without requiring package-admin rights for the CLI account.
 
 | Integration | Existing publication path | Cutover requirement |
 | --- | --- | --- |
-| n8n | Active `release.yml`, triggered by `v*.*.*` tag pushes, npm OIDC/provenance | Coordinate and stop the old release publisher before the new publisher is enabled |
+| n8n (excluded) | Standalone CI and Release remain active; `release.yml` uses `v*.*.*` tag pushes and npm OIDC/provenance | No cutover: retain standalone publishing and repository settings |
 | Agentgateway | Legacy CI remains active with `contents: read`, no registry login, and `push: false` | Cut over before verified monorepo image 0.1.0; legacy tests and Docker builds passed |
 | Agno | Old publisher was disabled before cutover; legacy repo is now archived | Historical test results are retained; active validation belongs in the monorepo. Token revocation is separate owner cleanup |
 | Strands | No repository-defined old publisher found | Monorepo 0.1.1 verified; keep old manual upload paths idle |
@@ -119,11 +120,11 @@ disable unrelated workflows or archive repositories as a side effect.
 
 ## Prepare Fresh Versions
 
-The imported npm/PyPI package versions matched already published versions.
+Historically, the imported npm/PyPI package versions matched already published versions.
 The [four Python metadata patches](PYTHON_RELEASE_CANDIDATES.md) have now been
 published and cannot be reused. For any future release, prepare another reviewed,
 unused version bump and rerun tests/build/artifact checks before creating its tag.
-Do not use republishing as a permission test. n8n remains paused separately.
+Do not use republishing as a permission test. n8n is permanently excluded.
 
 The release validator checks tag/package agreement and monorepo layout, not
 whether that version is still unused in a registry. Recheck registry availability

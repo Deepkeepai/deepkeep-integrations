@@ -6,7 +6,7 @@ on:
       integration:
         description: Integration to release after publisher cutover
         type: choice
-        options: [n8n, agentgateway, strands, agno, crewai, pydantic-ai]
+        options: [agentgateway, strands, agno, crewai, pydantic-ai]
         required: true
       tag:
         description: Existing monorepo tag, integration/vMAJOR.MINOR.PATCH
@@ -40,6 +40,10 @@ jobs:
           INTEGRATION: ${{ inputs.integration }}
           TAG: ${{ inputs.tag }}
         run: |
+          case "$INTEGRATION" in
+            agentgateway|strands|agno|crewai|pydantic-ai) ;;
+            *) echo "Unsupported monorepo integration" >&2; exit 1 ;;
+          esac
           git check-ref-format "refs/tags/$TAG"
           commit=$(git rev-parse --verify "refs/tags/$TAG^{commit}")
           git merge-base --is-ancestor "$commit" origin/main
@@ -50,7 +54,7 @@ jobs:
 
   python:
     needs: validate
-    if: inputs.integration != 'n8n' && inputs.integration != 'agentgateway'
+    if: contains(fromJSON('["strands", "agno", "crewai", "pydantic-ai"]'), inputs.integration)
     runs-on: ubuntu-latest
     environment: release-${{ inputs.integration }}
     permissions:
@@ -73,30 +77,6 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: integrations/${{ inputs.integration }}/dist/
-
-  n8n:
-    needs: validate
-    if: inputs.integration == 'n8n'
-    runs-on: ubuntu-latest
-    environment: release-n8n
-    permissions:
-      contents: read
-      id-token: write
-    defaults:
-      run:
-        working-directory: integrations/n8n
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.validate.outputs.commit }}
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          registry-url: https://registry.npmjs.org
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
-      - run: npm publish --provenance --access public
 
   container:
     needs: validate

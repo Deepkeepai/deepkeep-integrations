@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -11,22 +10,27 @@ class ReleaseValidationTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
-        for name in ("n8n", "agno", "agentgateway"):
+        for name in ("agno", "agentgateway"):
             directory = self.root / "integrations" / name
             directory.mkdir(parents=True)
-            if name == "n8n":
-                (directory / "package.json").write_text(json.dumps({"version": "1.2.3"}))
-            elif name == "agno":
+            if name == "agno":
                 (directory / "pyproject.toml").write_text('[project]\nversion = "1.2.3"\n')
 
     def test_package_versions(self):
-        for integration in ("n8n", "agno", "agentgateway"):
+        for integration in ("agno", "agentgateway"):
             with self.subTest(integration=integration):
                 self.assertEqual(validate_release(self.root, integration, f"{integration}/v1.2.3"), "1.2.3")
 
     def test_version_mismatch(self):
         with self.assertRaisesRegex(ValueError, "does not match"):
-            validate_release(self.root, "n8n", "n8n/v1.2.4")
+            validate_release(self.root, "agno", "agno/v1.2.4")
+
+    def test_n8n_is_excluded_even_when_historical_files_exist(self):
+        directory = self.root / "integrations" / "n8n"
+        directory.mkdir()
+        (directory / "package.json").write_text('{"version": "1.2.3"}\n')
+        with self.assertRaisesRegex(ValueError, "Unsupported integration"):
+            validate_release(self.root, "n8n", "n8n/v1.2.3")
 
     def test_wrong_integration_tag(self):
         with self.assertRaises(ValueError):

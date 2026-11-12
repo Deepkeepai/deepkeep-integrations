@@ -34,29 +34,27 @@ python -m pytest
 
 Do not install all integrations into one environment to resolve incompatible
 framework dependencies. Open WebUI is an importable filter, not one of the four
-distributable Python packages. Kong provides configuration examples, not a Python
-package or pytest suite; check examples against the intended Kong version.
+distributable Python packages. Kong is not a Python distribution, but its
+`requirements-dev.txt` and pytest suite execute the embedded LuaJIT policies.
+Run those checks in its directory; deployed gateway validation is separate.
 
-For n8n, from `integrations/n8n`, use the Node.js version supported by its tooling:
-
-```powershell
-npm ci
-npm run lint
-npm run build
-```
+n8n is permanently outside this monorepo. Contribute and validate in its active
+standalone repository: https://github.com/Deepkeepai/n8n-nodes-deepkeep.
+`integrations/n8n` is removed from the current-tree scope; older commits retain it.
 
 The migration baseline recorded six Python suites passing all 63 tests, all four
-Python packages building, and n8n lint/build passing. These are local validation
-results, not proof of production compatibility. Root CI runs path-selected checks
+Python packages building, and the originally imported n8n snapshot's lint/build
+passing. These are historical local validation results, not proof of production
+compatibility. Root CI runs path-selected checks
 and provides an aggregate `CI status` check. Imported `.github/workflows`
 directories underneath integrations are retained provenance, not active workflows
 in the current tree. Historical tag workflows require separate precautions in
 [MIGRATION.md](MIGRATION.md).
 
-`npm ci` reported **24 vulnerabilities: 11 moderate, 11 high, and 2 critical**.
-The legacy n8n lockfile was left unchanged. Passing lint/build and moving source
-do not make these dependencies safe. Investigate dependency upgrades separately;
-do not apply a blanket force-fix or silently rewrite the lockfile in a docs change.
+During the 2026-11-05 migration validation, `npm ci` reported **24 vulnerabilities:
+11 moderate, 11 high, and 2 critical** in the imported n8n snapshot's unchanged
+lockfile. This is not a current-tree dependency finding or a fresh audit of the
+standalone repository. Passing lint/build did not establish dependency safety.
 
 The [initial GitHub CI run](https://github.com/Deepkeepai/deepkeep-integrations/actions/runs/42054023512)
 also passed all integration, artifact, workflow, and container checks.
@@ -90,8 +88,10 @@ and the pending actions in [docs/REFERENCE_AUDIT.md](docs/REFERENCE_AUDIT.md).
 The root release workflow is manual-dispatch only and disabled unless repository
 variable `MONOREPO_PUBLISHING_ENABLED` is exactly `true` (absent by default).
 Integration versions are independent, tags use `<integration>/v<VERSION>`, and jobs
-use `release-<integration>` environments. npm/PyPI publishing uses
-OIDC trusted publishing. Old publishers must be stopped and new trust/environment
-bindings configured and verified before enabling it. Workflow deployment does not
+use `release-<integration>` environments for five publishable distributions: four
+PyPI packages and the Agentgateway GHCR image. PyPI publishing uses OIDC trusted
+publishing. n8n/npm releases are excluded; leave the standalone CI and Release
+workflows active. Old publishers for in-scope cutovers must be stopped and new
+trust/environment bindings configured and verified before enabling it. Workflow deployment does not
 configure registry trust or environment protection rules. Never create GitHub
 Releases against imported historical source tags; they can contain old publishers.

@@ -44,12 +44,31 @@ image tags, or credentials were changed during retirement. The
 | --- | --- |
 | `Deepkeepai/strands-deepkeep` | Hold until the official catalog link update in [PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is accepted, avoiding an archived repository as the listed integration source |
 | `Deepkeepai/agentgateway-deepkeep-webhook` | Acting account has Write, not Admin; [admin handoff issue #1](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/issues/1) requests review and archival. Image publishing is already retired and the new publisher verified |
-| `Deepkeepai/n8n-nodes-deepkeep` | Source/publisher migration remains paused; existing publishing was not changed. Its emailed catalog request awaits response/live verification |
 
 The monorepo and the Dify contribution fork were verified unarchived. LangChain
 remains separate and was not changed. No archive operation was submitted outside
 the approved five. The separate Agentgateway issue is an admin-review request,
 not a completed retirement; the repository remains active until an admin acts.
+
+## Permanent Standalone Boundary
+
+n8n is not a held migration or retirement candidate. At n8n's request and the
+user's direction, its canonical source remains
+https://github.com/Deepkeepai/n8n-nodes-deepkeep. It is public and active at `main`
+`ba711303b21e336a06a8579f2fe321aef9edf4a1`; CI and Release remain active.
+It was not archived and its settings were not changed. No npm registry-trust
+migration is known and no monorepo npm release occurred. The earlier emailed
+monorepo catalog request is superseded; no counterrequest was sent, and catalog
+follow-up/live verification remain pending.
+
+The main implementation removes `integrations/n8n` and its root CI/release/script
+entries by normal forward deletion. The original eight-import count and source
+SHA remain historical facts; older commits retain the code. Preserve history and
+namespaced import tags because public PyPI/GHCR source-commit provenance is
+immutable: no history rewrite or retagging. The empty `release-n8n` environment
+awaits inspection and possible removal only after those code changes merge.
+The other five release job environments remain unchanged. The company Cursor
+integration is a separate new feature with a different license and is unaffected.
 
 ## Remaining Controls
 
@@ -62,7 +81,8 @@ already been disabled before the cutover; any old PyPI token requires separate
 owner review and revocation only after confirming it is not shared. No publishing
 secret values were inspected, copied, deleted, or revoked during retirement.
 
-New development, issues, CI validation, and releases belong in the active
-monorepo. Remaining archives require separate approval. Any future legacy edits
+For migrated integrations, new development, issues, CI validation, and releases
+belong in the active monorepo; n8n and LangChain remain separate.
+Remaining archives require separate approval. Any future legacy edits
 require an explicit decision to unarchive first; do not delete or rewrite
 historical references as a shortcut.
