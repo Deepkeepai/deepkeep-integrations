@@ -15,9 +15,10 @@ Five legacy repositories have since been archived with explicit approval; see
 - Five in-scope job environments retain reviewer `gilarel` and allow
   deployments only from branch `main`: `release-agentgateway`,
   `release-strands`, `release-agno`, `release-crewai`, `release-pydantic-ai`.
-- Six environments were originally configured. The unused `release-n8n` was
-  inspected with zero secrets, variables, and deployments. Its removal waits
-  until the main code changes merge; it has not been deleted by this change.
+- Six publishing environments were originally configured. After n8n exclusion
+  merged, unused `release-n8n` was removed after rechecking zero secrets,
+  variables, and deployments. The five in-scope publishers and unrelated
+  environments remain; no standalone environment or npm settings were changed.
 - Self-review is allowed, so the author can explicitly approve a manually
   dispatched release. This is an approval gate, not two-person separation of duty.
   Repository administrators can change protection settings; do not treat names
@@ -38,6 +39,9 @@ distributions only. n8n is permanently standalone at
 https://github.com/Deepkeepai/n8n-nodes-deepkeep, with CI and Release still active.
 No npm registry-trust migration is known and no monorepo npm release occurred.
 Do not configure monorepo npm trust or stop the standalone n8n publisher.
+If a monorepo npm trusted-publisher entry was manually added outside this work,
+its npm project owner should remove that entry while preserving the standalone
+publisher. Private npm bindings were not inspected or edited here.
 Use existing PyPI projects, not differently named replacement packages.
 
 | Field | Value |

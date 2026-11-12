@@ -79,8 +79,8 @@ Stop old publishers for in-scope cutovers and configure/verify the new bindings
 before enabling it. Environment names alone do not establish approval protection.
 The five in-scope release environments retain reviewer `gilarel` and a `main`-only
 deployment policy; self-review is allowed. Six environments were originally
-configured; the empty `release-n8n` environment awaits inspection and possible
-removal only after the main code changes merge. It is not deleted by this change.
+configured; the unused `release-n8n` environment was removed after the code
+exclusion merged and zero secrets, variables, and deployments were verified.
 Registry trust is not established by
 that GitHub configuration. See [the cutover runbook](docs/PUBLISHING_CUTOVER.md).
 Historical source tags can contain original publishers outside that gate. Do not

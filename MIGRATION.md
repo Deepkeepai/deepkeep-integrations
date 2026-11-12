@@ -45,6 +45,9 @@ choice/job, and script enumeration through a normal forward deletion.
 Older commits still contain n8n code. Preserve all imported
 history and namespaced source tags: public PyPI/GHCR source-commit provenance is
 immutable. Do not rewrite history, move tags, or change standalone repo settings.
+The exclusion merged in [PR #4](https://github.com/Deepkeepai/deepkeep-integrations/pull/4);
+main CI passed without any n8n job. The standalone main SHA and active CI/Release
+workflows were reverified unchanged after merge.
 
 [Release-preparation PR #1](https://github.com/Deepkeepai/deepkeep-integrations/pull/1)
 was approved and merged on 2026-11-05, preparing unpublished Python metadata
@@ -201,8 +204,10 @@ with reviewer `gilarel` and a custom deployment policy allowing only branch
 person. All four PyPI publishing paths are now demonstrated by successful,
 attested publications. GHCR read/write publication and a separate read-only pull
 are now verified for Agentgateway. The five in-scope job environments remain
-unchanged. The empty `release-n8n` environment awaits inspection and possible
-removal only after the main code changes merge; no deletion is claimed here.
+unchanged. After the exclusion merged, the unused `release-n8n` environment was
+deleted only after rechecking zero secrets, variables, and deployments. The
+environment list confirms it is absent; other publishing and unrelated
+environments were retained. No npm registry settings were changed.
 See [PUBLISHING_CUTOVER.md](docs/PUBLISHING_CUTOVER.md) for exact binding fields,
 the completed Python releases and remaining access requirements.
 

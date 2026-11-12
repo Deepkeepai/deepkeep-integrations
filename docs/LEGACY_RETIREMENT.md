@@ -61,12 +61,13 @@ migration is known and no monorepo npm release occurred. The earlier emailed
 monorepo catalog request is superseded; no counterrequest was sent, and catalog
 follow-up/live verification remain pending.
 
-The main implementation removes `integrations/n8n` and its root CI/release/script
-entries by normal forward deletion. The original eight-import count and source
+[PR #4](https://github.com/Deepkeepai/deepkeep-integrations/pull/4) removed
+`integrations/n8n` and its root CI/release/script entries by normal forward deletion.
+The original eight-import count and source
 SHA remain historical facts; older commits retain the code. Preserve history and
 namespaced import tags because public PyPI/GHCR source-commit provenance is
-immutable: no history rewrite or retagging. The empty `release-n8n` environment
-awaits inspection and possible removal only after those code changes merge.
+immutable: no history rewrite or retagging. After merge, the unused `release-n8n`
+environment was deleted after rechecking zero secrets, variables, and deployments.
 The other five release job environments remain unchanged. The company Cursor
 integration is a separate new feature with a different license and is unaffected.
 
