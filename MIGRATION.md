@@ -227,8 +227,10 @@ the completed Python releases and remaining access requirements.
   publishing the seven non-n8n legacy relocation notices.
 - [x] Obtain explicit approval for the five-repository archival batch and verify
   archived flags, unchanged source/visibility, and historical Open WebUI downloads.
+- [x] Open the [Agentgateway admin handoff](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/issues/1)
+  with verified cutover evidence and instructions to preserve the GHCR package.
 - [ ] Obtain separate retirement approval for Strands after catalog acceptance
-  and for Agentgateway through a repository admin.
+  and verify Agentgateway archival after its repository admin acts on the handoff.
 
 ## External Documentation
 

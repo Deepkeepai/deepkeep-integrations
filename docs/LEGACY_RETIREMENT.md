@@ -43,12 +43,13 @@ image tags, or credentials were changed during retirement. The
 | Repository | Reason to remain active |
 | --- | --- |
 | `Deepkeepai/strands-deepkeep` | Hold until the official catalog link update in [PR #5852](https://github.com/strands-agents/harness-sdk/pull/5852) is accepted, avoiding an archived repository as the listed integration source |
-| `Deepkeepai/agentgateway-deepkeep-webhook` | Acting account has Write, not Admin; a repository admin or organization owner must approve and perform archival. Image publishing is already retired and the new publisher verified |
+| `Deepkeepai/agentgateway-deepkeep-webhook` | Acting account has Write, not Admin; [admin handoff issue #1](https://github.com/Deepkeepai/agentgateway-deepkeep-webhook/issues/1) requests review and archival. Image publishing is already retired and the new publisher verified |
 | `Deepkeepai/n8n-nodes-deepkeep` | Source/publisher migration remains paused; existing publishing was not changed. Its emailed catalog request awaits response/live verification |
 
 The monorepo and the Dify contribution fork were verified unarchived. LangChain
-remains separate and was not changed. No repository outside the approved five
-was submitted for archival.
+remains separate and was not changed. No archive operation was submitted outside
+the approved five. The separate Agentgateway issue is an admin-review request,
+not a completed retirement; the repository remains active until an admin acts.
 
 ## Remaining Controls
 
