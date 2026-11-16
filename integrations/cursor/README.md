@@ -24,9 +24,9 @@ JavaScript runtime on the machine or in Cursor.
 2. Enter
    `https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/cursor`.
 3. Select the DeepKeep plugin and install it.
-4. Configure the plugin as described in [Configuration](#configuration).
-   Once configured, you can run `/deepkeep-connect` in Cursor chat for
-   configuration guidance.
+4. Create the configuration file manually as described in
+   [Configuration](#configuration). Once configured, you can run
+   `/deepkeep-connect` in Cursor chat for configuration guidance.
 5. Fully quit and reopen Cursor.
 
 ## Install from a team marketplace
@@ -45,9 +45,9 @@ administrator can make the plugin available to the team:
 Team members can then open **Customize** in Cursor and install the DeepKeep
 plugin if it is not installed automatically. Follow the
 [plugin configuration guide](cursor-plugin/README.md#configuration). Once
-configured, you can run `/deepkeep-connect` in Cursor chat for guidance. Enter
-your API key privately, outside chat and agent tools, then fully quit and reopen
-Cursor.
+configured manually, you can run `/deepkeep-connect` in Cursor chat for
+guidance. Enter your API key privately, outside chat and agent tools, then fully
+quit and reopen Cursor.
 
 ## Local installation
 
@@ -62,7 +62,10 @@ duplicate hooks.
 ## Configuration
 
 The plugin is free, but requires a paid DeepKeep API token to function.
-Configure it before using chat: an unconfigured plugin blocks prompts by default.
+Create the configuration file manually before using chat. The plugin checks
+every prompt, including `/deepkeep-connect`, and blocks it by default if the
+policy endpoint is not configured. The command provides guidance but does not
+create the configuration file or handle your API key.
 
 Create `~/.deepkeep/config.json` with your DeepKeep endpoint and API key:
 
