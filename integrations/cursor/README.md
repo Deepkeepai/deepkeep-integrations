@@ -28,9 +28,6 @@ JavaScript runtime on the machine or in Cursor.
    instructions. Enter your API key privately, outside chat and agent tools.
 5. Fully quit and reopen Cursor.
 
-The repository's root `.cursor-plugin/marketplace.json` identifies the plugin
-in `integrations/cursor/cursor-plugin/` for marketplace imports.
-
 ## Install from a team marketplace
 
 Team marketplaces require a Cursor Teams or Enterprise plan. A Cursor team
