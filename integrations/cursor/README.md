@@ -79,7 +79,6 @@ Create `~/.deepkeep/config.json` with your DeepKeep endpoint and API key:
 }
 ```
 
-An optional `bearerToken` can also be supplied. Keep all credentials private.
 Create the directory with permissions `0700` and the file with permissions
 `0600`. Enter the key privately, outside Cursor chat and agent tools.
 
