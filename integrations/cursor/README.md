@@ -33,6 +33,24 @@ JavaScript runtime on the machine or in Cursor.
 The repository's root `.cursor-plugin/marketplace.json` identifies the plugin
 in `integrations/cursor/cursor-plugin/` for marketplace imports.
 
+## Install from a team marketplace
+
+A Cursor team administrator can make the plugin available to the team:
+
+1. Open the [Cursor Plugins & MCPs dashboard](https://cursor.com/dashboard/plugins).
+2. Under **Team Marketplaces**, choose **Add Marketplace**, then
+   **Import from Repo**.
+3. Enter `https://github.com/Deepkeepai/deepkeep-integrations` and follow the
+   prompts to add the marketplace.
+4. Verify the marketplace and its DeepKeep plugin appear in the dashboard.
+   Set marketplace access and the plugin installation mode for your team.
+
+Team members can then open **Customize** in Cursor and install the DeepKeep
+plugin if it is not installed automatically. Follow the
+[plugin configuration guide](cursor-plugin/README.md#configuration), or run
+`/deepkeep-connect` in Cursor chat. Enter your API key privately, outside chat
+and agent tools, then fully quit and reopen Cursor.
+
 ## Local installation
 
 Run `npm run install:plugin`, then fully quit and reopen Cursor. The command
