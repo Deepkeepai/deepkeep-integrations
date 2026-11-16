@@ -18,6 +18,37 @@ npm run build:plugin
 The built plugin is in `cursor-plugin/`. Its launchers find a compatible
 JavaScript runtime on the machine or in Cursor.
 
+## Install from the repository
+
+1. In Cursor, open **Customize** and choose **Add from Repo**.
+2. Enter
+   `https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/cursor`.
+3. Select the DeepKeep plugin and install it.
+4. Create the configuration file manually as described in
+   [Configuration](#configuration). Once configured, you can run
+   `/deepkeep-connect` in Cursor chat for configuration guidance.
+5. Fully quit and reopen Cursor.
+
+## Install from a team marketplace
+
+Team marketplaces require a Cursor Teams or Enterprise plan. A Cursor team
+administrator can make the plugin available to the team:
+
+1. Open the [Cursor Plugins & MCPs dashboard](https://cursor.com/dashboard/plugins).
+2. Under **Team Marketplaces**, choose **Add Marketplace**, then
+   **Import from Repo**.
+3. Enter `https://github.com/Deepkeepai/deepkeep-integrations` and follow the
+   prompts to add the marketplace.
+4. Verify the marketplace and its DeepKeep plugin appear in the dashboard.
+   Set marketplace access and the plugin installation mode for your team.
+
+Team members can then open **Customize** in Cursor and install the DeepKeep
+plugin if it is not installed automatically. Follow the
+[plugin configuration guide](cursor-plugin/README.md#configuration). Once
+configured manually, you can run `/deepkeep-connect` in Cursor chat for
+guidance. Enter your API key privately, outside chat and agent tools, then fully
+quit and reopen Cursor.
+
 ## Local installation
 
 Run `npm run install:plugin`, then fully quit and reopen Cursor. The command
@@ -31,6 +62,10 @@ duplicate hooks.
 ## Configuration
 
 The plugin is free, but requires a paid DeepKeep API token to function.
+Create the configuration file manually before using chat. The plugin checks
+every prompt, including `/deepkeep-connect`, and blocks it by default if the
+policy endpoint is not configured. The command provides guidance but does not
+create the configuration file or handle your API key.
 
 Create `~/.deepkeep/config.json` with your DeepKeep endpoint and API key:
 
@@ -38,7 +73,9 @@ Create `~/.deepkeep/config.json` with your DeepKeep endpoint and API key:
 {
   "firewallUrl": "https://api.<tenant>.deepkeep.ai/api/v2/developer-agent/validate",
   "apiKey": "<your-api-key>",
-  "failMode": "block"
+  "failMode": "block",
+  "timeoutMs": 2500,
+  "cacheTtlMs": 300000
 }
 ```
 
@@ -49,6 +86,10 @@ The file takes precedence over environment variables for `firewallUrl`, `apiKey`
 `bearerToken`, and `failMode`. An HTTPS endpoint is required. Each hook reads the
 configuration when it runs, so changing the endpoint or key does not require a
 rebuild.
+
+The environment variables `DEEPKEEP_TIMEOUT_MS` and `DEEPKEEP_CACHE_TTL_MS`
+take precedence over the corresponding file values. `cacheTtlMs` defaults to
+300,000 ms, but the current plugin does not use it or cache policy decisions.
 
 `failMode` defaults to `block`. With `allow`, an action can proceed unchecked
 when validation fails. Hook inputs over 5 MiB follow this setting. The API
@@ -77,10 +118,10 @@ DeepKeep can delete data upon customer request.
 
 ## Check the connection
 
-From the repository, run:
+From the repository root, run:
 
 ```bash
-node cursor-plugin/bin/cli.js doctor
+node integrations/cursor/cursor-plugin/bin/cli.js doctor
 ```
 
 This sends a test prompt to the configured policy endpoint. Hook decisions and
