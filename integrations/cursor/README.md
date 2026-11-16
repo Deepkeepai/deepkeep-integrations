@@ -18,6 +18,21 @@ npm run build:plugin
 The built plugin is in `cursor-plugin/`. Its launchers find a compatible
 JavaScript runtime on the machine or in Cursor.
 
+## Install from the repository
+
+1. In Cursor, open **Customize** and choose **Add from Repo**.
+2. Enter
+   `https://github.com/Deepkeepai/deepkeep-integrations/tree/main/integrations/cursor`.
+   If Cursor requires a repository URL, use
+   `https://github.com/Deepkeepai/deepkeep-integrations` instead.
+3. Select the DeepKeep plugin and install it.
+4. In Cursor chat, run `/deepkeep-connect` and follow the configuration
+   instructions. Enter your API key privately, outside chat and agent tools.
+5. Fully quit and reopen Cursor.
+
+The repository's root `.cursor-plugin/marketplace.json` identifies the plugin
+in `integrations/cursor/cursor-plugin/` for marketplace imports.
+
 ## Local installation
 
 Run `npm run install:plugin`, then fully quit and reopen Cursor. The command
@@ -38,10 +53,13 @@ Create `~/.deepkeep/config.json` with your DeepKeep endpoint and API key:
 {
   "firewallUrl": "https://api.<tenant>.deepkeep.ai/api/v2/developer-agent/validate",
   "apiKey": "<your-api-key>",
-  "failMode": "block"
+  "failMode": "block",
+  "timeoutMs": 2500,
+  "cacheTtlMs": 300000
 }
 ```
 
+An optional `bearerToken` can also be supplied. Keep all credentials private.
 Create the directory with permissions `0700` and the file with permissions
 `0600`. Enter the key privately, outside Cursor chat and agent tools.
 
@@ -49,6 +67,10 @@ The file takes precedence over environment variables for `firewallUrl`, `apiKey`
 `bearerToken`, and `failMode`. An HTTPS endpoint is required. Each hook reads the
 configuration when it runs, so changing the endpoint or key does not require a
 rebuild.
+
+The environment variables `DEEPKEEP_TIMEOUT_MS` and `DEEPKEEP_CACHE_TTL_MS`
+take precedence over the corresponding file values. `cacheTtlMs` defaults to
+300,000 ms, but the current plugin does not use it or cache policy decisions.
 
 `failMode` defaults to `block`. With `allow`, an action can proceed unchecked
 when validation fails. Hook inputs over 5 MiB follow this setting. The API
